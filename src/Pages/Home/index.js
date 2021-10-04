@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { View, StyleSheet, Text, ScrollView, F} from "react-native";
-import { Container, Destaques, ProdutosContainer } from './styles'
+import React from "react";
+import { View } from "react-native";
+import { Container, ProdutosContainer } from './styles';
 
 import Produtos from "../../components/Produtos/Produtos";
 import { useNavigation } from "@react-navigation/core";
@@ -13,11 +13,6 @@ const Home = ({ navigation }) => {
 	return (
 		<Container>
 			<Slider style={{flex:.5}}/>
-			{/* <Destaques>
-
-				
-				
-			</Destaques> */}
 			<ProdutosContainer
 				horizontal={false}
 				data={[1, 2, 3, 4, 5]}
@@ -49,7 +44,5 @@ const Home = ({ navigation }) => {
 		</Container>
 	);
 };
-
-const styles = StyleSheet.create({});
 
 export default Home;

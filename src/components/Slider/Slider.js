@@ -34,8 +34,9 @@ const Slider = () => {
 							source={item.image}
 							style={{
 								resizeMode: "cover",
-								height: 300,
+								height: 200,
 								width: "100%",
+								zIndex:1,
 							}}
 						/>
 						<Text style={{ color: "#fff", position: "absolute" }}>

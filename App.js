@@ -13,8 +13,11 @@ export default function App() {
 			<StatusBar style="light" backgroundColor="#000" translucent={true} />
 
 			<NavigationContainer>
+
 				<Header back={true} />
+
 				<BottomTab />
+				
 			</NavigationContainer>
 		</>
 	);

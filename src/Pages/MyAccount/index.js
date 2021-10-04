@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from "react";
 import {
-	Image,
-	KeyboardAvoidingView,
 	Text,
-	TextInput,
-	TouchableOpacity,
-	View,
 	StyleSheet,
 	Animated,
 	Keyboard,
 } from "react-native";
+import {
+	Bg,
+	ContainerLogo,
+	Input,
+	BtnSubmit,
+	SubmitText,
+	BtnRegister,
+	BtnNewAccount,
+} from "./styles";
 
 const MyAccount = () => {
 	const [offset] = useState(new Animated.ValueXY({ x: 0, y: 90 }));
@@ -62,17 +66,16 @@ const MyAccount = () => {
 	};
 
 	return (
-		<KeyboardAvoidingView style={styles.bg}>
-			<View style={styles.containerLogo}>
+		<Bg>
+			<ContainerLogo>
 				<Animated.Image
 					style={{ width: logo.x, height: logo.y }}
 					source={require("../../assets/logo.png")}
 				/>
-			</View>
+			</ContainerLogo>
 
 			<Animated.View
-				style={[
-					styles.containerInputs,
+				style={[styles.containerInputs,
 					{
 						opacity: opacity,
 						transform: [
@@ -83,85 +86,39 @@ const MyAccount = () => {
 					},
 				]}
 			>
-				<TextInput
-					style={styles.input}
+				<Input
 					placeholder="Email"
 					autoCorrect={false}
 					onChangeText={() => {}}
 				/>
-				<TextInput
-					style={styles.input}
+				<Input
 					placeholder="Senha"
 					autoCorrect={false}
 					onChangeText={() => {}}
 				/>
 
-				<TouchableOpacity style={styles.btnSubmit}>
-					<Text style={styles.submitText}>Sing in</Text>
-				</TouchableOpacity>
+				<BtnSubmit>
+					<SubmitText>Sing in</SubmitText>
+				</BtnSubmit>
 
-				<TouchableOpacity style={styles.btnRegister}>
+				<BtnRegister>
 					<Text style={{ color: "#fff" }}>Forgot Password?</Text>
-				</TouchableOpacity>
+				</BtnRegister>
 
-				<TouchableOpacity style={styles.btnNewAccount}>
+				<BtnNewAccount>
 					<Text style={{ color: "#fff" }}>Create New Account</Text>
-				</TouchableOpacity>
+				</BtnNewAccount>
 			</Animated.View>
-		</KeyboardAvoidingView>
+		</Bg>
 	);
 };
 
 const styles = StyleSheet.create({
-	bg: {
-		flex: 1,
-		alignItems: "center",
-		justifyContent: "center",
-		backgroundColor: "#353535",
-	},
-	containerLogo: {
-		flex: 0.4,
-		justifyContent: "center",
-	},
 	containerInputs: {
 		flex: 0.6,
 		alignItems: "center",
 		justifyContent: "center",
 		width: "90%",
-	},
-	input: {
-		backgroundColor: "rgba(100,100,100,.3)",
-		width: "90%",
-		fontSize: 17,
-		borderRadius: 18,
-		padding: 10,
-		paddingLeft: 20,
-		marginTop: 15,
-	},
-	btnSubmit: {
-		backgroundColor: "#35aaff",
-		width: "90%",
-		height: 45,
-		alignItems: "center",
-		justifyContent: "center",
-		borderRadius: 18,
-		marginTop: 15,
-	},
-	submitText: {
-		color: "#fff",
-		fontSize: 18,
-	},
-	btnRegister: {
-		marginTop: 15,
-		marginBottom: 50,
-	},
-	btnNewAccount: {
-		borderRadius: 18,
-		borderWidth: 1,
-		borderColor: "#191919",
-		padding: 15,
-		width: "90%",
-		alignItems: "center",
 	},
 });
 export default MyAccount;
