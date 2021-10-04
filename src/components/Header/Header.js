@@ -8,18 +8,18 @@ const Header = ({ back }) => {
 	return (
 		<Container>
 			{back ? (
-				<MenuButton onPress={() => alert('back')}>
-					<Feather name="arrow-left" size={36} color="red" />
+				<MenuButton onPress={() => alert("back")}>
+					<Feather name="arrow-left" size={24} color="#aaa" />
 				</MenuButton>
 			) : (
 				<MenuButton onPress={() => alert("abre menu produtos")}>
-					<Feather name="menu" size={36} color="red" />
+					<Feather name="menu" size={24} color="#aaa" />
 				</MenuButton>
 			)}
 
 			<Title>Lingieri</Title>
 			<SearchButton onPress={() => alert("abre pesquisa")}>
-				<Feather name="search" size={36} color="red" />
+				<Feather name="search" size={24} color="#aaa" />
 			</SearchButton>
 		</Container>
 	);

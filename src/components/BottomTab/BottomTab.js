@@ -12,6 +12,7 @@ const Tab = createMaterialBottomTabNavigator();
 const BottomTab = () => {
 	return (
 		<Tab.Navigator
+			labeled={true}
 			shifting={true}
 			sceneAnimationEnabled={true}
 			activeColor="black"
@@ -21,7 +22,7 @@ const BottomTab = () => {
 				name="Home"
 				component={Home}
 				options={{
-					tabBarColor: "blue",
+					tabBarColor: "#333",
 					tabBarIcon: ({ focused, color }) => (
 						<FontAwesome5
 							name={focused ? "home" : "home"}
@@ -32,7 +33,7 @@ const BottomTab = () => {
 				}}
 			/>
 			<Tab.Screen
-				name="MyAccount"
+				name="My Account"
 				component={MyAccount}
 				options={{
 					tabBarColor: "red",
@@ -47,7 +48,7 @@ const BottomTab = () => {
 			/>
 
 			<Tab.Screen
-				name="ShoppingCar"
+				name="My Bag"
 				component={ShoppingCar}
 				options={{
 					tabBarColor: "gray",
@@ -58,6 +59,7 @@ const BottomTab = () => {
 							color={color}
 						/>
 					),
+					tabBarBadge:3,
 				}}
 			/>
 		</Tab.Navigator>

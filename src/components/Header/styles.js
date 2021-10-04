@@ -6,18 +6,21 @@ export const Container = styled.View`
     align-items: center;
     justify-content: space-between;
     padding-left: 14px;
+    background-color: #333;
+    
 `;
 
 export const MenuButton = styled.TouchableOpacity`
 	width: 70px;
-    align-items: center;
-    flex-direction: row;
+	align-items: center;
+	flex-direction: row;
 `;
 
 export const Title = styled.Text`
-    color:'#fff';
+	color: #fff;
 	font-size: 30px;
-    font-weight: bold;
+	font-weight: bold;
+
 `;
 
 export const SearchButton = styled.TouchableOpacity`
