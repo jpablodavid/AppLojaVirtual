@@ -3,6 +3,8 @@ import { Image, Text, View } from 'react-native';
 import AppIntroSlider from "react-native-app-intro-slider";
 import { FontAwesome5 } from "@expo/vector-icons";
 
+import { theme } from '../../global/styles/theme';
+
 
 const slides = [
 	{
@@ -29,20 +31,34 @@ const Slider = () => {
 
     const renderSlides = ({item}) => {
         return (
-					<View style={{ flex: 1 }}>
+					<View style={{ position: "relative" }}>
 						<Image
 							source={item.image}
 							style={{
 								resizeMode: "cover",
 								height: 200,
 								width: "100%",
-								zIndex:1,
 							}}
 						/>
-						<Text style={{ color: "#fff", position: "absolute" }}>
+						<Text
+							style={{
+								fontSize: 20,
+								color: `${theme.colors.tertiary}`,
+								position: "absolute",
+								left: 10,
+								top: 10
+							}}
+						>
 							{item.title}
 						</Text>
-						<Text style={{ color: "#fff", position: "absolute" }}>
+						<Text
+							style={{
+								color: `${theme.colors.tertiary}`,
+								position: "absolute",
+								left: 15,
+								top: 35
+							}}
+						>
 							{item.desc}
 						</Text>
 					</View>
@@ -55,15 +71,29 @@ const Slider = () => {
 				data={slides}
 				showDoneButton={false}
 				showPrevButton={true}
+				dotClickEnabled={true}
+				dotStyle={{ backgroundColor: `${theme.colors.dotsSlider}` }}
 				activeDotStyle={{
-					backgroundColor: "#009cff",
+					backgroundColor: `${theme.colors.primary}`,
 				}}
-				renderNextButton={() => 
-					<Text style={{color:'#fff'}}>next</Text>
-				}
-				renderPrevButton={() => 
-                    <Text style={{color:'#fff'}}>Back</Text>
-                }
+				renderNextButton={() => (
+					<Text style={{ position: "absolute", bottom: 30, right: 5 }}>
+						<FontAwesome5
+							name="chevron-right"
+							size={24}
+							color={`${theme.colors.dotsSlider}`}
+						/>
+					</Text>
+				)}
+				renderPrevButton={() => (
+					<Text style={{ position: "absolute", bottom: 30, left: 5 }}>
+						<FontAwesome5
+							name="chevron-left"
+							size={24}
+							color={`${theme.colors.dotsSlider}`}
+						/>
+					</Text>
+				)}
 			/>
 		);
 }

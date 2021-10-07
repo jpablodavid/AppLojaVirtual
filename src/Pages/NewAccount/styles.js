@@ -29,7 +29,7 @@ export const BtnSubmit = styled.TouchableOpacity`
 	align-items: center;
 	justify-content: center;
 	border-radius: 18px;
-	margin-top: 15px;
+	margin-top: 50px;
 `;
 export const SubmitText = styled.Text`
 	color: ${theme.colors.tertiary};
@@ -48,7 +48,12 @@ export const BtnNewAccount = styled.TouchableOpacity`
 	width: 90%;
 	align-items: center;
 `;
-
 export const TextBtn = styled.Text`
 	color: ${theme.colors.primary};
+`;
+
+export const TextSingIn = styled.Text`
+	color: ${theme.colors.primary};
+	font-weight: "bold";
+	text-decoration: underline;
 `;

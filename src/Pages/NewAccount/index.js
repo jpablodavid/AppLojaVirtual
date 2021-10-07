@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import {
 	Text,
+	View,
 	StyleSheet,
 	Animated,
 	Keyboard,
+	TouchableOpacity,
 } from "react-native";
 import {
 	Bg,
@@ -14,11 +16,12 @@ import {
 	BtnRegister,
 	BtnNewAccount,
 	TextBtn,
+	TextSingIn,
 } from "./styles";
 
 import NewAccount from "../NewAccount";
 
-const MyAccount = ({navigation}) => {
+const MyAccount = ({ navigation }) => {
 	const [offset] = useState(new Animated.ValueXY({ x: 0, y: 90 }));
 	const [opacity] = useState(new Animated.Value(0));
 	const [logo] = useState(new Animated.ValueXY({ x: 130, y: 155 }));
@@ -38,7 +41,7 @@ const MyAccount = ({navigation}) => {
 				duration: 300,
 			}),
 		]).start();
-	},[]);
+	}, []);
 
 	const KeyboardShow = () => {
 		alert("teclado Aberto");
@@ -78,7 +81,8 @@ const MyAccount = ({navigation}) => {
 			</ContainerLogo>
 
 			<Animated.View
-				style={[styles.containerInputs,
+				style={[
+					styles.containerInputs,
 					{
 						opacity: opacity,
 						transform: [
@@ -89,6 +93,7 @@ const MyAccount = ({navigation}) => {
 					},
 				]}
 			>
+				<Input placeholder="Name" autoCorrect={false} onChangeText={() => {}} />
 				<Input
 					placeholder="Email"
 					autoCorrect={false}
@@ -101,16 +106,15 @@ const MyAccount = ({navigation}) => {
 				/>
 
 				<BtnSubmit>
-					<SubmitText>Sing in</SubmitText>
+					<SubmitText>Sing Up</SubmitText>
 				</BtnSubmit>
 
-				<BtnRegister>
-					<TextBtn>Forgot Password?</TextBtn>
-				</BtnRegister>
-
-				<BtnNewAccount onPress={() => navigation.navigate(NewAccount)} >
-					<TextBtn>Create New Account</TextBtn>
-				</BtnNewAccount>
+				<View style={{ flexDirection: "row" }}>
+					<TextBtn>Já Sou cadastrado </TextBtn>
+					<TouchableOpacity>
+						<TextSingIn>Sing In</TextSingIn>
+					</TouchableOpacity>
+				</View>
 			</Animated.View>
 		</Bg>
 	);

@@ -2,6 +2,8 @@ import React from 'react';
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { FontAwesome5 } from "@expo/vector-icons";
 
+import { theme } from '../../global/styles/theme';
+
 import Home from '../../Pages/Home';
 import MyAccount from '../../Pages/MyAccount';
 import ShoppingCar from '../../Pages/ShoppingCar';
@@ -15,14 +17,14 @@ const BottomTab = () => {
 			labeled={true}
 			shifting={true}
 			sceneAnimationEnabled={true}
-			activeColor="black"
-			inactiveColor="white"
+			activeColor={theme.colors.secondary}
+			inactiveColor={theme.colors.tertiary}
 		>
 			<Tab.Screen
 				name="Home"
 				component={Home}
 				options={{
-					tabBarColor: "#333",
+					tabBarColor: `${theme.colors.primary}`,
 					tabBarIcon: ({ focused, color }) => (
 						<FontAwesome5
 							name={focused ? "home" : "home"}
@@ -36,7 +38,7 @@ const BottomTab = () => {
 				name="My Account"
 				component={MyAccount}
 				options={{
-					tabBarColor: "red",
+					tabBarColor: `${theme.colors.primary}`,
 					tabBarIcon: ({ focused, color }) => (
 						<FontAwesome5
 							name={focused ? "user-circle" : "user-circle"}
@@ -51,7 +53,7 @@ const BottomTab = () => {
 				name="My Bag"
 				component={ShoppingCar}
 				options={{
-					tabBarColor: "gray",
+					tabBarColor: `${theme.colors.primary}`,
 					tabBarIcon: ({ focused, color }) => (
 						<FontAwesome5
 							name={focused ? "shopping-bag" : "shopping-bag"}
@@ -59,7 +61,7 @@ const BottomTab = () => {
 							color={color}
 						/>
 					),
-					tabBarBadge:3,
+					tabBarBadge: 2,
 				}}
 			/>
 		</Tab.Navigator>

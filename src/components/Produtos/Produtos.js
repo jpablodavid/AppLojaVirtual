@@ -1,6 +1,8 @@
 import React from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
+import { theme } from "../../global/styles/theme";
+
 const Produtos = ({ img, preco, children, onClick }) => {
 	const filterDesc = (desc) => {
 		if (desc.length < 27) {
@@ -34,11 +36,12 @@ const styles = StyleSheet.create({
 	},
 	produtoText: {
 		fontSize: 16,
-        color: '#fff',
+		color: `${theme.colors.primary}`,
 	},
 	produtoPreco: {
-        color: "#aaa"
-    },
+		fontWeight: 'bold',
+		color: `${theme.colors.preco}`,
+	},
 });
 
 export default Produtos;

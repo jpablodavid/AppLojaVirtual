@@ -3,16 +3,21 @@ import { View } from "react-native";
 import { Container, ProdutosContainer } from './styles';
 
 import Produtos from "../../components/Produtos/Produtos";
-import { useNavigation } from "@react-navigation/core";
+import { useNavigation } from "@react-navigation/native-stack";
 import Slider from "../../components/Slider/Slider";
 
+import { theme } from "../../global/styles/theme";
 
 const Home = ({ navigation }) => {
     //const navigation = useNavigation();
 
 	return (
 		<Container>
-			<Slider style={{flex:.5}}/>
+
+			<View style={{marginTop: -10}}>
+				<Slider/>
+			</View>
+
 			<ProdutosContainer
 				horizontal={false}
 				data={[1, 2, 3, 4, 5]}
@@ -22,7 +27,7 @@ const Home = ({ navigation }) => {
 					>
 						<View style={{ flex: 1 }}>
 							<Produtos
-								img={require(`../../assets/item${item}.png`)}
+								img={require('../../assets/item1.png')}
 								preco="R$ 140,00"
 								onClick={() => navigation.navigate("Details")}
 							>
@@ -31,7 +36,7 @@ const Home = ({ navigation }) => {
 						</View>
 						<View style={{ flex: 1 }}>
 							<Produtos
-								img={require(`../../assets/item${item}.png`)}
+								img={require('../../assets/item2.png')}
 								preco="R$ 140,00"
 								onClick={() => navigation.navigate("Details")}
 							>
