@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, StyleSheet, Text, TouchableOpacity, Image, ScrollView } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
+import { Picker } from "@react-native-picker/picker";
 
 const ShoppingCar = () => {
+
+	const [size, setSize] = useState('');
+
 	return (
 		<View style={{ flex: 1, padding: 10, backgroundColor: "#fbf7e4" }}>
-			<View style={{marginBottom:10}}>
+			<View style={{ marginBottom: 10 }}>
 				<Text>Lingirie: lançamentos</Text>
 				<Text>
 					Entrega
@@ -29,7 +33,15 @@ const ShoppingCar = () => {
 					/>
 					<View style={{ marginLeft: 10, justifyContent: "space-between" }}>
 						<Text>Calcinha branca</Text>
-						<Text>P</Text>
+						<Picker
+							style={{ border: "none" }}
+							selectedValue={size}
+							onValueChange={(itemValue, itemIndex) => setSize(itemValue)}
+						>
+							<Picker.Item label="P" value="Pequeno" />
+							<Picker.Item label="M" value="Medio" />
+							<Picker.Item label="G" value="Grande" />
+						</Picker>
 						<View style={{ flexDirection: "row" }}>
 							<TouchableOpacity>
 								<FontAwesome5 name="minus-circle" size={24} color={"#000"} />
@@ -66,7 +78,15 @@ const ShoppingCar = () => {
 					/>
 					<View style={{ marginLeft: 10, justifyContent: "space-between" }}>
 						<Text>Calcinha branca</Text>
-						<Text>P</Text>
+						<Picker
+							style={{ border: "none" }}
+							selectedValue={size}
+							onValueChange={(itemValue, itemIndex) => setSize(itemValue)}
+						>
+							<Picker.Item label="P" value="Pequeno" />
+							<Picker.Item label="M" value="Medio" />
+							<Picker.Item label="G" value="Grande" />
+						</Picker>
 						<View style={{ flexDirection: "row" }}>
 							<TouchableOpacity>
 								<FontAwesome5 name="minus-circle" size={24} color={"#000"} />

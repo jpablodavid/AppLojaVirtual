@@ -9,6 +9,7 @@ import MyAccount from '../../Pages/MyAccount';
 import ShoppingCar from '../../Pages/ShoppingCar';
 
 
+
 const Tab = createMaterialBottomTabNavigator();
 
 const BottomTab = () => {
