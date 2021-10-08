@@ -33,7 +33,7 @@ const Slider = () => {
         return (
 					<View style={{ position: "relative" }}>
 						<Image
-							source={item.image}
+							source={{uri: item.image}}
 							style={{
 								resizeMode: "cover",
 								height: 200,

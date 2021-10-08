@@ -13,13 +13,13 @@ const Home = ({ navigation }) => {
 
 	return (
 		<Container>
-
-			<View style={{marginTop: -10}}>
-				<Slider/>
+			<View style={{ marginTop: -10 }}>
+				<Slider />
 			</View>
 
 			<ProdutosContainer
 				horizontal={false}
+				showVerticalScrollIndicator={false}
 				data={[1, 2, 3, 4, 5]}
 				renderItem={({ item }) => (
 					<View
@@ -27,7 +27,7 @@ const Home = ({ navigation }) => {
 					>
 						<View style={{ flex: 1 }}>
 							<Produtos
-								img={require('../../assets/item1.png')}
+								img={{ uri: item.img }}
 								preco="R$ 140,00"
 								onClick={() => navigation.navigate("Details")}
 							>
@@ -36,7 +36,7 @@ const Home = ({ navigation }) => {
 						</View>
 						<View style={{ flex: 1 }}>
 							<Produtos
-								img={require('../../assets/item2.png')}
+								img={{ uri: item.img }}
 								preco="R$ 140,00"
 								onClick={() => navigation.navigate("Details")}
 							>

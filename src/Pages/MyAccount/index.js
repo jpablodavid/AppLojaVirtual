@@ -38,7 +38,7 @@ const MyAccount = ({navigation}) => {
 				duration: 300,
 			}),
 		]).start();
-	},[]);
+	},[]);//colocar alguma coisa que mude sempre que abre a tela
 
 	const KeyboardShow = () => {
 		alert("teclado Aberto");
