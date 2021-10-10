@@ -1,9 +1,16 @@
 import React from "react";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+	Image,
+	StyleSheet,
+	Text,
+	TouchableOpacity,
+	View,
+} from "react-native";
 
 import { theme } from "../../global/styles/theme";
 
 const Produtos = ({ img, preco, children, onClick }) => {
+
 	const filterDesc = (desc) => {
 		if (desc.length < 27) {
 			return desc;
@@ -14,7 +21,7 @@ const Produtos = ({ img, preco, children, onClick }) => {
 
 	return (
 		<TouchableOpacity onPress={onClick} style={styles.container}>
-			<Image source={img} style={styles.produtosImg} />
+			<Image source={{ uri: img }} style={styles.produtosImg} />
 			<Text style={styles.produtoText}>{filterDesc(children)}</Text>
 			<View opacity={0.4}>
 				<Text style={styles.produtoPreco}>{preco}</Text>
@@ -39,7 +46,7 @@ const styles = StyleSheet.create({
 		color: `${theme.colors.primary}`,
 	},
 	produtoPreco: {
-		fontWeight: 'bold',
+		fontWeight: "bold",
 		color: `${theme.colors.preco}`,
 	},
 });

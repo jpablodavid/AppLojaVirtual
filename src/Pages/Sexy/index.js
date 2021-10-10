@@ -1,24 +1,19 @@
 import React, { useState } from "react";
-import { View } from "react-native";
+import { View, Text} from "react-native";
 import { Container, ProdutosContainer } from "./styles";
 
-import { useNavigation } from "@react-navigation/native";
-
-
 import Produtos from "../../components/Produtos/Produtos";
-import Slider from "../../components/Slider/Slider";
+
 import Details from "../Details";
 
 import { theme } from "../../global/styles/theme";
 
-const Home = () => {
+const Sexy = () => {
 	
 
 	return (
 		<Container>
-			<View style={{ marginTop: -10 }}>
-				<Slider />
-			</View>
+			<Text style={{ fontSize: 30 }}>Sexy</Text>
 
 			<ProdutosContainer
 				horizontal={false}
@@ -53,4 +48,4 @@ const Home = () => {
 	);
 };
 
-export default Home;
+export default Sexy;

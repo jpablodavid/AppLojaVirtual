@@ -10,8 +10,6 @@ export const Container = styled.View`
 	padding-left: 15px;
 	padding-right: 15px;
 	background-color: ${theme.colors.primary};
-	border-bottom: .2;
-	box-shadow: 1px, 0, black;
 `;
 
 export const MenuButton = styled.TouchableOpacity`

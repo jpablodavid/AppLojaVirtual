@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import {
 	Text,
-	View,
 	StyleSheet,
 	Animated,
 	Keyboard,
-	TouchableOpacity,
 } from "react-native";
 import {
 	Bg,
@@ -16,12 +14,14 @@ import {
 	BtnRegister,
 	BtnNewAccount,
 	TextBtn,
-	TextSingIn,
 } from "./styles";
+import { useNavigation } from "@react-navigation/native";
 
-import NewAccount from "../NewAccount";
 
-const MyAccount = ({ navigation }) => {
+const SignIn = () => {
+
+	const navigation = useNavigation();
+
 	const [offset] = useState(new Animated.ValueXY({ x: 0, y: 90 }));
 	const [opacity] = useState(new Animated.Value(0));
 	const [logo] = useState(new Animated.ValueXY({ x: 130, y: 155 }));
@@ -41,7 +41,7 @@ const MyAccount = ({ navigation }) => {
 				duration: 300,
 			}),
 		]).start();
-	}, []);
+	},[]);//colocar alguma coisa que mude sempre que abre a tela
 
 	const KeyboardShow = () => {
 		alert("teclado Aberto");
@@ -81,8 +81,7 @@ const MyAccount = ({ navigation }) => {
 			</ContainerLogo>
 
 			<Animated.View
-				style={[
-					styles.containerInputs,
+				style={[styles.containerInputs,
 					{
 						opacity: opacity,
 						transform: [
@@ -93,7 +92,6 @@ const MyAccount = ({ navigation }) => {
 					},
 				]}
 			>
-				<Input placeholder="Name" autoCorrect={false} onChangeText={() => {}} />
 				<Input
 					placeholder="Email"
 					autoCorrect={false}
@@ -106,15 +104,16 @@ const MyAccount = ({ navigation }) => {
 				/>
 
 				<BtnSubmit>
-					<SubmitText>Sing Up</SubmitText>
+					<SubmitText>Sing in</SubmitText>
 				</BtnSubmit>
 
-				<View style={{ flexDirection: "row" }}>
-					<TextBtn>Já Sou cadastrado </TextBtn>
-					<TouchableOpacity>
-						<TextSingIn>Sing In</TextSingIn>
-					</TouchableOpacity>
-				</View>
+				<BtnRegister>
+					<TextBtn>Forgot Password?</TextBtn>
+				</BtnRegister>
+
+				<BtnNewAccount onPress={() => navigation.navigate('SignUp')} >
+					<TextBtn>Create New Account</TextBtn>
+				</BtnNewAccount>
 			</Animated.View>
 		</Bg>
 	);
@@ -128,4 +127,4 @@ const styles = StyleSheet.create({
 		width: "90%",
 	},
 });
-export default MyAccount;
+export default SignIn;

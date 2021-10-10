@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import { View, StyleSheet, Text, TouchableOpacity, Image, ScrollView } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { Picker } from "@react-native-picker/picker";
+import { useNavigation } from "@react-navigation/core";
 
 const ShoppingCar = () => {
+
+	const navigation = useNavigation();
 
 	const [size, setSize] = useState('');
 
@@ -16,7 +19,9 @@ const ShoppingCar = () => {
 					<Text style={{ fontWeight: "bold" }}>seg 1 nov - ter 2 nov</Text>
 				</Text>
 			</View>
-			<ScrollView style={{ flex: 1 }}>
+			<ScrollView style={{ flex: 1 }}
+				showsHorizontalScrollIndicator={false}
+			>
 				<View
 					style={{
 						flexDirection: "row",
@@ -136,6 +141,7 @@ const ShoppingCar = () => {
 					</Text>
 				</TouchableOpacity>
 				<TouchableOpacity
+					onPress={() => navigation.goBack()}
 					style={{
 						backgroundColor: "#592d1d",
 						width: "95%",

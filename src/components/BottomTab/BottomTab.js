@@ -4,10 +4,9 @@ import { FontAwesome5 } from "@expo/vector-icons";
 
 import { theme } from '../../global/styles/theme';
 
-import Home from '../../Pages/Home';
+import Main from '../../Pages/Main';
 import MyAccount from '../../Pages/MyAccount';
 import ShoppingCar from '../../Pages/ShoppingCar';
-
 
 
 const Tab = createMaterialBottomTabNavigator();
@@ -22,8 +21,8 @@ const BottomTab = () => {
 			inactiveColor={theme.colors.tertiary}
 		>
 			<Tab.Screen
-				name="Home"
-				component={Home}
+				name="Main"
+				component={Main}
 				options={{
 					tabBarColor: `${theme.colors.primary}`,
 					tabBarIcon: ({ focused, color }) => (

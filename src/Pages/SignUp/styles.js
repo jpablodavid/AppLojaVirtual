@@ -50,10 +50,7 @@ export const BtnNewAccount = styled.TouchableOpacity`
 `;
 export const TextBtn = styled.Text`
 	color: ${theme.colors.primary};
-`;
-
-export const TextSingIn = styled.Text`
-	color: ${theme.colors.primary};
-	font-weight: "bold";
+	font-weight: bolder;
 	text-decoration: underline;
 `;
+
