@@ -4,6 +4,8 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { Picker } from "@react-native-picker/picker";
 import { useNavigation } from "@react-navigation/core";
 
+import Envio_Pagamento from '../Envio&Pagamento';
+
 const ShoppingCar = () => {
 
 	const navigation = useNavigation();
@@ -19,9 +21,7 @@ const ShoppingCar = () => {
 					<Text style={{ fontWeight: "bold" }}>seg 1 nov - ter 2 nov</Text>
 				</Text>
 			</View>
-			<ScrollView style={{ flex: 1 }}
-				showsHorizontalScrollIndicator={false}
-			>
+			<ScrollView style={{ flex: 1 }} showsHorizontalScrollIndicator={false}>
 				<View
 					style={{
 						flexDirection: "row",
@@ -135,6 +135,7 @@ const ShoppingCar = () => {
 						justifyContent: "center",
 						margin: 10,
 					}}
+					onPress={() => navigation.navigation(Envio_Pagamento)}
 				>
 					<Text style={{ fontSize: 18, fontWeight: "bold", color: "#fbf7e4" }}>
 						Finalizar compra

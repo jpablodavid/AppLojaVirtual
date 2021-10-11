@@ -1,22 +1,18 @@
 import React, { useState } from "react";
-import { View } from "react-native";
 import { Container, ProdutosContainer } from "./styles";
 
-import { useNavigation } from "@react-navigation/native";
-
+import { View } from "react-native";
 
 import Produtos from "../../components/Produtos/Produtos";
 import Slider from "../../components/Slider/Slider";
-import Details from "../Details";
 
-import { theme } from "../../global/styles/theme";
 
 const Home = () => {
-	
+	const [visible, setVisible] = useState(false);
 
 	return (
 		<Container>
-			<View style={{ marginTop: -10 }}>
+			<View>
 				<Slider />
 			</View>
 
@@ -32,7 +28,7 @@ const Home = () => {
 							<Produtos
 								img={require("../../assets/item1.png")}
 								preco="R$ 140,00"
-								onPress={() => setVisible(true)}
+								onClick={() => alert('abrir modal')}
 							>
 								Nike Air Max Dia
 							</Produtos>
@@ -41,7 +37,7 @@ const Home = () => {
 							<Produtos
 								img={require("../../assets/item2.png")}
 								preco="R$ 140,00"
-								onClick={() => alert("oi")}
+								onClick={() => alert("Abrir modal")}
 							>
 								Nike Air Max Dia
 							</Produtos>

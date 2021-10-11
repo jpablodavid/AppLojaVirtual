@@ -4,7 +4,6 @@ import AppIntroSlider from "react-native-app-intro-slider";
 import { FontAwesome5 } from "@expo/vector-icons";
 
 import { theme } from "../../global/styles/theme";
-import { NavigationContainer } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
 
 const slides = [
@@ -36,7 +35,7 @@ const Slider = ({ onClick, setPage }) => {
 
 		return (
 		    
-			<View style={{ position: "relative" }}>
+			<View style={{ position: "relative" , paddingBottom:5}}>
 				<TouchableOpacity onPress={() => navigation.navigate(item.title)}>
 					<Image
 						source={{ uri: item.image }}
@@ -50,7 +49,8 @@ const Slider = ({ onClick, setPage }) => {
 				<Text
 					style={{
 						fontSize: 20,
-						color: `${theme.colors.tertiary}`,
+						color: `${theme.colors.primary}`,
+						fontWeight: 'bold',
 						position: "absolute",
 						left: 10,
 						top: 10,
@@ -60,7 +60,7 @@ const Slider = ({ onClick, setPage }) => {
 				</Text>
 				<Text
 					style={{
-						color: `${theme.colors.tertiary}`,
+						color: `${theme.colors.primary}`,
 						position: "absolute",
 						left: 15,
 						top: 35,

@@ -3,11 +3,9 @@ import { Feather } from "@expo/vector-icons";
 import { Container, MenuButton, Title, SearchButton } from "./styles";
 
 
-
 const Header = ({ back }) => {
 
     
-
 	return (
 		<Container>
 			{back ? (

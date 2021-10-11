@@ -1,6 +1,7 @@
 import React from "react";
 import {
 	Image,
+	Modal,
 	StyleSheet,
 	Text,
 	TouchableOpacity,
@@ -10,7 +11,6 @@ import {
 import { theme } from "../../global/styles/theme";
 
 const Produtos = ({ img, preco, children, onClick }) => {
-
 	const filterDesc = (desc) => {
 		if (desc.length < 27) {
 			return desc;
@@ -20,13 +20,18 @@ const Produtos = ({ img, preco, children, onClick }) => {
 	};
 
 	return (
-		<TouchableOpacity onPress={onClick} style={styles.container}>
-			<Image source={{ uri: img }} style={styles.produtosImg} />
+		<View style={styles.container}>
+			<TouchableOpacity onPress={onClick}>
+				<Image source={{ uri: img }} style={styles.produtosImg} />
+			</TouchableOpacity>
+			<TouchableOpacity style={styles.btnAdd} onPress={() => alert('modal baixo')}>
+				<Text>ADCIONAR</Text>
+			</TouchableOpacity>
 			<Text style={styles.produtoText}>{filterDesc(children)}</Text>
 			<View opacity={0.4}>
 				<Text style={styles.produtoPreco}>{preco}</Text>
 			</View>
-		</TouchableOpacity>
+		</View>
 	);
 };
 
@@ -38,7 +43,7 @@ const styles = StyleSheet.create({
 		margin: 10,
 	},
 	produtosImg: {
-		width: 150,
+		width: 190,
 		height: 150,
 	},
 	produtoText: {
@@ -49,6 +54,17 @@ const styles = StyleSheet.create({
 		fontWeight: "bold",
 		color: `${theme.colors.preco}`,
 	},
+	btnAdd:{
+		marginBottom: 5,
+		marginTop:5,
+		width: '100%',
+		padding: 5,
+		borderWidth: 1,
+		borderColor: "black",
+		textAlign: 'center',
+		borderRadius: 3
+
+	}
 });
 
 export default Produtos;
