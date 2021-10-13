@@ -1,8 +1,12 @@
-import { NavigationContainer } from "@react-navigation/native";
 import React, { useState } from "react";
 import { FlatList, Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
-const Details = () => {
+const Details = ({route}) => {
+
+	const {img, titulo, preco, desc} = route.params;
+	
+	const navigation = useNavigation();
 
 	const [size, setSize] = useState('Selecionar Tamanho');
 
@@ -11,7 +15,7 @@ const Details = () => {
 			<ScrollView style={{ flex: 1 }}>
 				<View >
 					<Image
-						source={require("../../assets/item3.png")}
+						source={img}
 						style={{ width: "100%", height: 400 }}
 					/>
 				</View>
@@ -22,9 +26,9 @@ const Details = () => {
 						borderBottomColor: "#555",
 					}}
 				>
-					<Text>Nome do produto</Text>
+					<Text>{titulo}</Text>
 					<Text>Color</Text>
-					<Text>R$ 150,00</Text>
+					<Text>{preco}</Text>
 				</View>
 				<View
 					style={{
@@ -40,7 +44,7 @@ const Details = () => {
 						}}
 					>
 						<Text>Tamanho</Text>
-						<Text>{size}</Text>
+						<Text>p</Text>
 					</TouchableOpacity>
 				</View>
 				<View
@@ -51,17 +55,17 @@ const Details = () => {
 					}}
 				>
 					<Text>
-						Descriçao: {`\n`}
-						CaLcinha na cor preta. Modelo em Algodão Detalhe bordado Código Do
-						Produto: 0374699506
+						Descriçao:
 					</Text>
+					<Text>{desc}</Text>
 				</View>
 			</ScrollView>
 
 			<View style={{ height: 70, backgroundColor: "#fff" ,alignItems: 'center', justifyContent:'center'}}>
-				<TouchableOpacity style={{backgroundColor: '#000', width: "80%", height: 45, borderRadius: 7, alignItems:'center' , justifyContent: 'center'}}>
+				<TouchableOpacity style={{backgroundColor: '#000', width: "80%", height: 45, borderRadius: 7, alignItems:'center' , justifyContent: 'center'}} onPress={() => navigation.navigate('MyBag')}>
 					<Text style={{fontSize: 20, fontWeight: 'bold', color: '#fff'}}>Adicionar ao carrinho</Text>
 				</TouchableOpacity>
+
 			</View>
 		</View>
 	);

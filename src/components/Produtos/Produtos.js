@@ -1,33 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
 import {
 	Image,
-	Modal,
 	StyleSheet,
 	Text,
 	TouchableOpacity,
 	View,
 } from "react-native";
 
+import { useNavigation } from "@react-navigation/core";
+
 import { theme } from "../../global/styles/theme";
 
-const Produtos = ({ img, preco, children, onClick }) => {
-	const filterDesc = (desc) => {
-		if (desc.length < 27) {
+
+const Produtos = ({ img, preco, titulo , desc}) => {
+
+	const navigation = useNavigation();
+
+
+	const filterDesc = (titulo) => {
+		if (titulo.length < 27) {
 			return desc;
 		} else {
-			return `${desc.substring(0, 23)}...`;
+			return `${titulo.substring(0, 23)}...`;
 		}
 	};
 
 	return (
 		<View style={styles.container}>
-			<TouchableOpacity onPress={onClick}>
-				<Image source={{ uri: img }} style={styles.produtosImg} />
+			<TouchableOpacity
+				onPress={() => navigation.navigate("Details",{img, titulo, preco, desc})}
+			>
+				<Image source={img} style={styles.produtosImg} />
 			</TouchableOpacity>
-			<TouchableOpacity style={styles.btnAdd} onPress={() => alert('modal baixo')}>
+			<TouchableOpacity
+				style={styles.btnAdd}
+				onPress={() => navigation.navigate("MyBag")}
+			>
 				<Text>ADCIONAR</Text>
 			</TouchableOpacity>
-			<Text style={styles.produtoText}>{filterDesc(children)}</Text>
+			<Text style={styles.produtoText}>{filterDesc(titulo)}</Text>
 			<View opacity={0.4}>
 				<Text style={styles.produtoPreco}>{preco}</Text>
 			</View>
@@ -45,6 +56,7 @@ const styles = StyleSheet.create({
 	produtosImg: {
 		width: 190,
 		height: 150,
+		elevation: 2,
 	},
 	produtoText: {
 		fontSize: 16,

@@ -3,15 +3,19 @@ import { Container, ProdutosContainer } from "./styles";
 
 import { View } from "react-native";
 
-import Produtos from "../../components/Produtos/Produtos";
+import Header from "../../components/Header";
 import Slider from "../../components/Slider/Slider";
+import Produtos from "../../components/Produtos/Produtos";
+import { useNavigation} from "@react-navigation/native";
 
 
 const Home = () => {
-	const [visible, setVisible] = useState(false);
 
+	const navigation = useNavigation();
+	
 	return (
 		<Container>
+			<Header back={false} onClick={() => navigation.openDrawer()}/>
 			<View>
 				<Slider />
 			</View>
@@ -28,19 +32,18 @@ const Home = () => {
 							<Produtos
 								img={require("../../assets/item1.png")}
 								preco="R$ 140,00"
-								onClick={() => alert('abrir modal')}
-							>
-								Nike Air Max Dia
-							</Produtos>
+								desc="Informações sobre o produto tipo, material essas coisas"
+								titulo="CALCINHA BIQUINI RENDA AMAZONIA"
+								onClick={() => navigation.navigate('Details')}
+							/>
 						</View>
 						<View style={{ flex: 1 }}>
 							<Produtos
 								img={require("../../assets/item2.png")}
 								preco="R$ 140,00"
-								onClick={() => alert("Abrir modal")}
-							>
-								Nike Air Max Dia
-							</Produtos>
+								desc="Informações sobre o produto tipo, material essas coisas"
+								titulo="CALCINHA BIQUINI RENDA AMAZONIA"
+							/>
 						</View>
 					</View>
 				)}

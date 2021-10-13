@@ -27,7 +27,7 @@ const slides = [
 	},
 ];
 
-const Slider = ({ onClick, setPage }) => {
+const Slider = () => {
 
 	const navigation = useNavigation();
 
@@ -38,7 +38,7 @@ const Slider = ({ onClick, setPage }) => {
 			<View style={{ position: "relative" , paddingBottom:5}}>
 				<TouchableOpacity onPress={() => navigation.navigate(item.title)}>
 					<Image
-						source={{ uri: item.image }}
+						source={item.image}
 						style={{
 							resizeMode: "cover",
 							height: 200,

@@ -1,18 +1,22 @@
 import React, { useState } from "react";
 import { View , Text} from "react-native";
-import { Container, ProdutosContainer } from "./styles";
+import { Container,TitleContainer, Title, ProdutosContainer } from "./styles";
 
+
+import Header from "../../components/Header";
 import Produtos from "../../components/Produtos/Produtos";
-import Details from "../Details";
 
-import { theme } from "../../global/styles/theme";
 
 const Lancamentos = () => {
 	
 
 	return (
 		<Container>
-			<Text style={{fontSize: 30}}>Lançamentos</Text>
+			<Header back={true} />
+
+			<TitleContainer >
+				<Title >LANÇAMENTOS</Title>
+			</TitleContainer>
 
 			<ProdutosContainer
 				horizontal={false}
@@ -26,19 +30,17 @@ const Lancamentos = () => {
 							<Produtos
 								img={require("../../assets/item1.png")}
 								preco="R$ 140,00"
-								onPress={() => setVisible(true)}
-							>
-								Nike Air Max Dia
-							</Produtos>
+								desc="Informações sobre o produto tipo, material essas coisas"
+								titulo="CALCINHA BIQUINI RENDA AMAZONIA"
+							/>
 						</View>
 						<View style={{ flex: 1 }}>
 							<Produtos
-								img={require("../../assets/item2.png")}
+								img={require("../../assets/item1.png")}
 								preco="R$ 140,00"
-								onClick={() => alert("oi")}
-							>
-								Nike Air Max Dia
-							</Produtos>
+								desc="Informações sobre o produto tipo, material essas coisas"
+								titulo="CALCINHA BIQUINI RENDA AMAZONIA"
+							/>
 						</View>
 					</View>
 				)}
