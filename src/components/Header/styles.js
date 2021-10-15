@@ -13,9 +13,12 @@ export const Container = styled.SafeAreaView`
 	margin-bottom: 5px;
 `
 
-export const MenuButton = styled.TouchableOpacity`
+export const Clean = styled.View`
 	
 `
+
+export const MenuButton = styled.TouchableOpacity`
+`;
 
 export const Title = styled.Text`
 	color:${theme.colors.secondary};

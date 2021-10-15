@@ -15,7 +15,7 @@ const Lancamentos = () => {
 			<Header back={true} />
 
 			<TitleContainer >
-				<Title >LANÇAMENTOS</Title>
+				<Title>LANÇAMENTOS</Title>
 			</TitleContainer>
 
 			<ProdutosContainer

@@ -1,10 +1,10 @@
 import React from "react";
 import { Feather } from "@expo/vector-icons";
-import { Container, MenuButton, Title, SearchButton } from "./styles";
+import { Container, MenuButton, Title, SearchButton, Clean } from "./styles";
 
 import { useNavigation } from "@react-navigation/native";
 
-const Header = ({ back, onClick }) => {
+const Header = ({ back }) => {
 
 	const navigation = useNavigation();
     
@@ -15,9 +15,10 @@ const Header = ({ back, onClick }) => {
 					<Feather name="arrow-left" size={24} color="#fbf7e4" />
 				</MenuButton>
 			) : (
-				<MenuButton onPress={onClick}>
-					<Feather name="menu" size={24} color="#fbf7e4" />
-				</MenuButton>
+				<Clean/>
+				// <MenuButton onPress={onClick}>
+				// 	<Feather name="menu" size={24} color="#fbf7e4" />
+				// </MenuButton>
 			)}
 			<Title>HARMONI</Title>
 			<SearchButton onPress={() => alert("abre pesquisa")}>

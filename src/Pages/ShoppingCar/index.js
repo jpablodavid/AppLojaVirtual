@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import {
 	View,
-	StyleSheet,
 	Text,
 	TouchableOpacity,
 	Image,
@@ -16,6 +15,7 @@ import Header from "../../components/Header";
 import Envio_Pagamento from "../Envio&Pagamento";
 
 const ShoppingCar = () => {
+
 	const navigation = useNavigation();
 
 	const [size, setSize] = useState("");
@@ -145,7 +145,7 @@ const ShoppingCar = () => {
 							justifyContent: "center",
 							margin: 10,
 						}}
-						onPress={() => navigation.navigation(Envio_Pagamento)}
+						onPress={() => navigation.navigate(Envio_Pagamento)}
 					>
 						<Text
 							style={{ fontSize: 18, fontWeight: "bold", color: "#fbf7e4" }}

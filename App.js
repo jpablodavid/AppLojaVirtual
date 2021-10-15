@@ -1,8 +1,9 @@
 import "react-native-gesture-handler";
 import React, { useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
-import { ActivityIndicator, View } from "react-native";
+import { ActivityIndicator, Button, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
+
 import AppLoading from "expo-app-loading";
 
 import { useFonts } from "expo-font";
@@ -14,14 +15,14 @@ import {
 
 
 import api from "./src/services/api";
-import Header from "./src/components/Header";
+
 import BottomTab from "./src/Routes/BottomTab";
 
-import MyDrawer from './src/Routes/DrawerRoutes';
 
-export default function App() {
+export default function App({navigation}) {
 	const [produtos, setProdutos] = useState([]);
 	const [loading, setLoading] = useState(true);
+
  
 	useEffect(() => {
 		const loadProdutos = async () => {
@@ -52,10 +53,8 @@ export default function App() {
 				<StatusBar style="light" backgroundColor="transparent" translucent />
 
 				<NavigationContainer>
-
-					<MyDrawer />
-
-					<BottomTab/>
+				
+					<BottomTab/> 
 				</NavigationContainer>
 			</>
 		);

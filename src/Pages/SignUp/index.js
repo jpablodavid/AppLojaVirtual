@@ -40,7 +40,7 @@ const SignUp = () => {
 				duration: 300,
 			}),
 		]).start();
-	}, []);
+	},[]);
 
 	const KeyboardShow = () => {
 		alert("teclado Aberto");

@@ -6,7 +6,6 @@ import Lancamentos from "../Pages/Lancamentos";
 import Sexy from "../Pages/Sexy";
 import Outlet from "../Pages/Outlet";
 import Details from "../components/Details";
-import DrawerRoutes from "./DrawerRoutes";
 
 const Stack = createNativeStackNavigator();
 
@@ -44,13 +43,6 @@ const StackRoutes = () => {
 			<Stack.Screen
 				name="Details"
 				component={Details}
-				options={{
-					headerShown: true,
-				}}
-			/>
-			<Stack.Screen
-				name="DrawerRoutes"
-				component={DrawerRoutes}
 				options={{
 					headerShown: true,
 				}}

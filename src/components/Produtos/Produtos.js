@@ -17,13 +17,13 @@ const Produtos = ({ img, preco, titulo , desc}) => {
 	const navigation = useNavigation();
 
 
-	const filterDesc = (titulo) => {
-		if (titulo.length < 27) {
-			return desc;
-		} else {
-			return `${titulo.substring(0, 23)}...`;
-		}
-	};
+	// const filterDesc = (titulo) => {
+	// 	if (titulo.length < 27) {
+	// 		return desc;
+	// 	} else {
+	// 		return `${titulo.substring(0, 23)}...`;
+	// 	}
+	// };
 
 	return (
 		<View style={styles.container}>
@@ -38,7 +38,7 @@ const Produtos = ({ img, preco, titulo , desc}) => {
 			>
 				<Text>ADCIONAR</Text>
 			</TouchableOpacity>
-			<Text style={styles.produtoText}>{filterDesc(titulo)}</Text>
+			<Text numberOfLines={1} style={styles.produtoText}>{titulo}</Text>
 			<View opacity={0.4}>
 				<Text style={styles.produtoPreco}>{preco}</Text>
 			</View>
