@@ -9,14 +9,15 @@ import MyAccount from "../Pages/MyAccount";
 import ShoppingCar from "../Pages/ShoppingCar";
 
 import StackRoutes from "./StackRoutes";
-import { Image } from "react-native";
-import UserTab from "../components/UserTab";
+
 
 const Tab = createMaterialBottomTabNavigator();
 
-const BottomTab = () => {
+const BottomTab = (nome) => {
 
-	const [logado, setLogado] = useState(true);
+	nome = 'Pablo'
+
+	const [logado, setLogado] = useState(false);
 
 	return (
 		<Tab.Navigator
@@ -46,7 +47,7 @@ const BottomTab = () => {
 				name="MyAccount"
 				component={MyAccount}
 				options={{
-					tabBarLabel: logado ? "" : "Conta",
+					tabBarLabel: logado ? `${nome}` : "Minha Conta",
 					tabBarIcon: ({ focused, color }) =>
 						logado ? (
 							<Icon

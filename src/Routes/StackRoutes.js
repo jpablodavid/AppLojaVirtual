@@ -6,6 +6,7 @@ import Lancamentos from "../Pages/Lancamentos";
 import Sexy from "../Pages/Sexy";
 import Outlet from "../Pages/Outlet";
 import Details from "../components/Details";
+import Envio_Pagamento from "../Pages/Envio&Pagamento";
 
 const Stack = createNativeStackNavigator();
 
@@ -44,7 +45,14 @@ const StackRoutes = () => {
 				name="Details"
 				component={Details}
 				options={{
-					headerShown: true,
+					headerShown: false,
+				}}
+			/>
+			<Stack.Screen
+				name="Envio_Pagamento"
+				component={Envio_Pagamento}
+				options={{
+					headerShown: false,
 				}}
 			/>
 		</Stack.Navigator>
