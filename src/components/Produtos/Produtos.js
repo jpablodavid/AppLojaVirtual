@@ -6,7 +6,6 @@ import {
 	TouchableOpacity,
 	View,
 } from "react-native";
-
 import { useNavigation } from "@react-navigation/core";
 
 import { theme } from "../../global/styles/theme";
@@ -28,17 +27,23 @@ const Produtos = ({ img, preco, titulo , desc}) => {
 	return (
 		<View style={styles.container}>
 			<TouchableOpacity
-				onPress={() => navigation.navigate("Details",{img, titulo, preco, desc})}
+				onPress={() =>
+					navigation.navigate("Details", { img, titulo, preco, desc })
+				}
 			>
 				<Image source={img} style={styles.produtosImg} />
 			</TouchableOpacity>
+		
 			<TouchableOpacity
 				style={styles.btnAdd}
 				onPress={() => navigation.navigate("MyBag")}
 			>
 				<Text>ADCIONAR</Text>
 			</TouchableOpacity>
-			<Text numberOfLines={1} style={styles.produtoText}>{titulo}</Text>
+			
+			<Text numberOfLines={1} style={styles.produtoText}>
+				{titulo}
+			</Text>
 			<View opacity={0.4}>
 				<Text style={styles.produtoPreco}>{preco}</Text>
 			</View>

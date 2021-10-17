@@ -1,6 +1,7 @@
 import React from "react";
 import { View , Text, TouchableOpacity, Image} from "react-native";
 import Icon  from "react-native-vector-icons/FontAwesome5";
+import ButtonMain from "../../components/ButtonMain";
 
 import Header from '../../components/Header';
 
@@ -90,27 +91,15 @@ const Settings = () => {
 				</View>
 			</View>
 			<View style={{ justifyContent: "center", padding: 30 }}>
-				<TouchableOpacity
-					style={{
-						alignItems: "center",
-						height: 40,
-						justifyContent: "center",
-						borderWidth: 1,
-						borderColor: `${theme.colors.primary}`,
-						backgroundColor: `${theme.colors.secondary}`,
-						borderRadius: 7,
-					}}
-				>
-					<Text
-						style={{
-							fontSize: 20,
-							fontWeight: "bold",
-							color: `${theme.colors.primary}`,
-						}}
-					>
-						Fechar Sessão
-					</Text>
-				</TouchableOpacity>
+				<ButtonMain
+					height={40}
+					width="100%"
+					backgroundColor={`${theme.colors.secondary}`}
+					text="Fechar Sessão"
+					textColor={`${theme.colors.primary}`}
+					borderWidth={1}
+					onPress={() => alert('logado (false)')}
+				/>
 			</View>
 		</View>
 	);

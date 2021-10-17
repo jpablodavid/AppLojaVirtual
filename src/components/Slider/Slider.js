@@ -28,14 +28,11 @@ const slides = [
 ];
 
 const Slider = () => {
-
 	const navigation = useNavigation();
 
 	const renderSlides = ({ item }) => {
-
 		return (
-		    
-			<View style={{ position: "relative" , paddingBottom:5}}>
+			<View style={{ position: "relative", paddingBottom: 5 }}>
 				<TouchableOpacity onPress={() => navigation.navigate(item.title)}>
 					<Image
 						source={item.image}
@@ -50,7 +47,7 @@ const Slider = () => {
 					style={{
 						fontSize: 20,
 						color: `${theme.colors.primary}`,
-						fontWeight: 'bold',
+						fontWeight: "bold",
 						position: "absolute",
 						left: 10,
 						top: 10,

@@ -15,7 +15,7 @@ const Home = () => {
 	
 	return (
 		<Container>
-			<Header back={false} onClick={() => navigation.openDrawer()}/>
+			<Header back={false} />
 			<View>
 				<Slider />
 			</View>

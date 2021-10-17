@@ -9,7 +9,7 @@ const Stack = createNativeStackNavigator();
 
 const MyAccount = () => {
 
-	const [logado, setLogado] = useState(true);
+	const [logado, setLogado] = useState(false);
 
 	return (
 		<Stack.Navigator>

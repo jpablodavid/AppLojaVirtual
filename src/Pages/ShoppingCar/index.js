@@ -1,11 +1,5 @@
 import React, { useState } from "react";
-import {
-	View,
-	Text,
-	TouchableOpacity,
-	Image,
-	FlatList,
-} from "react-native";
+import { View, Text, TouchableOpacity, Image, FlatList } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { Picker } from "@react-native-picker/picker";
 import { useNavigation } from "@react-navigation/core";
@@ -14,9 +8,9 @@ import { theme } from "../../global/styles/theme";
 
 import Header from "../../components/Header";
 import Envio_Pagamento from "../Envio&Pagamento";
+import ButtonMain from "../../components/ButtonMain";
 
 const ShoppingCar = () => {
-
 	const navigation = useNavigation();
 
 	const [size, setSize] = useState("");
@@ -101,7 +95,7 @@ const ShoppingCar = () => {
 					style={{
 						flex: 0.6,
 						padding: 20,
-						justifyContent: 'space-between'
+						justifyContent: "space-between",
 					}}
 				>
 					<View>
@@ -110,48 +104,25 @@ const ShoppingCar = () => {
 						<Text>Total: R$ 250,00</Text>
 					</View>
 					<View>
-						<TouchableOpacity
-							style={{
-								backgroundColor: `${theme.colors.secondary}`,
-								width: "100%",
-								height: 45,
-								alignItems: "center",
-								justifyContent: "center",
-								marginBottom: 10
-							}}
+						<ButtonMain
+							height={40}
+							width="100%"
+							backgroundColor={`${theme.colors.secondary}`}
+							text="Finalizar compra"
+							textColor={`${theme.colors.primary}`}
+							borderWidth={1}
 							onPress={() => navigation.navigate(Envio_Pagamento)}
-						>
-							<Text
-								style={{
-									fontSize: 18,
-									fontWeight: "bold",
-									color: `${theme.colors.primary}`,
-								}}
-							>
-								Finalizar compra
-							</Text>
-						</TouchableOpacity>
-						<TouchableOpacity
+						/>
+
+						<ButtonMain
+							height={40}
+							width="100%"
+							backgroundColor={`${theme.colors.primary}`}
+							text="Continuar Comprando"
+							textColor={`${theme.colors.secondary}`}
+							borderWidth={1}
 							onPress={() => navigation.goBack()}
-							style={{
-								backgroundColor: `${theme.colors.primary}`,
-								width: "100%",
-								height: 45,
-								alignItems: "center",
-								justifyContent: "center",
-						
-							}}
-						>
-							<Text
-								style={{
-									fontSize: 18,
-									fontWeight: "bold",
-									color: `${theme.colors.secondary}`,
-								}}
-							>
-								Continuar Comprando
-							</Text>
-						</TouchableOpacity>
+						/>
 					</View>
 				</View>
 			</View>

@@ -17,6 +17,10 @@ import {
 } from "./styles";
 import { useNavigation } from "@react-navigation/native";
 
+import { theme } from "../../global/styles/theme";
+
+import ButtonMain from '../../components/ButtonMain';
+
 
 const SignIn = () => {
 
@@ -81,7 +85,8 @@ const SignIn = () => {
 			</ContainerLogo>
 
 			<Animated.View
-				style={[styles.containerInputs,
+				style={[
+					styles.containerInputs,
 					{
 						opacity: opacity,
 						transform: [
@@ -103,17 +108,33 @@ const SignIn = () => {
 					onChangeText={() => {}}
 				/>
 
-				<BtnSubmit>
-					<SubmitText>Sing in</SubmitText>
-				</BtnSubmit>
-
+				<ButtonMain
+					height={40}
+					width="90%"
+					backgroundColor={`${theme.colors.primary}`}
+					text="SignIn"
+					textColor={`${theme.colors.secondary}`}
+					borderWidth={1}
+					onPress={() => alert()}
+				/>
+				{/* <BtnSubmit>
+						<SubmitText>Sing in</SubmitText>
+					</BtnSubmit> */}
 				<BtnRegister>
 					<TextBtn>Forgot Password?</TextBtn>
 				</BtnRegister>
+				<ButtonMain
+					height={40}
+					width="90%"
+					text="SignUp"
+					textColor={`${theme.colors.primary}`}
+					borderWidth={1}
+					onPress={() => navigation.navigate("SignUp")}
+				/>
 
-				<BtnNewAccount onPress={() => navigation.navigate('SignUp')} >
+				{/* <BtnNewAccount onPress={() => navigation.navigate("SignUp")}>
 					<TextBtn>Create New Account</TextBtn>
-				</BtnNewAccount>
+				</BtnNewAccount> */}
 			</Animated.View>
 		</Bg>
 	);
