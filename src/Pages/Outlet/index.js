@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { View, Text} from "react-native";
+import React from "react";
+import { View} from "react-native";
 import { Container, ProdutosContainer, TitleContainer, Title } from "./styles";
 
 import Header from "../../components/Header";
@@ -14,10 +14,7 @@ const Outlet = () => {
 
 	return (
 		<Container>
-			<Header back={true} />
-			<TitleContainer>
-				<Title>Outlet</Title>
-			</TitleContainer>
+			<Header back={true} titulo={'Outlet'}/>
 
 			<ProdutosContainer
 				horizontal={false}

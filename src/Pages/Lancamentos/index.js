@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { View , Text} from "react-native";
+import React from "react";
+import { View } from "react-native";
 import { Container,TitleContainer, Title, ProdutosContainer } from "./styles";
 
 
@@ -12,11 +12,7 @@ const Lancamentos = () => {
 
 	return (
 		<Container>
-			<Header back={true} />
-
-			<TitleContainer >
-				<Title>LANÇAMENTOS</Title>
-			</TitleContainer>
+			<Header back={true} titulo={'Lancamentos'}/>
 
 			<ProdutosContainer
 				horizontal={false}

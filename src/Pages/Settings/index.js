@@ -23,7 +23,7 @@ const Settings = () => {
 	}
 	return (
 		<View style={{ flex: 1, backgroundColor: `${theme.colors.tertiary}` }}>
-			<Header back={true}/>
+			<Header back={true} titulo={'Configurações'}/>
 
 			<View style={{ flex: 1 }}>
 				<View

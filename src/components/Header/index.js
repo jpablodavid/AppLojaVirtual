@@ -7,9 +7,9 @@ import { Image, View, Text, TextInput } from "react-native";
 
 import { theme } from "../../global/styles/theme";
 
-const Header = ({ back }) => {
-	const [searchVisible, setSearchVisible] = useState(false);
+const Header = ({ back, titulo }) => {
 
+	const [searchVisible, setSearchVisible] = useState(false);
 
 	const navigation = useNavigation();
 
@@ -20,7 +20,7 @@ const Header = ({ back }) => {
 					<MenuButton onPress={() => navigation.goBack()}>
 						<Feather name="arrow-left" size={24} color="#fbf7e4" />
 					</MenuButton>
-					<Title>HARMONI</Title>
+					<Title>{titulo}</Title>
 				</>
 			) : (
 				<View>
@@ -45,7 +45,7 @@ const Header = ({ back }) => {
 						backgroundColor: "rgba(100, 100, 100, 0.7)",
 						width: "50%",
 						fontSize: 16,
-						borderRadius: 18,
+						borderRadius: 7,
 						padding: 5,
 					}}
 				/>

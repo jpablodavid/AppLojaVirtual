@@ -34,7 +34,7 @@ const BottomTab = ({logado}) => {
 			}}
 		>
 			<Tab.Screen
-				name="StackRoutes"
+				name="StacKRoutes"
 				component={StackRoutes}
 				options={{
 					tabBarLabel: "Home",

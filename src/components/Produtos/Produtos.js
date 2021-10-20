@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
 	Image,
 	StyleSheet,
@@ -33,19 +33,21 @@ const Produtos = ({ img, preco, titulo , desc}) => {
 			>
 				<Image source={img} style={styles.produtosImg} />
 			</TouchableOpacity>
-		
+
 			<TouchableOpacity
 				style={styles.btnAdd}
-				onPress={() => navigation.navigate("MyBag")}
+				onPress={() =>
+					navigation.navigate("MyBag", { img, preco, titulo, desc })
+				}
 			>
 				<Text>ADCIONAR</Text>
 			</TouchableOpacity>
-			
+
 			<Text numberOfLines={1} style={styles.produtoText}>
 				{titulo}
 			</Text>
 			<View opacity={0.4}>
-				<Text style={styles.produtoPreco}>{preco}</Text>
+				<Text style={styles.produtoPreco}>R$ {preco}</Text>
 			</View>
 		</View>
 	);

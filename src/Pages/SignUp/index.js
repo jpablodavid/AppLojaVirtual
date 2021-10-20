@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import {
 	Text,
 	View,
-	StyleSheet,
 	Animated,
 	Keyboard,
 	TouchableOpacity,
@@ -11,14 +10,16 @@ import {
 	Bg,
 	ContainerLogo,
 	Input,
-	BtnSubmit,
-	BtnRegister,
-	SubmitText,
-	TextBtn,
+	TextBtn
 } from "./styles";
 import { useNavigation } from "@react-navigation/native";
 
 import firebase from "../../firebaseConnection";
+
+import { theme } from "../../global/styles/theme";
+
+import ButtonMain from "../../components/ButtonMain";
+
 
 const SignUp = () => {
 	const navigation = useNavigation();
@@ -42,7 +43,7 @@ const SignUp = () => {
 				duration: 300,
 			}),
 		]).start();
-	},[]);
+	}, []);
 
 	const KeyboardShow = () => {
 		alert("teclado Aberto");
@@ -71,30 +72,35 @@ const SignUp = () => {
 			}),
 		]).start();
 	};
-    
+
 	const [email, setEmail] = useState("");
 	const [senha, setSenha] = useState("");
 
 	const cadastrar = async () => {
-		await firebase.auth().createUserWithEmailAndPassword(email, senha).then((value)=>{
-			alert('usuario criado' + value.user.email);
-		}).catch((error) => {
-			if(error.code === 'auth/weak-password'){
-				alert('senha precisa de 6 digitos');
-				return;
-			}
-			if (error.code === "auth/ivalid-email") {
-				alert("email invalido");
-				return;
-			}else{
-				alert(error);
-				return;
-			}
-		})
+		await firebase
+			.auth()
+			.createUserWithEmailAndPassword(email, senha)
+			.then((value) => {
+				//alert('usuario criado' + value.user.email);
+				let uid = value.user.uid;
+				let email = value.user.email;
+				navigation.navigate("Cadastro", { uid, email });
+			})
+			.catch((error) => {
+				if (error.code === "auth/weak-password") {
+					alert("senha precisa de 6 digitos");
+					return;
+				}
+				if (error.code === "auth/ivalid-email") {
+					alert("email invalido");
+					return;
+				} else {
+					alert(error);
+					return;
+				}
+			});
 
-		setEmail('');
-		setSenha('');
-	}
+	};
 
 	return (
 		<Bg>
@@ -106,34 +112,45 @@ const SignUp = () => {
 			</ContainerLogo>
 
 			<Animated.View
-				style={[
-					styles.containerInputs,
-					{
-						opacity: opacity,
-						transform: [
-							{
-								translateY: offset.y,
-							},
-						],
-					},
-				]}
+				style={{
+					flex: 0.6,
+					justifyContent: "space-around",
+					width: "100%",
+					opacity: opacity,
+					transform: [
+						{
+							translateY: offset.y,
+						},
+					],
+				}}
 			>
-				<Input
-					placeholder="Email"
-					autoCorrect={false}
-					onChangeText={(text) => setEmail(text)}
-					value={email}
-				/>
-				<Input
-					placeholder="Senha"
-					autoCorrect={false}
-					onChangeText={(text) => setSenha(text)}
-					value={senha}
-				/>
+				<View style={{ alignItems: "center" }}>
+					<Input
+						placeholder="Email"
+						autoCorrect={false}
+						onChangeText={(text) => setEmail(text)}
+						value={email}
+					/>
+					<Input
+						placeholder="Senha"
+						autoCorrect={false}
+						onChangeText={(text) => setSenha(text)}
+						value={senha}
+					/>
+				</View>
 
-				<BtnSubmit onPress={cadastrar}>
-					<SubmitText>Sing Up</SubmitText>
-				</BtnSubmit>
+				<View style={{paddingHorizontal: 25}}>
+					<ButtonMain
+						height={40}
+						width="100%"
+						backgroundColor={`${theme.colors.primary}`}
+						text="Sign Up"
+						textColor={`${theme.colors.secondary}`}
+						borderWidth={1}
+						onPress={cadastrar}
+					/>
+				</View>
+				
 
 				<View
 					style={{
@@ -152,13 +169,5 @@ const SignUp = () => {
 	);
 };
 
-const styles = StyleSheet.create({
-	containerInputs: {
-		flex: 0.6,
-		alignItems: "center",
-		justifyContent: "center",
-		width: "90%",
-	},
-});
 
 export default SignUp;

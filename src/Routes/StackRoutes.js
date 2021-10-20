@@ -5,7 +5,7 @@ import Home from "../Pages/Home";
 import Lancamentos from "../Pages/Lancamentos";
 import Sexy from "../Pages/Sexy";
 import Outlet from "../Pages/Outlet";
-import Details from "../components/Details";
+import Details from "../Pages/Details";
 import Envio_Pagamento from "../Pages/Envio&Pagamento";
 
 const Stack = createNativeStackNavigator();

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
-	Text,
+	View,
 	StyleSheet,
 	Animated,
 	Keyboard,
@@ -9,10 +9,7 @@ import {
 	Bg,
 	ContainerLogo,
 	Input,
-	BtnSubmit,
-	SubmitText,
 	BtnRegister,
-	BtnNewAccount,
 	TextBtn,
 } from "./styles";
 import { useNavigation } from "@react-navigation/native";
@@ -82,7 +79,7 @@ const SignIn = () => {
 	const [email, setEmail] = useState("");
 	const [senha, setSenha] = useState("");
 	const [logado, setLogado] = useState(false);
-	const [ nome , setNome ] = useState('Pablo');
+	const [nome, setNome] = useState('');
 
 	const logar = async () => {
 		await firebase.auth().signInWithEmailAndPassword(email, senha).then((value) => {
@@ -90,13 +87,10 @@ const SignIn = () => {
 			setLogado(true);
 			alert(logado);
 			navigation.navigate(BottomTab, { logado });
-
+			
 		}).catch((error) => {
 			alert(error)
 		})
-
-		setEmail("");
-		setSenha("");
 	}
 
 	return (
@@ -109,59 +103,59 @@ const SignIn = () => {
 			</ContainerLogo>
 
 			<Animated.View
-				style={[
-					styles.containerInputs,
-					{
-						opacity: opacity,
-						transform: [
-							{
-								translateY: offset.y,
-							},
-						],
-					},
-				]}
+				style={{
+					flex: 0.6,
+					justifyContent: "space-around",
+					width: "100%",
+					opacity: opacity,
+					transform: [
+						{
+							translateY: offset.y,
+						},
+					],
+				}}
 			>
-				<Input
-					placeholder="Email"
-					autoCorrect={false}
-					onChangeText={(text) => setEmail(text)}
-					value={email}
-				/>
-				<Input
-					placeholder="Senha"
-					autoCorrect={false}
-					onChangeText={(text) => setSenha(text)}
-					value={senha}
-				/>
+				<View style={{ alignItems: "center" }}>
+					<Input
+						placeholder="Email"
+						autoCorrect={false}
+						onChangeText={(text) => setEmail(text)}
+						value={email}
+					/>
+					<Input
+						placeholder="Senha"
+						autoCorrect={false}
+						onChangeText={(text) => setSenha(text)}
+						value={senha}
+					/>
+				</View>
 
-				<ButtonMain
-					height={40}
-					width="90%"
-					backgroundColor={`${theme.colors.primary}`}
-					text="SignIn"
-					textColor={`${theme.colors.secondary}`}
-					borderWidth={1}
-					onPress={logar}
-				/>
-				{/* <BtnSubmit>
-						<SubmitText>Sing in</SubmitText>
-					</BtnSubmit> */}
-				<BtnRegister>
-					<TextBtn>Forgot Password?</TextBtn>
-				</BtnRegister>
+				<View style={{paddingHorizontal:25}}>
+					<ButtonMain
+						height={40}
+						width='100%'
+						backgroundColor={`${theme.colors.primary}`}
+						text="SignIn"
+						textColor={`${theme.colors.secondary}`}
+						borderWidth={1}
+						onPress={logar}
+					/>
 
-				<ButtonMain
-					height={40}
-					width="90%"
-					text="SignUp"
-					textColor={`${theme.colors.primary}`}
-					borderWidth={1}
-					onPress={() => navigation.navigate("SignUp")}
-				/>
+					<View style={{alignSelf:'center'}}>
+						<BtnRegister>
+							<TextBtn>Forgot Password?</TextBtn>
+						</BtnRegister>
+					</View>
 
-				{/* <BtnNewAccount onPress={() => navigation.navigate("SignUp")}>
-					<TextBtn>Create New Account</TextBtn>
-				</BtnNewAccount> */}
+					<ButtonMain
+						height={40}
+						width="100%"
+						text="SignUp"
+						textColor={`${theme.colors.primary}`}
+						borderWidth={1}
+						onPress={() => navigation.navigate("SignUp")}
+					/>
+				</View>
 			</Animated.View>
 		</Bg>
 	);

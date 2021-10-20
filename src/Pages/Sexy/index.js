@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { View, Text} from "react-native";
+import React from "react";
+import { View } from "react-native";
 import { Container, ProdutosContainer, TitleContainer, Title} from "./styles";
 
 import Header from "../../components/Header";
@@ -11,11 +11,8 @@ const Sexy = () => {
 
 	return (
 		<Container>
-			<Header back={true} />
-			<TitleContainer>
-				<Title>Sexy</Title>
-			</TitleContainer>
-
+			<Header back={true} titulo={'Sexy'}/>
+			
 			<ProdutosContainer
 				horizontal={false}
 				showsHorizontalScrollIndicator={false}

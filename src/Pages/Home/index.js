@@ -31,16 +31,15 @@ const Home = () => {
 						<View style={{ flex: 1 }}>
 							<Produtos
 								img={require("../../assets/item1.png")}
-								preco="R$ 140,00"
+								preco={(140).toFixed(2)}
 								desc="Informações sobre o produto tipo, material essas coisas"
 								titulo="CALCINHA BIQUINI RENDA AMAZONIA"
-								onClick={() => navigation.navigate('Details')}
 							/>
 						</View>
 						<View style={{ flex: 1 }}>
 							<Produtos
 								img={require("../../assets/item2.png")}
-								preco="R$ 140,00"
+								preco={(140).toFixed(2)}
 								desc="Informações sobre o produto tipo, material essas coisas"
 								titulo="CALCINHA BIQUINI RENDA AMAZONIA"
 							/>
