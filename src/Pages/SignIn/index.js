@@ -17,9 +17,13 @@ import {
 } from "./styles";
 import { useNavigation } from "@react-navigation/native";
 
+import firebase from "../../firebaseConnection";
+
 import { theme } from "../../global/styles/theme";
 
 import ButtonMain from '../../components/ButtonMain';
+
+import BottomTab from "../../Routes/BottomTab";
 
 
 const SignIn = () => {
@@ -75,6 +79,26 @@ const SignIn = () => {
 		]).start();
 	};
 
+	const [email, setEmail] = useState("");
+	const [senha, setSenha] = useState("");
+	const [logado, setLogado] = useState(false);
+	const [ nome , setNome ] = useState('Pablo');
+
+	const logar = async () => {
+		await firebase.auth().signInWithEmailAndPassword(email, senha).then((value) => {
+			alert('Bem vindo' + value.user.email);
+			setLogado(true);
+			alert(logado);
+			navigation.navigate(BottomTab, { logado });
+
+		}).catch((error) => {
+			alert(error)
+		})
+
+		setEmail("");
+		setSenha("");
+	}
+
 	return (
 		<Bg>
 			<ContainerLogo>
@@ -100,12 +124,14 @@ const SignIn = () => {
 				<Input
 					placeholder="Email"
 					autoCorrect={false}
-					onChangeText={() => {}}
+					onChangeText={(text) => setEmail(text)}
+					value={email}
 				/>
 				<Input
 					placeholder="Senha"
 					autoCorrect={false}
-					onChangeText={() => {}}
+					onChangeText={(text) => setSenha(text)}
+					value={senha}
 				/>
 
 				<ButtonMain
@@ -115,7 +141,7 @@ const SignIn = () => {
 					text="SignIn"
 					textColor={`${theme.colors.secondary}`}
 					borderWidth={1}
-					onPress={() => alert()}
+					onPress={logar}
 				/>
 				{/* <BtnSubmit>
 						<SubmitText>Sing in</SubmitText>
@@ -123,6 +149,7 @@ const SignIn = () => {
 				<BtnRegister>
 					<TextBtn>Forgot Password?</TextBtn>
 				</BtnRegister>
+
 				<ButtonMain
 					height={40}
 					width="90%"

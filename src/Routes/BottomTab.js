@@ -13,11 +13,11 @@ import StackRoutes from "./StackRoutes";
 
 const Tab = createMaterialBottomTabNavigator();
 
-const BottomTab = (nome) => {
+const BottomTab = ({logado}) => {
 
-	nome = 'Pablo'
-
-	const [logado, setLogado] = useState(false);
+	
+	//const [logado, setLogado] = useState(false);
+	let nome = 'Pablo';
 
 	return (
 		<Tab.Navigator

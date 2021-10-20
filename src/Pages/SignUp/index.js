@@ -18,6 +18,8 @@ import {
 } from "./styles";
 import { useNavigation } from "@react-navigation/native";
 
+import firebase from "../../firebaseConnection";
+
 const SignUp = () => {
 	const navigation = useNavigation();
 
@@ -69,6 +71,30 @@ const SignUp = () => {
 			}),
 		]).start();
 	};
+    
+	const [email, setEmail] = useState("");
+	const [senha, setSenha] = useState("");
+
+	const cadastrar = async () => {
+		await firebase.auth().createUserWithEmailAndPassword(email, senha).then((value)=>{
+			alert('usuario criado' + value.user.email);
+		}).catch((error) => {
+			if(error.code === 'auth/weak-password'){
+				alert('senha precisa de 6 digitos');
+				return;
+			}
+			if (error.code === "auth/ivalid-email") {
+				alert("email invalido");
+				return;
+			}else{
+				alert(error);
+				return;
+			}
+		})
+
+		setEmail('');
+		setSenha('');
+	}
 
 	return (
 		<Bg>
@@ -92,25 +118,32 @@ const SignUp = () => {
 					},
 				]}
 			>
-				<Input placeholder="Name" autoCorrect={false} onChangeText={() => {}} />
 				<Input
 					placeholder="Email"
 					autoCorrect={false}
-					onChangeText={() => {}}
+					onChangeText={(text) => setEmail(text)}
+					value={email}
 				/>
 				<Input
 					placeholder="Senha"
 					autoCorrect={false}
-					onChangeText={() => {}}
+					onChangeText={(text) => setSenha(text)}
+					value={senha}
 				/>
 
-				<BtnSubmit>
+				<BtnSubmit onPress={cadastrar}>
 					<SubmitText>Sing Up</SubmitText>
 				</BtnSubmit>
 
-				<View style={{ flexDirection: "row" , justifyContent:'center', alignItems:'center'}}>
+				<View
+					style={{
+						flexDirection: "row",
+						justifyContent: "center",
+						alignItems: "center",
+					}}
+				>
 					<Text>Já Sou cadastrado </Text>
-					<TouchableOpacity  onPress={() => navigation.navigate('SignIn')}>
+					<TouchableOpacity onPress={() => navigation.navigate("SignIn")}>
 						<TextBtn>Sing In</TextBtn>
 					</TouchableOpacity>
 				</View>

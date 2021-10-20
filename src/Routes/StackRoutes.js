@@ -11,6 +11,8 @@ import Envio_Pagamento from "../Pages/Envio&Pagamento";
 const Stack = createNativeStackNavigator();
 
 const StackRoutes = () => {
+
+
 	return (
 		<Stack.Navigator initialRouteName="Home">
 			<Stack.Screen

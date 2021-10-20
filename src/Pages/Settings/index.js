@@ -1,6 +1,9 @@
 import React from "react";
 import { View , Text, TouchableOpacity, Image} from "react-native";
 import Icon  from "react-native-vector-icons/FontAwesome5";
+import { useNavigation } from "@react-navigation/native";
+import firebase from "../../firebaseConnection";
+
 import ButtonMain from "../../components/ButtonMain";
 
 import Header from '../../components/Header';
@@ -8,7 +11,16 @@ import Header from '../../components/Header';
 import { theme } from "../../global/styles/theme";
 
 
+
 const Settings = () => {
+
+	const navigation = useNavigation();
+
+	const logout = async () => {
+		await firebase.auth().signOut();
+		alert('logout')
+		navigation.navigate('MyAccount', { logado });
+	}
 	return (
 		<View style={{ flex: 1, backgroundColor: `${theme.colors.tertiary}` }}>
 			<Header back={true}/>
@@ -98,7 +110,7 @@ const Settings = () => {
 					text="Fechar Sessão"
 					textColor={`${theme.colors.primary}`}
 					borderWidth={1}
-					onPress={() => alert('logado (false)')}
+					onPress={logout}
 				/>
 			</View>
 		</View>
