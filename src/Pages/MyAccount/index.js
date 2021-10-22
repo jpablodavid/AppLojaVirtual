@@ -8,14 +8,14 @@ import Cadastro from "../Cadastro";
 
 const Stack = createNativeStackNavigator();
 
-const MyAccount = ({logado}) => {
+const MyAccount = ({logado, setLogado}) => {
 
 	return (
 		<Stack.Navigator>
 			{logado ? (
 				<Stack.Screen
 					name="Settings"
-					component={Settings}
+					component={(props) => <Settings {...props} setLogado={setLogado} />}
 					options={{
 						headerShown: false,
 					}}
@@ -23,13 +23,12 @@ const MyAccount = ({logado}) => {
 			) : (
 				<Stack.Screen
 					name="SignIn"
-					component={SignIn}
+					component={(props) => <SignIn {...props} setLogado={setLogado} />}
 					options={{
 						headerShown: false,
 					}}
 				/>
 			)}
-
 			<Stack.Screen
 				name="SignUp"
 				component={SignUp}
@@ -39,7 +38,7 @@ const MyAccount = ({logado}) => {
 			/>
 			<Stack.Screen
 				name="Cadastro"
-				component={Cadastro}
+				component={(props) => <Cadastro {...props} setLogado={setLogado} />}
 				options={{
 					headerShown: false,
 				}}

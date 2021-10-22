@@ -22,7 +22,7 @@ export const MenuButton = styled.TouchableOpacity`
 
 export const Title = styled.Text`
 	color:${theme.colors.secondary};
-	font-size: 30px;
+	font-size: 28px;
 	font-weight: bold;
 `
 

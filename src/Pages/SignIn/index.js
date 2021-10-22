@@ -20,7 +20,7 @@ import { theme } from "../../global/styles/theme";
 import ButtonMain from '../../components/ButtonMain';
 
 
-const SignIn = () => {
+const SignIn = ({setLogado}) => {
 
 	const navigation = useNavigation();
 
@@ -75,7 +75,6 @@ const SignIn = () => {
 
 	const [email, setEmail] = useState("");
 	const [senha, setSenha] = useState("");
-	const [logado, setLogado] = useState(false);
 
 	const logar = async () => {
 		await firebase.auth().signInWithEmailAndPassword(email, senha).then((value) => {

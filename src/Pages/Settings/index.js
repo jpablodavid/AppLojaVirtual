@@ -12,15 +12,16 @@ import { theme } from "../../global/styles/theme";
 
 
 
-const Settings = () => {
+const Settings = ({setLogado}) => {
 
 	const navigation = useNavigation();
 
 	const logout = async () => {
 		await firebase.auth().signOut();
-		alert('logout')
-		navigation.navigate('MyAccount', { logado });
+		setLogado(false);
+		navigation.navigate('Home');
 	}
+
 	return (
 		<View style={{ flex: 1, backgroundColor: `${theme.colors.tertiary}` }}>
 			<Header back={true} titulo={"Configurações"} />
@@ -96,6 +97,7 @@ const Settings = () => {
 				>
 					<TouchableOpacity
 						style={{ flexDirection: "row", alignItems: "center" }}
+						onPress={logout}
 					>
 						<Icon name={"headset"} size={24} color={"#000"} />
 						<Text style={{ marginLeft: 10, fontSize: 16 }}>Contato</Text>

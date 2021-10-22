@@ -1,24 +1,22 @@
-
 import React, { useState } from "react";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import Icon from "@expo/vector-icons/FontAwesome5";
+import { Linking } from "react-native";
 
 import { theme } from "../global/styles/theme";
 
 import MyAccount from "../Pages/MyAccount";
 import ShoppingCar from "../Pages/ShoppingCar";
-import Seguir from "../components/Seguir";
-
 import StackRoutes from "./StackRoutes";
 
+import Seguir from "../components/Seguir";
 
 const Tab = createMaterialBottomTabNavigator();
 
 const BottomTab = () => {
+	const [logado, setLogado] = useState(false);
 
-	const [logado, setLogado] = useState(true);
-
-	let nome = 'Pablo';
+	let nome = "Pablo";
 
 	return (
 		<Tab.Navigator
@@ -46,7 +44,9 @@ const BottomTab = () => {
 			/>
 			<Tab.Screen
 				name="MyAccount"
-				component={props => <MyAccount {...props} logado={logado} />}
+				component={(props) => (
+					<MyAccount {...props} logado={logado} setLogado={setLogado} />
+				)}
 				options={{
 					tabBarLabel: logado ? `${nome}` : "Minha Conta",
 					tabBarIcon: ({ focused, color }) =>
@@ -64,7 +64,17 @@ const BottomTab = () => {
 
 			<Tab.Screen
 				name="Seguir"
-				component={Seguir}
+				component={() =>
+					Linking.canOpenURL("http://instagram.com/jpablodavid/")
+						.then((supported) =>
+							Linking.openURL(
+								supported
+									? "http://instagram.com/jpablodavid/"
+									: "https://www.instagram.com/jpablodavid/"
+							)
+						)
+						.catch((err) => console.error("An error occurred", err))
+				}
 				options={{
 					tabBarLabel: "Siga-Nos",
 					tabBarIcon: ({ focused, color }) => (

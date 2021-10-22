@@ -8,7 +8,7 @@ import { theme } from "../../global/styles/theme";
 import Header from "../../components/Header";
 import ButtonMain from "../../components/ButtonMain";
 
-const Cadastro = ({route}) => {
+const Cadastro = ({route , setLogado}) => {
 
 	const navigation = useNavigation();
 
@@ -32,12 +32,13 @@ const Cadastro = ({route}) => {
 			endereco: endereco
 		}).catch((error) => {alert(error)});
 		alert('Bem-vindo ' + nome)
+		setLogado(true);
 		navigation.navigate("Home");
 	};
 
 	return (
 		<View style={{ flex: 1, backgroundColor: `${theme.colors.tertiary}` }}>
-			<Header back={true} tiulo={"Cadastro"} />
+			<Header back={true} titulo={"Cadastro"} />
 
 			<View style={{ flex: 1 }}>
 				<View
