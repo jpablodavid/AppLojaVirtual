@@ -23,7 +23,7 @@ const Settings = () => {
 	}
 	return (
 		<View style={{ flex: 1, backgroundColor: `${theme.colors.tertiary}` }}>
-			<Header back={true} titulo={'Configurações'}/>
+			<Header back={true} titulo={"Configurações"} />
 
 			<View style={{ flex: 1 }}>
 				<View
@@ -83,6 +83,22 @@ const Settings = () => {
 					>
 						<Icon name={"id-card"} size={24} color={"#000"} />
 						<Text style={{ marginLeft: 10, fontSize: 16 }}>Meus Dados</Text>
+					</TouchableOpacity>
+				</View>
+				<View
+					style={{
+						height: 70,
+						borderBottomWidth: 1,
+						borderColor: `${theme.colors.primary}`,
+						justifyContent: "center",
+						padding: 20,
+					}}
+				>
+					<TouchableOpacity
+						style={{ flexDirection: "row", alignItems: "center" }}
+					>
+						<Icon name={"headset"} size={24} color={"#000"} />
+						<Text style={{ marginLeft: 10, fontSize: 16 }}>Contato</Text>
 					</TouchableOpacity>
 				</View>
 				<View

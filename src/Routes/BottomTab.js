@@ -7,16 +7,17 @@ import { theme } from "../global/styles/theme";
 
 import MyAccount from "../Pages/MyAccount";
 import ShoppingCar from "../Pages/ShoppingCar";
+import Seguir from "../components/Seguir";
 
 import StackRoutes from "./StackRoutes";
 
 
 const Tab = createMaterialBottomTabNavigator();
 
-const BottomTab = ({logado}) => {
+const BottomTab = () => {
 
-	
-	//const [logado, setLogado] = useState(false);
+	const [logado, setLogado] = useState(true);
+
 	let nome = 'Pablo';
 
 	return (
@@ -45,16 +46,12 @@ const BottomTab = ({logado}) => {
 			/>
 			<Tab.Screen
 				name="MyAccount"
-				component={MyAccount}
+				component={props => <MyAccount {...props} logado={logado} />}
 				options={{
 					tabBarLabel: logado ? `${nome}` : "Minha Conta",
 					tabBarIcon: ({ focused, color }) =>
 						logado ? (
-							<Icon
-								name={focused ? "user" : "user"}
-								size={24}
-								color={color}
-							/>
+							<Icon name={focused ? "user" : "user"} size={24} color={color} />
 						) : (
 							<Icon
 								name={focused ? "user-circle" : "user-circle"}
@@ -62,6 +59,21 @@ const BottomTab = ({logado}) => {
 								color={color}
 							/>
 						),
+				}}
+			/>
+
+			<Tab.Screen
+				name="Seguir"
+				component={Seguir}
+				options={{
+					tabBarLabel: "Siga-Nos",
+					tabBarIcon: ({ focused, color }) => (
+						<Icon
+							name={focused ? "instagram" : "instagram"}
+							size={24}
+							color={color}
+						/>
+					),
 				}}
 			/>
 

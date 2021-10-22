@@ -5,10 +5,11 @@ import { Picker } from "@react-native-picker/picker";
 
 import { theme } from "../../global/styles/theme";
 
-const ItemCarrinho = ({img, titulo, preco, desc}) => {
+const ItemCarrinho = ({data, deleteItem}) => {
 
+	const {img, titulo, preco, size,  desc} = data;
 
-	const [size, setSize] = useState("");
+	const [tamanho, setTamanho] = useState(size);
 	const [quantidade, setQuantidade] = useState(1);
     const [precoFinal, setPrecoFinal] = useState(preco);
     
@@ -37,8 +38,9 @@ const ItemCarrinho = ({img, titulo, preco, desc}) => {
 						border: "none",
 						backgroundColor: `${theme.colors.tertiary}`,
 					}}
-					selectedValue={size}
-					onValueChange={(itemValue, itemIndex) => setSize(itemValue)}
+					selectedValue={tamanho}
+					value={size}
+					onValueChange={(itemValue, itemIndex) => setTamanho(itemValue)}
 				>
 					<Picker.Item label="P" value="Pequeno" />
 					<Picker.Item label="M" value="Medio" />
@@ -47,8 +49,8 @@ const ItemCarrinho = ({img, titulo, preco, desc}) => {
 				<View style={{ flexDirection: "row" }}>
 					<TouchableOpacity
 						onPress={() => {
-							if (quantidade <= 0) {
-								alert("Close Item");
+							if (quantidade <= 1) {
+								deleteItem();
 							} else {
 								setQuantidade(quantidade - 1);
 								setPrecoFinal(preco * quantidade);
@@ -87,7 +89,7 @@ const ItemCarrinho = ({img, titulo, preco, desc}) => {
 				</View>
 			</View>
 			<TouchableOpacity style={{ position: "absolute", right: 10, top: 10 }}
-            onPress={() => alert('closeItem')}>
+            onPress={() => deleteItem()}>
 				<Text style={{ fontWeight: "bold", fontSize: 18 }}>X</Text>
 			</TouchableOpacity>
 			<Text

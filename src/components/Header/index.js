@@ -16,15 +16,15 @@ const Header = ({ back, titulo }) => {
 	return (
 		<Container>
 			{back ? (
-				<>
+				<View style={{flexDirection:'row', alignItems: 'center'}}>
 					<MenuButton onPress={() => navigation.goBack()}>
 						<Feather name="arrow-left" size={24} color="#fbf7e4" />
 					</MenuButton>
-					<Title>{titulo}</Title>
-				</>
+					<Title style={{marginLeft: 10}}>{titulo}</Title>
+				</View>
 			) : (
-				<View>
-					<Image />
+				<View style={{flexDirection: 'row'}}>
+					<Image style={{width: 50, height: 50 }}source={require('../../assets/logo1.png')}/>
 					<Text
 						style={{
 							color: `${theme.colors.secondary}`,

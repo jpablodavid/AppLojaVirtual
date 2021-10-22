@@ -8,9 +8,7 @@ import Cadastro from "../Cadastro";
 
 const Stack = createNativeStackNavigator();
 
-const MyAccount = () => {
-
-	const [logado, setLogado] = useState(false);
+const MyAccount = ({logado}) => {
 
 	return (
 		<Stack.Navigator>

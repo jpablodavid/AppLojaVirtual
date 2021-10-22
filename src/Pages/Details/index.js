@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import {
-	FlatList,
 	Image,
 	ScrollView,
 	Text,
-	TouchableOpacity,
 	View,
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { useNavigation } from "@react-navigation/native";
+import firebase from '../../firebaseConnection';
 
 import { theme } from "../../global/styles/theme";
 
@@ -23,9 +22,23 @@ const Details = ({ route }) => {
 
 	const [size, setSize] = useState("Selecionar Tamanho");
 
+	const carShopAdd = async (img, titulo, preco, desc, size) => {
+		let carrinho = await firebase.database().ref("carrinho");
+		let chave = carrinho.push().key;
+
+		carrinho.child(chave).set({
+			imagem: img,
+			titulo: titulo,
+			preco: preco,
+			tamanho: size,
+			descricao: desc,
+		});
+		navigation.navigate("MyBag");
+	};
+
 	return (
 		<View style={{ flex: 1, backgroundColor: `${theme.colors.tertiary}` }}>
-			<Header back={true} titulo={'Detalhes'}/>
+			<Header back={true} titulo={"Detalhes"} />
 			<ScrollView style={{ flex: 1 }}>
 				<View>
 					<Image source={img} style={{ width: "100%", height: 400 }} />
@@ -76,7 +89,13 @@ const Details = ({ route }) => {
 				</View>
 			</ScrollView>
 
-			<View style={{ justifyContent: "center", paddingVertical: 25 ,paddingHorizontal: 40}}>
+			<View
+				style={{
+					justifyContent: "center",
+					paddingVertical: 25,
+					paddingHorizontal: 40,
+				}}
+			>
 				<ButtonMain
 					height={40}
 					width="100%"
@@ -84,7 +103,7 @@ const Details = ({ route }) => {
 					text="Adicionar ao Carinho"
 					textColor={`${theme.colors.primary}`}
 					borderWidth={1}
-					onPress={() => navigation.navigate("MyBag", {img, titulo,preco, desc})}
+					onPress={() => carShopAdd(img, titulo, preco, desc, size)}
 				/>
 			</View>
 		</View>

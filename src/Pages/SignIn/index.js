@@ -13,14 +13,11 @@ import {
 	TextBtn,
 } from "./styles";
 import { useNavigation } from "@react-navigation/native";
-
 import firebase from "../../firebaseConnection";
 
 import { theme } from "../../global/styles/theme";
 
 import ButtonMain from '../../components/ButtonMain';
-
-import BottomTab from "../../Routes/BottomTab";
 
 
 const SignIn = () => {
@@ -79,14 +76,12 @@ const SignIn = () => {
 	const [email, setEmail] = useState("");
 	const [senha, setSenha] = useState("");
 	const [logado, setLogado] = useState(false);
-	const [nome, setNome] = useState('');
 
 	const logar = async () => {
 		await firebase.auth().signInWithEmailAndPassword(email, senha).then((value) => {
 			alert('Bem vindo' + value.user.email);
 			setLogado(true);
-			alert(logado);
-			navigation.navigate(BottomTab, { logado });
+			navigation.navigate("Home");
 			
 		}).catch((error) => {
 			alert(error)

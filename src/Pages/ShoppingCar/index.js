@@ -1,6 +1,8 @@
-import React, { useState } from "react";
-import { View, Text, TouchableOpacity, Image, FlatList } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Text, FlatList, ActivityIndicator } from "react-native";
+import Icon from "@expo/vector-icons/FontAwesome5";
 import { useNavigation } from "@react-navigation/core";
+import firebase from "../../firebaseConnection";
 
 import { theme } from "../../global/styles/theme";
 
@@ -8,85 +10,149 @@ import Header from "../../components/Header";
 import ButtonMain from "../../components/ButtonMain";
 import ItemCarrinho from "../../components/ItemCarrinho";
 
-const ShoppingCar = ({ route }) => {
+const ShoppingCar = () => {
 	const navigation = useNavigation();
 
-	const { img, titulo, preco, desc } = route.params;
+	const [carShop, setCarShop] = useState([]);
 
-	const item = true;
+	const [valorCompra, setValorCompra] = useState(0);
 
-	return (
-		<View style={{ flex: 1, backgroundColor: `${theme.colors.tertiary}` }}>
-			<Header back={true} titulo={"Carrinho"} />
-			{item ? (
-				<View>
-					<Text>Vazio</Text>
+	const [loading, setLoading] = useState(true);
+
+	useEffect(() => {
+		const LoadCarShop = async () => {
+			await firebase
+				.database()
+				.ref("carrinho")
+				.on("value", (snapshot) => {
+					setCarShop([]);
+
+					snapshot.forEach((item) => {
+						let data = {
+							key: item.key,
+							img: item.val().image,
+							titulo: item.val().titulo,
+							preco: item.val().preco,
+							size: item.val().tamanho,
+							desc: item.val().descricao,
+						};
+
+						setCarShop((oldArray) => [...oldArray, data]);
+						
+					});
+				});
+				setLoading(false);
+		};
+
+		LoadCarShop();
+	}, []);
+
+	const carShopDelete = async (key) => {
+		await firebase.database().ref("carrinho").child(key).remove();
+	};
+
+	if (loading) {
+		return (
+			<View style={{ flex: 1, backgroundColor: `${theme.colors.tertiary}` }}>
+				<Header back={true} titulo={"Carrinho"} />
+				<View style={{ flex: 1, justifyContent: "center" }}>
+					<ActivityIndicator color={`${theme.colors.primary}`} size={60} />
 				</View>
-			) : (
-				<View style={{ flex: 1, padding: 10 }}>
-					<View style={{ marginBottom: 10 }}>
-						<Text style={{ color: `${theme.colors.primary}` }}>
-							Lingirie: lançamentos
-						</Text>
-						<Text style={{ color: `${theme.colors.primary}` }}>
-							Entrega
-							<Text style={{ fontWeight: "bold", marginLeft: 3 }}>
-								seg 1 nov - ter 2 nov
+			</View>
+		);
+	} else {
+		return (
+			<View style={{ flex: 1, backgroundColor: `${theme.colors.tertiary}` }}>
+				<Header back={true} titulo={"Carrinho"} />
+
+				{carShop.length > 0 ? (
+					<View style={{ flex: 1, padding: 10 }}>
+						<View style={{ marginBottom: 10 }}>
+							<Text style={{ color: `${theme.colors.primary}` }}>
+								Lingirie: lançamentos
 							</Text>
-						</Text>
+							<Text style={{ color: `${theme.colors.primary}` }}>
+								Entrega
+								<Text style={{ fontWeight: "bold", marginLeft: 3 }}>
+									seg 1 nov - ter 2 nov
+								</Text>
+							</Text>
+						</View>
+						<FlatList
+							style={{ flex: 1 }}
+							horizontal={false}
+							showsHorizontalScrollIndicator={false}
+							data={carShop}
+							keyExtractor={(item) => item.key}
+							renderItem={({ item }) => (
+								<ItemCarrinho
+									data={item}
+									deleteItem={() => carShopDelete(item.key)}
+								/>
+							)}
+						/>
+						<View
+							style={{
+								flex: 0.6,
+								padding: 20,
+								justifyContent: "space-between",
+							}}
+						>
+							<View>
+								<Text>Numero de items: </Text>
+								<Text>Total: R$ {valorCompra.toFixed(2)}</Text>
+							</View>
+							<View>
+								<ButtonMain
+									height={40}
+									width="100%"
+									backgroundColor={`${theme.colors.secondary}`}
+									text="Finalizar compra"
+									textColor={`${theme.colors.primary}`}
+									borderWidth={1}
+									onPress={() => navigation.navigate("Envio_Pagamento")}
+								/>
+
+								<ButtonMain
+									height={40}
+									width="100%"
+									backgroundColor={`${theme.colors.primary}`}
+									text="Continuar Comprando"
+									textColor={`${theme.colors.secondary}`}
+									borderWidth={1}
+									onPress={() => navigation.goBack()}
+								/>
+							</View>
+						</View>
 					</View>
-					<FlatList
-						style={{ flex: 1 }}
-						horizontal={false}
-						showsHorizontalScrollIndicator={false}
-						data={[1, 2, 3, 4]}
-						renderItem={({ item }) => (
-							<ItemCarrinho
-								img={img}
-								titulo={titulo}
-								preco={preco}
-								desc={desc}
-							/>
-						)}
-					/>
+				) : (
 					<View
 						style={{
-							flex: 0.6,
-							padding: 20,
-							justifyContent: "space-between",
+							flex: 1,
+							alignItems: "center",
+							justifyContent: "center",
 						}}
 					>
-						<View>
-							<Text>Numero de items</Text>
-							<Text>Frete R$ 0,00</Text>
-							<Text>Total: R$ 250,00</Text>
-						</View>
-						<View>
-							<ButtonMain
-								height={40}
-								width="100%"
-								backgroundColor={`${theme.colors.secondary}`}
-								text="Finalizar compra"
-								textColor={`${theme.colors.primary}`}
-								borderWidth={1}
-								onPress={() => navigation.navigate("Envio_Pagamento")}
-							/>
-
-							<ButtonMain
-								height={40}
-								width="100%"
-								backgroundColor={`${theme.colors.primary}`}
-								text="Continuar Comprando"
-								textColor={`${theme.colors.secondary}`}
-								borderWidth={1}
-								onPress={() => navigation.goBack()}
-							/>
-						</View>
+						<Icon
+							name={"cart-arrow-down"}
+							size={50}
+							color={`${theme.colors.secondary}`}
+						/>
+						<Text
+							style={{
+								marginTop: 20,
+								fontSize: 22,
+								fontWeight: "bold",
+								color: `${theme.colors.primary}`,
+							}}
+						>
+							Seu Carrinho de Compras está Vazio
+						</Text>
 					</View>
-				</View>
-			)}
-		</View>
-	);
+				)}
+			</View>
+		);
+	}
 };
 
 export default ShoppingCar;

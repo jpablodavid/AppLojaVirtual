@@ -7,15 +7,13 @@ import {
 	View,
 } from "react-native";
 import { useNavigation } from "@react-navigation/core";
+import firebase from '../../firebaseConnection';
 
 import { theme } from "../../global/styles/theme";
 
 
 const Produtos = ({ img, preco, titulo , desc}) => {
-
-	const navigation = useNavigation();
-
-
+	
 	// const filterDesc = (titulo) => {
 	// 	if (titulo.length < 27) {
 	// 		return desc;
@@ -24,11 +22,28 @@ const Produtos = ({ img, preco, titulo , desc}) => {
 	// 	}
 	// };
 
+	const navigation = useNavigation();
+
+	const carShopAdd = async (img, titulo, preco, desc) => {
+
+		let carrinho = await firebase.database().ref('carrinho');
+		let chave = carrinho.push().key;
+
+		carrinho.child(chave).set({
+			imagem: img,
+			titulo: titulo,
+			preco: preco,
+			tamanho: '',
+			descricao: desc,
+		});
+		navigation.navigate("MyBag");
+	}
+
 	return (
 		<View style={styles.container}>
 			<TouchableOpacity
 				onPress={() =>
-					navigation.navigate("Details", { img, titulo, preco, desc })
+					navigation.navigate("Details", { img, titulo, preco, desc})
 				}
 			>
 				<Image source={img} style={styles.produtosImg} />
@@ -36,9 +51,7 @@ const Produtos = ({ img, preco, titulo , desc}) => {
 
 			<TouchableOpacity
 				style={styles.btnAdd}
-				onPress={() =>
-					navigation.navigate("MyBag", { img, preco, titulo, desc })
-				}
+				onPress={() => carShopAdd(img, titulo, preco, desc)}
 			>
 				<Text>ADCIONAR</Text>
 			</TouchableOpacity>

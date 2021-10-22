@@ -7,11 +7,11 @@ import Sexy from "../Pages/Sexy";
 import Outlet from "../Pages/Outlet";
 import Details from "../Pages/Details";
 import Envio_Pagamento from "../Pages/Envio&Pagamento";
+import MyAccount from "../Pages/MyAccount";
 
 const Stack = createNativeStackNavigator();
 
 const StackRoutes = () => {
-
 
 	return (
 		<Stack.Navigator initialRouteName="Home">
