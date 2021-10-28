@@ -5,7 +5,6 @@ import { useNavigation } from "@react-navigation/native";
 
 import Header from "../../components/Header";
 import Slider from "../../components/Slider/Slider";
-import Carousel from '../../components/Carousel';
 import Produtos from "../../components/Produtos/Produtos";
 
 import api, { Key, Host} from "../../services/api";
@@ -45,12 +44,12 @@ const Home = () => {
 
 	const navigation = useNavigation();
 	
+	
 	return (
 		<Container>
 			<Header back={false} />
 			<View>
-				{/* <Slider />	 */}
-				<Carousel />
+				<Slider />		
 			</View>
 
 			<ProdutosContainer

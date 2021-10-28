@@ -13,6 +13,7 @@ import { theme } from "../../global/styles/theme";
 
 import Header from "../../components/Header";
 import ButtonMain from "../../components/ButtonMain";
+import Carousel from "../../components/Carousel";
 
 const Details = ({ route }) => {
 
@@ -36,12 +37,19 @@ const Details = ({ route }) => {
 		navigation.navigate("MyBag");
 	};
 
+	const images = [
+		"https://static.zara.net/photos///2020/I/1/1/p/6543/610/091/2/w/2460/6543610091_1_1_1.jpg?ts=1606727905128",
+		"https://static.zara.net/photos///2020/I/1/1/p/6543/610/091/2/w/2460/6543610091_2_1_1.jpg?ts=1606727908993",
+		"https://static.zara.net/photos///2020/I/1/1/p/6543/610/091/2/w/2460/6543610091_2_2_1.jpg?ts=1606727889015",
+		"https://static.zara.net/photos///2020/I/1/1/p/6543/610/091/2/w/2460/6543610091_2_3_1.jpg?ts=1606727896369",
+		"https://static.zara.net/photos///2020/I/1/1/p/6543/610/091/2/w/2460/6543610091_2_4_1.jpg?ts=1606727898445",
+	];
+
 	return (
 		<View style={{ flex: 1, backgroundColor: `${theme.colors.tertiary}` }}>
 			<Header back={true} titulo={"Detalhes"} />
-			<ScrollView style={{ flex: 1 }}>
 				<View>
-					<Image source={img} style={{ width: "100%", height: 400 }} />
+					<Carousel images={images}/>
 				</View>
 				<View
 					style={{
@@ -87,12 +95,11 @@ const Details = ({ route }) => {
 					<Text>Descriçao:</Text>
 					<Text>{desc}</Text>
 				</View>
-			</ScrollView>
 
 			<View
 				style={{
 					justifyContent: "center",
-					paddingVertical: 25,
+					paddingVertical: 18,
 					paddingHorizontal: 40,
 				}}
 			>
