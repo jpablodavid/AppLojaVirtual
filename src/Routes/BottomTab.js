@@ -23,7 +23,7 @@ const BottomTab = () => {
 			none={false}
 			initialRouteName="StackRoutes"
 			labeled={true}
-			shifting={true}
+			shifting={false}
 			sceneAnimationEnabled={true}
 			activeColor={theme.colors.secondary}
 			inactiveColor={theme.colors.tertiary}

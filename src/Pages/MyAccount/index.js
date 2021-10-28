@@ -21,28 +21,30 @@ const MyAccount = ({logado, setLogado}) => {
 					}}
 				/>
 			) : (
-				<Stack.Screen
-					name="SignIn"
-					component={(props) => <SignIn {...props} setLogado={setLogado} />}
-					options={{
-						headerShown: false,
-					}}
-				/>
+				<>
+					<Stack.Screen
+						name="SignIn"
+						component={(props) => <SignIn {...props} setLogado={setLogado} />}
+						options={{
+							headerShown: false,
+						}}
+					/>
+					<Stack.Screen
+						name="SignUp"
+						component={SignUp}
+						options={{
+							headerShown: false,
+						}}
+					/>
+					<Stack.Screen
+						name="Cadastro"
+						component={(props) => <Cadastro {...props} setLogado={setLogado} />}
+						options={{
+							headerShown: false,
+						}}
+					/>
+				</>
 			)}
-			<Stack.Screen
-				name="SignUp"
-				component={SignUp}
-				options={{
-					headerShown: false,
-				}}
-			/>
-			<Stack.Screen
-				name="Cadastro"
-				component={(props) => <Cadastro {...props} setLogado={setLogado} />}
-				options={{
-					headerShown: false,
-				}}
-			/>
 		</Stack.Navigator>
 	);
 };

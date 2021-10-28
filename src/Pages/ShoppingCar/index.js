@@ -15,7 +15,7 @@ const ShoppingCar = () => {
 
 	const [carShop, setCarShop] = useState([]);
 
-	const [valorCompra, setValorCompra] = useState(0);
+	const [valorCompra, setValorCompra] = useState([0]);
 
 	const [loading, setLoading] = useState(true);
 
@@ -30,7 +30,7 @@ const ShoppingCar = () => {
 					snapshot.forEach((item) => {
 						let data = {
 							key: item.key,
-							img: item.val().image,
+							img: item.val().imagem.uri,
 							titulo: item.val().titulo,
 							preco: item.val().preco,
 							size: item.val().tamanho,
@@ -38,14 +38,22 @@ const ShoppingCar = () => {
 						};
 
 						setCarShop((oldArray) => [...oldArray, data]);
-						
 					});
 				});
-				setLoading(false);
+			setLoading(false);
 		};
 
 		LoadCarShop();
 	}, []);
+ 
+	var ValorDeTodosItems = [];
+	var valorTotal = 0;
+
+	const calculaTotal = (valor) => {
+		ValorDeTodosItems.push(valor);
+		ValorDeTodosItems.forEach(item => valorTotal += item)
+		setValorCompra(valorTotal);
+	};
 
 	const carShopDelete = async (key) => {
 		await firebase.database().ref("carrinho").child(key).remove();
@@ -88,6 +96,7 @@ const ShoppingCar = () => {
 								<ItemCarrinho
 									data={item}
 									deleteItem={() => carShopDelete(item.key)}
+									calculaTotal={calculaTotal}
 								/>
 							)}
 						/>
@@ -100,7 +109,7 @@ const ShoppingCar = () => {
 						>
 							<View>
 								<Text>Numero de items: </Text>
-								<Text>Total: R$ {valorCompra.toFixed(2)}</Text>
+								<Text>Total: R$ {valorCompra}</Text>
 							</View>
 							<View>
 								<ButtonMain

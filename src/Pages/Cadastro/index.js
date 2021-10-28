@@ -33,7 +33,9 @@ const Cadastro = ({route , setLogado}) => {
 		}).catch((error) => {alert(error)});
 		alert('Bem-vindo ' + nome)
 		setLogado(true);
+		
 		navigation.navigate("Home");
+
 	};
 
 	return (

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Feather } from "@expo/vector-icons";
-import { Container, MenuButton, Title, SearchButton, Clean } from "./styles";
-
+import { Container, MenuButton, Title, SearchButton } from "./styles";
 import { useNavigation } from "@react-navigation/native";
 import { Image, View, Text, TextInput } from "react-native";
 
 import { theme } from "../../global/styles/theme";
+
 
 const Header = ({ back, titulo }) => {
 

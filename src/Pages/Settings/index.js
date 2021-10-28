@@ -97,7 +97,6 @@ const Settings = ({setLogado}) => {
 				>
 					<TouchableOpacity
 						style={{ flexDirection: "row", alignItems: "center" }}
-						onPress={logout}
 					>
 						<Icon name={"headset"} size={24} color={"#000"} />
 						<Text style={{ marginLeft: 10, fontSize: 16 }}>Contato</Text>

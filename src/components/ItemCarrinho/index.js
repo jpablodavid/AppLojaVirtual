@@ -5,17 +5,20 @@ import { Picker } from "@react-native-picker/picker";
 
 import { theme } from "../../global/styles/theme";
 
-const ItemCarrinho = ({data, deleteItem}) => {
+const ItemCarrinho = ({ data, deleteItem, calculaTotal }) => {
 
-	const {img, titulo, preco, size,  desc} = data;
+	const { img, titulo, preco, size, desc } = data;
 
 	const [tamanho, setTamanho] = useState(size);
 	const [quantidade, setQuantidade] = useState(1);
-    const [precoFinal, setPrecoFinal] = useState(preco);
-    
-    const showPreco = (precoFinal, quantidade) => {
-        return preco * quantidade;
-    }
+	const [precoFinal, setPrecoFinal] = useState(preco);
+
+	const showPreco = (precoFinal, quantidade) => {
+			return preco * quantidade;
+	};
+
+	calculaTotal(showPreco);
+
 	return (
 		<View
 			style={{
@@ -29,12 +32,12 @@ const ItemCarrinho = ({data, deleteItem}) => {
 		>
 			<Image style={{ width: 150, height: 150 }} source={img} />
 			<View style={{ marginLeft: 10, justifyContent: "space-between" }}>
-				<View style={{flexDirection: 'row'}}>
-                    <Text style={{ width: "50%"}}>{titulo}</Text>
-                </View>
+				<View style={{ flexDirection: "row" }}>
+					<Text style={{ width: "50%" }}>{titulo}</Text>
+				</View>
 				<Picker
 					style={{
-                        width: '50%',
+						width: "50%",
 						border: "none",
 						backgroundColor: `${theme.colors.tertiary}`,
 					}}
@@ -49,11 +52,11 @@ const ItemCarrinho = ({data, deleteItem}) => {
 				<View style={{ flexDirection: "row" }}>
 					<TouchableOpacity
 						onPress={() => {
-							if (quantidade <= 1) {
+							if (quantidade) {
 								deleteItem();
 							} else {
 								setQuantidade(quantidade - 1);
-								setPrecoFinal(preco * quantidade);
+								setPrecoFinal(valor * quantidade);
 							}
 						}}
 					>
@@ -88,8 +91,10 @@ const ItemCarrinho = ({data, deleteItem}) => {
 					</TouchableOpacity>
 				</View>
 			</View>
-			<TouchableOpacity style={{ position: "absolute", right: 10, top: 10 }}
-            onPress={() => deleteItem()}>
+			<TouchableOpacity
+				style={{ position: "absolute", right: 10, top: 10 }}
+				onPress={() => deleteItem()}
+			>
 				<Text style={{ fontWeight: "bold", fontSize: 18 }}>X</Text>
 			</TouchableOpacity>
 			<Text

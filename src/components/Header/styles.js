@@ -1,4 +1,5 @@
 import styled from "styled-components/native";
+import { getStatusBarHeight } from "react-native-status-bar-height";
 
 import { theme } from '../../global/styles/theme'
 
