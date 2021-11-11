@@ -2,14 +2,6 @@ import firebase, { initializeApp } from "firebase/app";
 import "firebase/database";
 import "firebase/auth";
 
-// Optionally import the services that you want to use
-//import {...} from "firebase/auth";
-//import {...} from "firebase/database";
-//import {...} from "firebase/firestore";
-//import {...} from "firebase/functions";
-//import {...} from "firebase/storage";
-
-// Initialize Firebase
 const firebaseConfig = {
 	apiKey: "AIzaSyAFBavoApG2A8-V8NvObiU88gXDZKhEBno",
 	authDomain: "applojavirtual-52e2b.firebaseapp.com",

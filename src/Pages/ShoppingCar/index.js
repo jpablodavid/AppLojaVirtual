@@ -30,11 +30,11 @@ const ShoppingCar = () => {
 					snapshot.forEach((item) => {
 						let data = {
 							key: item.key,
-							img: item.val().imagem.uri,
+							image: item.val().image,
 							titulo: item.val().titulo,
 							preco: item.val().preco,
-							size: item.val().tamanho,
-							desc: item.val().descricao,
+							size: item.val().size,
+							descricao: item.val().descricao,
 						};
 
 						setCarShop((oldArray) => [...oldArray, data]);

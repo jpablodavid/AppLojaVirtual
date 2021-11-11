@@ -9,11 +9,10 @@ import MyAccount from "../Pages/MyAccount";
 import ShoppingCar from "../Pages/ShoppingCar";
 import StackRoutes from "./StackRoutes";
 
-import Seguir from "../components/Seguir";
 
 const Tab = createMaterialBottomTabNavigator();
 
-const BottomTab = () => {
+const BottomTab = ({data}) => {
 	const [logado, setLogado] = useState(false);
 
 	let nome = "Pablo";
@@ -34,7 +33,9 @@ const BottomTab = () => {
 		>
 			<Tab.Screen
 				name="StacKRoutes"
-				component={StackRoutes}
+				component={(props) => (
+					<StackRoutes {...props} data={data} />
+				)}
 				options={{
 					tabBarLabel: "Home",
 					tabBarIcon: ({ focused, color }) => (

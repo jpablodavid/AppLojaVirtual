@@ -7,7 +7,7 @@ import { theme } from "../../global/styles/theme";
 
 const ItemCarrinho = ({ data, deleteItem, calculaTotal }) => {
 
-	const { img, titulo, preco, size, desc } = data;
+	const { image, titulo, preco, size, } = data;
 
 	const [tamanho, setTamanho] = useState(size);
 	const [quantidade, setQuantidade] = useState(1);
@@ -30,7 +30,7 @@ const ItemCarrinho = ({ data, deleteItem, calculaTotal }) => {
 				position: "relative",
 			}}
 		>
-			<Image style={{ width: 150, height: 150 }} source={img} />
+			<Image style={{ width: 150, height: 150 }} source={image} />
 			<View style={{ marginLeft: 10, justifyContent: "space-between" }}>
 				<View style={{ flexDirection: "row" }}>
 					<Text style={{ width: "50%" }}>{titulo}</Text>

@@ -1,13 +1,8 @@
 import React, { useState } from "react";
-import {
-	Image,
-	ScrollView,
-	Text,
-	View,
-} from "react-native";
+import { Image, ScrollView, Text, View } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { useNavigation } from "@react-navigation/native";
-import firebase from '../../firebaseConnection';
+import firebase from "../../firebaseConnection";
 
 import { theme } from "../../global/styles/theme";
 
@@ -16,41 +11,43 @@ import ButtonMain from "../../components/ButtonMain";
 import Carousel from "../../components/Carousel";
 
 const Details = ({ route }) => {
-
-	const { img, titulo, preco, desc } = route.params;
+	const { image, titulo, preco, descricao, details } = route.params;
 
 	const navigation = useNavigation();
 
 	const [size, setSize] = useState("Selecionar Tamanho");
 
-	const carShopAdd = async (img, titulo, preco, desc, size) => {
+	const carShopAdd = async (image, titulo, preco, size) => {
 		let carrinho = await firebase.database().ref("carrinho");
 		let chave = carrinho.push().key;
 
 		carrinho.child(chave).set({
-			imagem: img,
+			image: image,
 			titulo: titulo,
 			preco: preco,
-			tamanho: size,
-			descricao: desc,
+			size: size,
 		});
 		navigation.navigate("MyBag");
 	};
 
-	const images = [
-		"https://static.zara.net/photos///2020/I/1/1/p/6543/610/091/2/w/2460/6543610091_1_1_1.jpg?ts=1606727905128",
-		"https://static.zara.net/photos///2020/I/1/1/p/6543/610/091/2/w/2460/6543610091_2_1_1.jpg?ts=1606727908993",
-		"https://static.zara.net/photos///2020/I/1/1/p/6543/610/091/2/w/2460/6543610091_2_2_1.jpg?ts=1606727889015",
-		"https://static.zara.net/photos///2020/I/1/1/p/6543/610/091/2/w/2460/6543610091_2_3_1.jpg?ts=1606727896369",
-		"https://static.zara.net/photos///2020/I/1/1/p/6543/610/091/2/w/2460/6543610091_2_4_1.jpg?ts=1606727898445",
-	];
+	const images = [];
+
+  	details.ProductImages.forEach((item) => {
+		images.push(item);
+	});
+
+	//acertando a descrição
+	let descri = descricao.split("A");
+	let desc = descri[1].split('.');
+    
 
 	return (
 		<View style={{ flex: 1, backgroundColor: `${theme.colors.tertiary}` }}>
 			<Header back={true} titulo={"Detalhes"} />
-				<View>
-					<Carousel images={images}/>
-				</View>
+			<View>
+				<Carousel images={images} />
+			</View>
+			<ScrollView showsHorizontalScrollIndicator={false}>
 				<View
 					style={{
 						padding: 10,
@@ -58,9 +55,8 @@ const Details = ({ route }) => {
 						borderBottomColor: `${theme.colors.primary}`,
 					}}
 				>
-					<Text>{titulo}</Text>
-					<Text>Color</Text>
-					<Text>{preco}</Text>
+					<Text style={{ color: `${theme.colors.primary}` }}>{titulo}</Text>
+					<Text style={{ fontWeight: "bold" }}>R$ {preco}</Text>
 				</View>
 				<View
 					style={{
@@ -71,10 +67,11 @@ const Details = ({ route }) => {
 						borderBottomColor: `${theme.colors.primary}`,
 					}}
 				>
-					<Text>Tamanho</Text>
+					<Text style={{ color: `${theme.colors.primary}` }}>Tamanho</Text>
 					<Picker
 						style={{
 							border: "none",
+							borderColor: `${theme.colors.primary}`,
 							backgroundColor: `${theme.colors.tertiary}`,
 						}}
 						selectedValue={size}
@@ -85,6 +82,7 @@ const Details = ({ route }) => {
 						<Picker.Item label="G" value="Grande" />
 					</Picker>
 				</View>
+
 				<View
 					style={{
 						padding: 10,
@@ -92,27 +90,27 @@ const Details = ({ route }) => {
 						borderBottomColor: "#555",
 					}}
 				>
-					<Text>Descriçao:</Text>
-					<Text>{desc}</Text>
+					<Text style={{ color: `${theme.colors.primary}` }}>Descriçao:</Text>
+					<Text>{desc[0]}</Text>
 				</View>
-
-			<View
-				style={{
-					justifyContent: "center",
-					paddingVertical: 18,
-					paddingHorizontal: 40,
-				}}
-			>
-				<ButtonMain
-					height={40}
-					width="100%"
-					backgroundColor={`${theme.colors.secondary}`}
-					text="Adicionar ao Carinho"
-					textColor={`${theme.colors.primary}`}
-					borderWidth={1}
-					onPress={() => carShopAdd(img, titulo, preco, desc, size)}
-				/>
-			</View>
+				<View
+					style={{
+						justifyContent: "center",
+						paddingVertical: 18,
+						paddingHorizontal: 40,
+					}}
+				>
+					<ButtonMain
+						height={40}
+						width="100%"
+						backgroundColor={`${theme.colors.secondary}`}
+						text="Adicionar ao Carinho"
+						textColor={`${theme.colors.primary}`}
+						borderWidth={1}
+						onPress={() => carShopAdd(image, titulo, preco, size)}
+					/>
+				</View>
+			</ScrollView>
 		</View>
 	);
 };

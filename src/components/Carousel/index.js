@@ -16,7 +16,7 @@ const DOT_SIZE = 8;
 const DOT_SPACING = 8;
 const DOT_INDICATOR_SIZE = DOT_SIZE + DOT_SPACING;
 
-const Carousel = ({ images}) => {
+const Carousel = ({ images }) => {
 	const scrolly = useRef(new Animated.Value(0)).current;
 
 	return (
@@ -39,7 +39,7 @@ const Carousel = ({ images}) => {
 				renderItem={({ item, index }) => {
 					return (
 						<View>
-							<Image source={{ uri: item }} 
+							<Image key={index} source={{ uri: `${item}` }} 
                             style={styles.image} />
 						</View>
 					);

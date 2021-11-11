@@ -3,42 +3,38 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import Home from "../Pages/Home";
 import Lancamentos from "../Pages/Lancamentos";
-import Sexy from "../Pages/Sexy";
 import Outlet from "../Pages/Outlet";
 import Details from "../Pages/Details";
 import Envio_Pagamento from "../Pages/Envio&Pagamento";
-import MyAccount from "../Pages/MyAccount";
 
 const Stack = createNativeStackNavigator();
 
-const StackRoutes = () => {
+const StackRoutes = ({ data }) => {
+	const dataHome = data.slice(0, 15);
+	const dataLancamentos = data.slice(16, 35);
+	const dataOutlet = data.slice(36);
 
 	return (
 		<Stack.Navigator initialRouteName="Home">
 			<Stack.Screen
 				name="Home"
-				component={Home}
+				component={(props) => <Home {...props} dataHome={dataHome} />}
 				options={{
 					headerShown: false,
 				}}
 			/>
 			<Stack.Screen
 				name="Outlet"
-				component={Outlet}
+				component={(props) => <Outlet {...props} dataOutlet={dataOutlet} />}
 				options={{
 					headerShown: false,
 				}}
 			/>
 			<Stack.Screen
 				name="Lancamentos"
-				component={Lancamentos}
-				options={{
-					headerShown: false,
-				}}
-			/>
-			<Stack.Screen
-				name="Sexy"
-				component={Sexy}
+				component={(props) => (
+					<Lancamentos {...props} dataLancamentos={dataLancamentos} />
+				)}
 				options={{
 					headerShown: false,
 				}}

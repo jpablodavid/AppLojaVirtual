@@ -14,5 +14,5 @@ export const Title = styled.Text`
 
 
 export const ProdutosContainer = styled.FlatList`
-	height: 250px; 
+	flex: 1;
 `;

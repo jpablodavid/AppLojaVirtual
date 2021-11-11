@@ -6,28 +6,10 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { theme } from "../../global/styles/theme";
 import { useNavigation } from "@react-navigation/native";
 
-const slides = [
-	{
-		key: 1,
-		title: "Lancamentos",
-		desc: "alguma coisa falando sobre",
-		image: require("../../assets/slide1.png"),
-	},
-	{
-		key: 2,
-		title: "Outlet",
-		desc: "alguma coisa falando sobre",
-		image: require("../../assets/slide2.png"),
-	},
-	{
-		key: 3,
-		title: "Sexy",
-		desc: "alguma coisa falando sobre",
-		image: require("../../assets/slide3.png"),
-	},
-];
+import { slides } from '../../Data/sliderData';
 
 const Slider = () => {
+	
 	const navigation = useNavigation();
 
 	const renderSlides = ({ item }) => {
@@ -85,7 +67,7 @@ const Slider = () => {
 					<FontAwesome5
 						name="chevron-right"
 						size={24}
-						color={`${theme.colors.dotsSlider}`}
+						color={`${theme.colors.primary}`}
 					/>
 				</Text>
 			)}
@@ -94,7 +76,7 @@ const Slider = () => {
 					<FontAwesome5
 						name="chevron-left"
 						size={24}
-						color={`${theme.colors.dotsSlider}`}
+						color={`${theme.colors.primary}`}
 					/>
 				</Text>
 			)}
