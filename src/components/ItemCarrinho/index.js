@@ -2,22 +2,34 @@ import React, { useState } from "react";
 import { View, Image, Text, TouchableOpacity } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { Picker } from "@react-native-picker/picker";
+import firebase from "../../firebaseConnection";
 
 import { theme } from "../../global/styles/theme";
 
-const ItemCarrinho = ({ data, deleteItem, calculaTotal }) => {
-
-	const { image, titulo, preco, size, } = data;
+const ItemCarrinho = ({ data, deleteItem, calculaTotal, quant}) => {
+	const {key, image, titulo, preco, size } = data;
 
 	const [tamanho, setTamanho] = useState(size);
-	const [quantidade, setQuantidade] = useState(1);
+
+	const [quantidade, setQuantidade] = useState(quant);
+
 	const [precoFinal, setPrecoFinal] = useState(preco);
 
-	const showPreco = (precoFinal, quantidade) => {
-			return preco * quantidade;
+	const updateQuantidade = async (quantidade) => {
+		await firebase
+			.database()
+			.ref("carrinho")
+			.child(key)
+			.update({
+				quantidade: quantidade,
+			});
 	};
 
-	calculaTotal(showPreco);
+	const showPreco = (precoFinal, quantidade) => {
+		let valor = preco * quantidade;
+		calculaTotal(valor);
+		return valor;
+	};
 
 	return (
 		<View
@@ -33,7 +45,7 @@ const ItemCarrinho = ({ data, deleteItem, calculaTotal }) => {
 			<Image style={{ width: 150, height: 150 }} source={image} />
 			<View style={{ marginLeft: 10, justifyContent: "space-between" }}>
 				<View style={{ flexDirection: "row" }}>
-					<Text style={{ width: "50%" }}>{titulo}</Text>
+					<Text>{titulo}</Text>
 				</View>
 				<Picker
 					style={{
@@ -52,11 +64,12 @@ const ItemCarrinho = ({ data, deleteItem, calculaTotal }) => {
 				<View style={{ flexDirection: "row" }}>
 					<TouchableOpacity
 						onPress={() => {
-							if (quantidade) {
+							if (quantidade <= 1) {
 								deleteItem();
 							} else {
 								setQuantidade(quantidade - 1);
-								setPrecoFinal(valor * quantidade);
+								setPrecoFinal(preco * quantidade);
+								updateQuantidade(quantidade - 1);
 							}
 						}}
 					>
@@ -81,6 +94,7 @@ const ItemCarrinho = ({ data, deleteItem, calculaTotal }) => {
 						onPress={() => {
 							setQuantidade(quantidade + 1);
 							setPrecoFinal(preco * quantidade);
+							updateQuantidade(quantidade + 1);
 						}}
 					>
 						<FontAwesome5

@@ -17,7 +17,8 @@ const Details = ({ route }) => {
 
 	const [size, setSize] = useState("Selecionar Tamanho");
 
-	const carShopAdd = async (image, titulo, preco, size) => {
+	const carShopAdd = async (image, titulo, preco, size, quantidade) => {
+		quantidade = 1;
 		let carrinho = await firebase.database().ref("carrinho");
 		let chave = carrinho.push().key;
 
@@ -26,20 +27,24 @@ const Details = ({ route }) => {
 			titulo: titulo,
 			preco: preco,
 			size: size,
+			quantidade: quantidade,
 		});
 		navigation.navigate("MyBag");
 	};
 
 	const images = [];
 
-  	details.ProductImages.forEach((item) => {
-		images.push(item);
+  	// details.ProductImages.forEach((item) => {
+	// 	images.push(item);
+	// });
+	details.forEach((item) => {
+	 	images.push(item);
 	});
 
 	//acertando a descrição
-	let descri = descricao.split("A");
-	let desc = descri[1].split('.');
-    
+	// let descri = descricao.split("A");
+	// let desc = descri[1].split('.');
+    let desc = descricao;
 
 	return (
 		<View style={{ flex: 1, backgroundColor: `${theme.colors.tertiary}` }}>
@@ -107,7 +112,7 @@ const Details = ({ route }) => {
 						text="Adicionar ao Carinho"
 						textColor={`${theme.colors.primary}`}
 						borderWidth={1}
-						onPress={() => carShopAdd(image, titulo, preco, size)}
+						onPress={() => carShopAdd(image, titulo, preco, size, quantidade)}
 					/>
 				</View>
 			</ScrollView>

@@ -1,15 +1,11 @@
 import React from "react";
 import {
-	Image,
-	StyleSheet,
 	Text,
 	TouchableOpacity,
 	View,
 } from "react-native";
 import { useNavigation } from "@react-navigation/core";
 import firebase from '../../firebaseConnection';
-
-// import { theme } from "../../global/styles/theme";
 import { Container , ProdutoImage, ProdutoText, ProdutoPreco, BtnAdd} from "./styles";
 
 
@@ -21,11 +17,12 @@ const ItemProdutos = ({ image, preco, titulo, size, descricao, details}) => {
 	// 	} else {
 	// 		return `${titulo.substring(0, 23)}...`;
 	// 	}
+	let quantidade;
 
 	const navigation = useNavigation();
 
-	const carShopAdd = async (image, titulo, preco, size) => {
-
+	const carShopAdd = async (image, titulo, preco, size, quantidade) => {
+		quantidade = 1;
 		let carrinho = await firebase.database().ref('carrinho');
 		let chave = carrinho.push().key;
 
@@ -33,7 +30,8 @@ const ItemProdutos = ({ image, preco, titulo, size, descricao, details}) => {
 			image: image,
 			titulo: titulo,
 			preco: preco,
-			size: "P",
+			size: size,
+			quantidade: quantidade,
 		});
 		navigation.navigate("MyBag");
 	}
@@ -49,7 +47,7 @@ const ItemProdutos = ({ image, preco, titulo, size, descricao, details}) => {
 			</TouchableOpacity>
 
 			<BtnAdd
-				onPress={() => carShopAdd(image, titulo, preco, size)}
+				onPress={() => carShopAdd(image, titulo, preco, size, quantidade)}
 			>
 				<Text>ADCIONAR</Text>
 			</BtnAdd>
@@ -58,7 +56,7 @@ const ItemProdutos = ({ image, preco, titulo, size, descricao, details}) => {
 				{titulo}
 			</ProdutoText>
 			<View opacity={0.4}>
-				<ProdutoPreco>R$ {preco}</ProdutoPreco>
+				<ProdutoPreco>R$ {preco.toFixed(2)}</ProdutoPreco>
 			</View>
 		</Container>
 	);

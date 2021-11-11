@@ -10,22 +10,22 @@ import Envio_Pagamento from "../Pages/Envio&Pagamento";
 const Stack = createNativeStackNavigator();
 
 const StackRoutes = ({ data }) => {
-	const dataHome = data.slice(0, 15);
-	const dataLancamentos = data.slice(16, 35);
-	const dataOutlet = data.slice(36);
+	// const dataHome = data.slice(0, 15);
+	// const dataLancamentos = data.slice(16, 35);
+	// const dataOutlet = data.slice(36);
 
 	return (
 		<Stack.Navigator initialRouteName="Home">
 			<Stack.Screen
 				name="Home"
-				component={(props) => <Home {...props} dataHome={dataHome} />}
+				component={(props) => <Home {...props} dataHome={data} />}
 				options={{
 					headerShown: false,
 				}}
 			/>
 			<Stack.Screen
 				name="Outlet"
-				component={(props) => <Outlet {...props} dataOutlet={dataOutlet} />}
+				component={(props) => <Outlet {...props} dataOutlet={data} />}
 				options={{
 					headerShown: false,
 				}}
@@ -33,7 +33,7 @@ const StackRoutes = ({ data }) => {
 			<Stack.Screen
 				name="Lancamentos"
 				component={(props) => (
-					<Lancamentos {...props} dataLancamentos={dataLancamentos} />
+					<Lancamentos {...props} dataLancamentos={data} />
 				)}
 				options={{
 					headerShown: false,

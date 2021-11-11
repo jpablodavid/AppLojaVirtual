@@ -15,9 +15,10 @@ const ShoppingCar = () => {
 
 	const [carShop, setCarShop] = useState([]);
 
-	const [valorCompra, setValorCompra] = useState([0]);
+	const [valorCompra, setValorCompra] = useState(0);
 
 	const [loading, setLoading] = useState(true);
+
 
 	useEffect(() => {
 		const LoadCarShop = async () => {
@@ -34,7 +35,7 @@ const ShoppingCar = () => {
 							titulo: item.val().titulo,
 							preco: item.val().preco,
 							size: item.val().size,
-							descricao: item.val().descricao,
+							quantidade: item.val().quantidade
 						};
 
 						setCarShop((oldArray) => [...oldArray, data]);
@@ -51,7 +52,7 @@ const ShoppingCar = () => {
 
 	const calculaTotal = (valor) => {
 		ValorDeTodosItems.push(valor);
-		ValorDeTodosItems.forEach(item => valorTotal += item)
+		ValorDeTodosItems.forEach(item => valorTotal += item);
 		setValorCompra(valorTotal);
 	};
 
@@ -95,8 +96,10 @@ const ShoppingCar = () => {
 							renderItem={({ item }) => (
 								<ItemCarrinho
 									data={item}
+									key={item.key}
 									deleteItem={() => carShopDelete(item.key)}
 									calculaTotal={calculaTotal}
+									quant={item.quantidade}
 								/>
 							)}
 						/>
@@ -108,8 +111,8 @@ const ShoppingCar = () => {
 							}}
 						>
 							<View>
-								<Text>Numero de items: </Text>
-								<Text>Total: R$ {valorCompra}</Text>
+								<Text>Numero de items: {carShop.length}</Text>
+								<Text>Total: R$ {valorCompra.toFixed(2)}</Text>
 							</View>
 							<View>
 								<ButtonMain

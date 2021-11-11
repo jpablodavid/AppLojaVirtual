@@ -21,6 +21,7 @@ const ProdutosView = ({ data }) => {
 							descricao={item.desc}
 							titulo={item.titulo}
 							details={item.details}
+							size={item.size}
 						/>
 					</View>
 				);

@@ -15,41 +15,42 @@ import {
 import { theme } from "./src/global/styles/theme";
 
 import BottomTab from "./src/Routes/BottomTab";
+import { produtos } from './src/Data/produtosData';
 
 export default function App() {
 	
 	console.disableYellowBox = true;
 
-	const [loading, setLoading] = useState(true);
+	const [loading, setLoading] = useState(false);
 
-	const [produtos, setProdutos] = useState([]);
+	//const [produtos, setProdutos] = useState([]);
 
-	useEffect(() => {
-		const LoadProdutos = async () => {
-			await firebase
-				.database()
-				.ref("produtos")
-				.on("value", (snapshot) => {
-					setProdutos([]);
+	// useEffect(() => {
+	// 	const LoadProdutos = async () => {
+	// 		await firebase
+	// 			.database()
+	// 			.ref("produtos")
+	// 			.on("value", (snapshot) => {
+	// 				setProdutos([]);
 
-					snapshot.forEach((item, index) => {
-						let data = {
-							key: index,
-							image: item.val().image,
-							titulo: item.val().titulo,
-							preco: item.val().preco,
-							desc: item.val().desc,
-							details: item.val().imgageDetails[0],
-						};
+	// 				snapshot.forEach((item, index) => {
+	// 					let data = {
+	// 						key: index,
+	// 						image: item.val().image,
+	// 						titulo: item.val().titulo,
+	// 						preco: item.val().preco,
+	// 						desc: item.val().desc,
+	// 						details: item.val().imgageDetails[0],
+	// 					};
 
-						setProdutos((oldArray) => [...oldArray, data]);
-					});
-				});
-			setLoading(false);
-		};
+	// 					setProdutos((oldArray) => [...oldArray, data]);
+	// 				});
+	// 			});
+	// 		setLoading(false);
+	// 	};
 
-		LoadProdutos();
-	}, []);
+	// 	LoadProdutos();
+	// }, []);
 
 	const [fontsLoaded] = useFonts({
 		Inter_400Regular,
