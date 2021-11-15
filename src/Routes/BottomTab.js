@@ -15,6 +15,8 @@ const Tab = createMaterialBottomTabNavigator();
 const BottomTab = ({data}) => {
 	const [logado, setLogado] = useState(false);
 
+	const [ carrinho, setCarrinho ] = useState(0);
+
 	let nome = "Pablo";
 
 	return (
@@ -33,9 +35,7 @@ const BottomTab = ({data}) => {
 		>
 			<Tab.Screen
 				name="StacKRoutes"
-				component={(props) => (
-					<StackRoutes {...props} data={data} />
-				)}
+				component={(props) => <StackRoutes {...props} data={data} />}
 				options={{
 					tabBarLabel: "Home",
 					tabBarIcon: ({ focused, color }) => (
@@ -90,7 +90,9 @@ const BottomTab = ({data}) => {
 
 			<Tab.Screen
 				name="MyBag"
-				component={ShoppingCar}
+				component={(props) => (
+					<ShoppingCar {...props} setCarrinho={setCarrinho}/>
+				)}
 				options={{
 					tabBarLabel: "Carrinho",
 					tabBarIcon: ({ focused, color }) => (
@@ -100,7 +102,7 @@ const BottomTab = ({data}) => {
 							color={color}
 						/>
 					),
-					tabBarBadge: 2,
+					tabBarBadge: (carrinho === 0 ) ? false : carrinho,
 				}}
 			/>
 		</Tab.Navigator>

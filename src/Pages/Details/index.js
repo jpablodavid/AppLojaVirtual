@@ -11,7 +11,7 @@ import ButtonMain from "../../components/ButtonMain";
 import Carousel from "../../components/Carousel";
 
 const Details = ({ route }) => {
-	const { image, titulo, preco, descricao, details } = route.params;
+	const { image, titulo, preco, descricao, details , quantidade} = route.params;
 
 	const navigation = useNavigation();
 
@@ -28,6 +28,7 @@ const Details = ({ route }) => {
 			preco: preco,
 			size: size,
 			quantidade: quantidade,
+			valorTotal: preco * quantidade,
 		});
 		navigation.navigate("MyBag");
 	};
@@ -61,7 +62,7 @@ const Details = ({ route }) => {
 					}}
 				>
 					<Text style={{ color: `${theme.colors.primary}` }}>{titulo}</Text>
-					<Text style={{ fontWeight: "bold" }}>R$ {preco}</Text>
+					<Text style={{ fontWeight: "bold" }}>R$ {preco.toFixed(2)}</Text>
 				</View>
 				<View
 					style={{

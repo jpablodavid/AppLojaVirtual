@@ -32,6 +32,7 @@ const ItemProdutos = ({ image, preco, titulo, size, descricao, details}) => {
 			preco: preco,
 			size: size,
 			quantidade: quantidade,
+			valorTotal: preco * quantidade,
 		});
 		navigation.navigate("MyBag");
 	}

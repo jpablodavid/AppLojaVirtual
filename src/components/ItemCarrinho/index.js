@@ -6,29 +6,21 @@ import firebase from "../../firebaseConnection";
 
 import { theme } from "../../global/styles/theme";
 
-const ItemCarrinho = ({ data, deleteItem, calculaTotal, quant}) => {
-	const {key, image, titulo, preco, size } = data;
+const ItemCarrinho = ({ data, deleteItem}) => {
+	const { key, image, titulo, preco, size, quantidade, valorTotal } = data;
 
 	const [tamanho, setTamanho] = useState(size);
 
-	const [quantidade, setQuantidade] = useState(quant);
-
-	const [precoFinal, setPrecoFinal] = useState(preco);
-
 	const updateQuantidade = async (quantidade) => {
+		
 		await firebase
 			.database()
 			.ref("carrinho")
 			.child(key)
 			.update({
 				quantidade: quantidade,
+				valorTotal: preco * quantidade,
 			});
-	};
-
-	const showPreco = (precoFinal, quantidade) => {
-		let valor = preco * quantidade;
-		calculaTotal(valor);
-		return valor;
 	};
 
 	return (
@@ -67,8 +59,6 @@ const ItemCarrinho = ({ data, deleteItem, calculaTotal, quant}) => {
 							if (quantidade <= 1) {
 								deleteItem();
 							} else {
-								setQuantidade(quantidade - 1);
-								setPrecoFinal(preco * quantidade);
 								updateQuantidade(quantidade - 1);
 							}
 						}}
@@ -92,8 +82,6 @@ const ItemCarrinho = ({ data, deleteItem, calculaTotal, quant}) => {
 					</Text>
 					<TouchableOpacity
 						onPress={() => {
-							setQuantidade(quantidade + 1);
-							setPrecoFinal(preco * quantidade);
 							updateQuantidade(quantidade + 1);
 						}}
 					>
@@ -120,7 +108,7 @@ const ItemCarrinho = ({ data, deleteItem, calculaTotal, quant}) => {
 					fontSize: 16,
 				}}
 			>
-				R$ {showPreco(precoFinal, quantidade).toFixed(2)}
+				R$ {valorTotal.toFixed(2)}
 			</Text>
 		</View>
 	);

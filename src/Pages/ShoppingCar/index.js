@@ -10,15 +10,12 @@ import Header from "../../components/Header";
 import ButtonMain from "../../components/ButtonMain";
 import ItemCarrinho from "../../components/ItemCarrinho";
 
-const ShoppingCar = () => {
+const ShoppingCar = ({ setCarrinho }) => {
 	const navigation = useNavigation();
 
 	const [carShop, setCarShop] = useState([]);
 
-	const [valorCompra, setValorCompra] = useState(0);
-
 	const [loading, setLoading] = useState(true);
-
 
 	useEffect(() => {
 		const LoadCarShop = async () => {
@@ -35,7 +32,8 @@ const ShoppingCar = () => {
 							titulo: item.val().titulo,
 							preco: item.val().preco,
 							size: item.val().size,
-							quantidade: item.val().quantidade
+							quantidade: item.val().quantidade,
+							valorTotal: item.val().valorTotal,
 						};
 
 						setCarShop((oldArray) => [...oldArray, data]);
@@ -46,18 +44,26 @@ const ShoppingCar = () => {
 
 		LoadCarShop();
 	}, []);
- 
-	var ValorDeTodosItems = [];
-	var valorTotal = 0;
-
-	const calculaTotal = (valor) => {
-		ValorDeTodosItems.push(valor);
-		ValorDeTodosItems.forEach(item => valorTotal += item);
-		setValorCompra(valorTotal);
-	};
 
 	const carShopDelete = async (key) => {
 		await firebase.database().ref("carrinho").child(key).remove();
+	};
+
+	const carShopNumeroItens = () => {
+		let totalItens = 0;
+		carShop.forEach((item) => {
+			totalItens += item.quantidade;
+		});
+		setCarrinho(totalItens);
+		return totalItens;
+	};
+
+	const carShopValorTotalItens = () => {
+		let totalValorItens = 0;
+		carShop.forEach((item) => {
+			totalValorItens += item.valorTotal;
+		});
+		return totalValorItens;
 	};
 
 	if (loading) {
@@ -98,7 +104,6 @@ const ShoppingCar = () => {
 									data={item}
 									key={item.key}
 									deleteItem={() => carShopDelete(item.key)}
-									calculaTotal={calculaTotal}
 									quant={item.quantidade}
 								/>
 							)}
@@ -111,8 +116,8 @@ const ShoppingCar = () => {
 							}}
 						>
 							<View>
-								<Text>Numero de items: {carShop.length}</Text>
-								<Text>Total: R$ {valorCompra.toFixed(2)}</Text>
+								<Text>Numero de items: {carShopNumeroItens()}</Text>
+								<Text>Total: R$ {carShopValorTotalItens().toFixed(2)}</Text>
 							</View>
 							<View>
 								<ButtonMain
