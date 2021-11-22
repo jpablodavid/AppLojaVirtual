@@ -13,6 +13,6 @@ export const Title = styled.Text`
 `;
 
 
-export const ProdutosContainer = styled.FlatList`
+export const ContainerProdutos = styled.ScrollView`
 	flex: 1;
 `;

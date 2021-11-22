@@ -1,6 +1,5 @@
 import React from "react";
-import { Container } from "./styles";
-import { View , ScrollView} from "react-native";
+import { Container, ContainerProdutos, ViewSlider} from "./styles";
 import { useNavigation } from "@react-navigation/native";
 
 import Header from "../../components/Header";
@@ -14,13 +13,14 @@ const Home = ({dataHome}) => {
 	return (
 		<Container>
 			<Header back={false} />
-			<View>
+			<ViewSlider>
+				
 				<Slider />
-			</View>
-
-			<ScrollView showsHorizontalScrollIndicator={false} style={{ flex: 1 }}>
+				
+			</ViewSlider>
+			<ContainerProdutos showsHorizontalScrollIndicator={false}>
 				<ProdutosView data={dataHome} />
-			</ScrollView>
+			</ContainerProdutos>
 		</Container>
 	);
 };

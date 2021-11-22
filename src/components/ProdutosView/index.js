@@ -1,7 +1,6 @@
 import React from "react";
-import { ProdutosContainer } from "./styles";
+import { ContainerProdutos, ContainerItem } from "./styles";
 import { useNavigation } from "@react-navigation/native";
-import { View } from "react-native";
 
 import ItemProdutos from "../ItemProdutos";
 
@@ -9,10 +8,10 @@ const ProdutosView = ({ data }) => {
 	const navigation = useNavigation();
 
 	return (
-		<ProdutosContainer>
+		<ContainerProdutos>
 			{data.map((item) => {
 				return (
-					<View style={{width: '50%'}}>
+					<ContainerItem>
 						<ItemProdutos
 							image={{
 								uri: `${item.image}`,
@@ -23,10 +22,10 @@ const ProdutosView = ({ data }) => {
 							details={item.details}
 							size={item.size}
 						/>
-					</View>
+					</ContainerItem>
 				);
 			})}
-		</ProdutosContainer>
+		</ContainerProdutos>
 	);
 };
 

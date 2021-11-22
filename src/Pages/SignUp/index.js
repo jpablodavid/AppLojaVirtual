@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from "react";
-import {
-	Text,
-	View,
-	Animated,
-	Keyboard,
-	TouchableOpacity,
-} from "react-native";
+import { Text, Animated, Keyboard } from "react-native";
 import {
 	Bg,
 	ContainerLogo,
 	Input,
-	TextBtn
+	ButtonSign,
+	TextBtn,
+	TextPadrao,
+	ContainerLogin,
+	ContainerSign,
 } from "./styles";
 import { useNavigation } from "@react-navigation/native";
 
@@ -20,13 +18,12 @@ import { theme } from "../../global/styles/theme";
 
 import ButtonMain from "../../components/ButtonMain";
 
-
 const SignUp = () => {
 	const navigation = useNavigation();
 
 	const [offset] = useState(new Animated.ValueXY({ x: 0, y: 90 }));
 	const [opacity] = useState(new Animated.Value(0));
-	const [logo] = useState(new Animated.ValueXY({ x: 130, y: 155 }));
+	const [logo] = useState(new Animated.ValueXY({ x: 130, y: 400 }));
 
 	useEffect(() => {
 		const KeyboardShow = Keyboard.addListener("keybordShow", KeyboardShow);
@@ -84,7 +81,8 @@ const SignUp = () => {
 				//alert('usuario criado' + value.user.email);
 				let uid = value.user.uid;
 				let email = value.user.email;
-				navigation.navigate("Cadastro", { uid, email });
+				//let senha = value.user.senha;
+				navigation.navigate("Cadastro", { uid, email, senha});
 			})
 			.catch((error) => {
 				if (error.code === "auth/weak-password") {
@@ -99,7 +97,6 @@ const SignUp = () => {
 					return;
 				}
 			});
-
 	};
 
 	return (
@@ -115,8 +112,8 @@ const SignUp = () => {
 				style={{
 					flex: 0.6,
 					justifyContent: "space-around",
-					width: "100%",
 					opacity: opacity,
+					alignItems: "center",
 					transform: [
 						{
 							translateY: offset.y,
@@ -124,50 +121,45 @@ const SignUp = () => {
 					],
 				}}
 			>
-				<View style={{ alignItems: "center" }}>
-					<Input
-						placeholder="Email"
-						autoCorrect={false}
-						onChangeText={(text) => setEmail(text)}
-						value={email}
-					/>
-					<Input
-						placeholder="Senha"
-						autoCorrect={false}
-						onChangeText={(text) => setSenha(text)}
-						value={senha}
-					/>
-				</View>
+				<Input
+					placeholder="Email"
+					autoCorrect={false}
+					onChangeText={(text) => setEmail(text)}
+					value={email}
+				/>
+				<Input
+					placeholder="Senha"
+					autoCorrect={false}
+					onChangeText={(text) => setSenha(text)}
+					value={senha}
+				/>
 
-				<View style={{paddingHorizontal: 25}}>
+				<ContainerLogin>
 					<ButtonMain
 						height={40}
-						width="100%"
+						width={250}
 						backgroundColor={`${theme.colors.primary}`}
 						text="Sign Up"
 						textColor={`${theme.colors.secondary}`}
 						borderWidth={1}
 						onPress={cadastrar}
 					/>
-				</View>
-				
 
-				<View
-					style={{
-						flexDirection: "row",
-						justifyContent: "center",
-						alignItems: "center",
-					}}
-				>
-					<Text>Já Sou cadastrado </Text>
-					<TouchableOpacity onPress={() => navigation.navigate("SignIn")}>
-						<TextBtn>Sing In</TextBtn>
-					</TouchableOpacity>
-				</View>
+					<ContainerSign
+						style={{
+							flexDirection: "row",
+							justifyContent: "center",
+						}}
+					>
+						<TextPadrao>Já Sou cadastrado </TextPadrao>
+						<ButtonSign onPress={() => navigation.navigate("SignIn")}>
+							<TextBtn>Sing In</TextBtn>
+						</ButtonSign>
+					</ContainerSign>
+				</ContainerLogin>
 			</Animated.View>
 		</Bg>
 	);
 };
-
 
 export default SignUp;

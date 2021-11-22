@@ -27,12 +27,13 @@ const Slider = () => {
 				</TouchableOpacity>
 				<Text
 					style={{
-						fontSize: 20,
+						fontSize: 28,
 						color: `${theme.colors.primary}`,
 						fontWeight: "bold",
 						position: "absolute",
 						left: 10,
 						top: 10,
+						fontFamily: `${theme.fonts.title700}`
 					}}
 				>
 					{item.title}
@@ -42,7 +43,8 @@ const Slider = () => {
 						color: `${theme.colors.primary}`,
 						position: "absolute",
 						left: 15,
-						top: 35,
+						top: 40,
+						fontFamily: `${theme.fonts.text500}`
 					}}
 				>
 					{item.desc}

@@ -1,16 +1,10 @@
 import React, { useRef } from "react";
-import {
-	Image,
-	View,
-	Dimensions,
-	StyleSheet,
-	Animated,
-} from "react-native";
+import { Image, View, Dimensions, StyleSheet, Animated } from "react-native";
 
 const { width, height } = Dimensions.get("screen");
 
 const ITEM_WIDTH = width;
-const ITEM_HEIGHT = height * 0.50;
+const ITEM_HEIGHT = height * 0.45;
 
 const DOT_SIZE = 8;
 const DOT_SPACING = 8;
@@ -20,12 +14,7 @@ const Carousel = ({ images }) => {
 	const scrolly = useRef(new Animated.Value(0)).current;
 
 	return (
-		<View
-			style={
-				{ height: ITEM_HEIGHT, overflow: "hidden" }
-					
-			}
-		>
+		<View style={{ height: ITEM_HEIGHT, overflow: "hidden" }}>
 			<Animated.FlatList
 				data={images}
 				keyExtractor={(_, index) => index.toString()}
@@ -33,42 +22,41 @@ const Carousel = ({ images }) => {
 				decelerationRate="fast"
 				showsVerticalScrollIndicator={false}
 				bounces={false}
-				onScroll={Animated.event(
-					[{ nativeEvent: { contentOffset: { y: scrolly } } }]
-				)}
+				onScroll={Animated.event([
+					{ nativeEvent: { contentOffset: { y: scrolly } } },
+				])}
 				renderItem={({ item, index }) => {
 					return (
 						<View>
-							<Image key={index} source={{ uri: `${item}` }} 
-                            style={styles.image} />
+							<Image
+								key={index}
+								source={{ uri: `${item}` }}
+								style={styles.image}
+							/>
 						</View>
 					);
 				}}
 			/>
-			<View
-				style={styles.pagination
-				}
-			>
+			<View style={styles.pagination}>
 				{images.map((_, index) => {
 					return <View key={index} style={[styles.dot]} />;
 				})}
 				<Animated.View
-					style={[styles.dotIndicator,
-						
-							
-                            {
-                                transform: [
-                                    {
-                                        translateY: Animated.divide(
-                                            scrolly,
-                                            ITEM_HEIGHT
-                                        ).interpolate({
-                                            inputRange: [0, 1],
-                                            outputRange: [0, DOT_INDICATOR_SIZE],
-                                        }),
-                                    },
-                                ],
-							}
+					style={[
+						styles.dotIndicator,
+
+						{
+							transform: [
+								{
+									translateY: Animated.divide(scrolly, ITEM_HEIGHT).interpolate(
+										{
+											inputRange: [0, 1],
+											outputRange: [0, DOT_INDICATOR_SIZE],
+										}
+									),
+								},
+							],
+						},
 					]}
 				/>
 			</View>

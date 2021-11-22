@@ -1,10 +1,7 @@
 import React from "react";
-import { ScrollView } from "react-native";
-import { Container } from "./styles";
-
+import { Container, ContainerProdutos } from "./styles";
 import Header from "../../components/Header";
 import ProdutosView from "../../components/ProdutosView";
-
 
 
 const Outlet = ({ dataOutlet }) => {
@@ -13,9 +10,9 @@ const Outlet = ({ dataOutlet }) => {
 		<Container>
 			<Header back={true} titulo={"Outlet"} />
 
-			<ScrollView showsHorizontalScrollIndicator={false} style={{ flex: 1 }}>
+			<ContainerProdutos showsHorizontalScrollIndicator={false}>
 				<ProdutosView data={dataOutlet} />
-			</ScrollView>
+			</ContainerProdutos>
 		</Container>
 	);
 };

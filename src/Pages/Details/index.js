@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { Image, ScrollView, Text, View } from "react-native";
+import {
+	Container,
+	ContainerInfo,
+	ViewItem,
+	Title,
+	TextBold,
+	ViewSize,
+	ViewButton,
+} from "./styles";
 import { Picker } from "@react-native-picker/picker";
 import { useNavigation } from "@react-navigation/native";
 import firebase from "../../firebaseConnection";
@@ -11,7 +19,7 @@ import ButtonMain from "../../components/ButtonMain";
 import Carousel from "../../components/Carousel";
 
 const Details = ({ route }) => {
-	const { image, titulo, preco, descricao, details , quantidade} = route.params;
+	const { image, titulo, preco, descricao, details, quantidade } = route.params;
 
 	const navigation = useNavigation();
 
@@ -35,45 +43,33 @@ const Details = ({ route }) => {
 
 	const images = [];
 
-  	// details.ProductImages.forEach((item) => {
+	// details.ProductImages.forEach((item) => {
 	// 	images.push(item);
 	// });
 	details.forEach((item) => {
-	 	images.push(item);
+		images.push(item);
 	});
 
 	//acertando a descrição
 	// let descri = descricao.split("A");
 	// let desc = descri[1].split('.');
-    let desc = descricao;
+	let desc = descricao;
 
 	return (
-		<View style={{ flex: 1, backgroundColor: `${theme.colors.tertiary}` }}>
+		<Container>
 			<Header back={true} titulo={"Detalhes"} />
-			<View>
-				<Carousel images={images} />
-			</View>
-			<ScrollView showsHorizontalScrollIndicator={false}>
-				<View
-					style={{
-						padding: 10,
-						borderBottomWidth: 1,
-						borderBottomColor: `${theme.colors.primary}`,
-					}}
-				>
-					<Text style={{ color: `${theme.colors.primary}` }}>{titulo}</Text>
-					<Text style={{ fontWeight: "bold" }}>R$ {preco.toFixed(2)}</Text>
-				</View>
-				<View
-					style={{
-						flexDirection: "row",
-						justifyContent: "space-between",
-						padding: 10,
-						borderBottomWidth: 1,
-						borderBottomColor: `${theme.colors.primary}`,
-					}}
-				>
-					<Text style={{ color: `${theme.colors.primary}` }}>Tamanho</Text>
+
+			
+			<Carousel images={images} />
+			
+
+			<ContainerInfo showsHorizontalScrollIndicator={false}>
+				<ViewItem>
+					<Title>{titulo}</Title>
+					<TextBold>R$ {preco.toFixed(2)}</TextBold>
+				</ViewItem>
+				<ViewSize>
+					<Title>Tamanho:</Title>
 					<Picker
 						style={{
 							border: "none",
@@ -83,41 +79,29 @@ const Details = ({ route }) => {
 						selectedValue={size}
 						onValueChange={(itemValue, itemIndex) => setSize(itemValue)}
 					>
-						<Picker.Item label="P" value="Pequeno" />
-						<Picker.Item label="M" value="Medio" />
-						<Picker.Item label="G" value="Grande" />
+						<Picker.Item label="P" value="P" />
+						<Picker.Item label="M" value="M" />
+						<Picker.Item label="G" value="G" />
 					</Picker>
-				</View>
+				</ViewSize>
 
-				<View
-					style={{
-						padding: 10,
-						borderBottomWidth: 1,
-						borderBottomColor: "#555",
-					}}
-				>
-					<Text style={{ color: `${theme.colors.primary}` }}>Descriçao:</Text>
-					<Text>{desc[0]}</Text>
-				</View>
-				<View
-					style={{
-						justifyContent: "center",
-						paddingVertical: 18,
-						paddingHorizontal: 40,
-					}}
-				>
-					<ButtonMain
-						height={40}
-						width="100%"
-						backgroundColor={`${theme.colors.secondary}`}
-						text="Adicionar ao Carinho"
-						textColor={`${theme.colors.primary}`}
-						borderWidth={1}
-						onPress={() => carShopAdd(image, titulo, preco, size, quantidade)}
-					/>
-				</View>
-			</ScrollView>
-		</View>
+				<ViewItem>
+					<Title>Descriçao:</Title>
+					<TextBold>{desc[0]}</TextBold>
+				</ViewItem>
+			</ContainerInfo>
+			<ViewButton>
+				<ButtonMain
+					height={40}
+					width="100%"
+					backgroundColor={`${theme.colors.secondary}`}
+					text="Adicionar ao Carinho"
+					textColor={`${theme.colors.primary}`}
+					borderWidth={1}
+					onPress={() => carShopAdd(image, titulo, preco, size, quantidade)}
+				/>
+			</ViewButton>
+		</Container>
 	);
 };
 

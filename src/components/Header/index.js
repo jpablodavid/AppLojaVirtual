@@ -1,10 +1,7 @@
 import React, { useState } from "react";
 import { Feather } from "@expo/vector-icons";
-import { Container, MenuButton, Title, SearchButton } from "./styles";
+import { Container, ViewHeader, ViewSearch, InputSearch, MenuButton, Title, SearchButton, Logo, Marca } from "./styles";
 import { useNavigation } from "@react-navigation/native";
-import { Image, View, Text, TextInput } from "react-native";
-
-import { theme } from "../../global/styles/theme";
 
 
 const Header = ({ back, titulo }) => {
@@ -16,75 +13,51 @@ const Header = ({ back, titulo }) => {
 	return (
 		<Container>
 			{back ? (
-				<View style={{width: '90%'}}>
+				<ViewHeader>
 					{searchVisible ? (
-						<View style={{ flexDirection: "row", alignItems: "center" }}>
+						<ViewSearch>
 							<MenuButton onPress={() => setSearchVisible(false)}>
 								<Feather name="arrow-left" size={24} color="#fbf7e4" />
 							</MenuButton>
-							<TextInput
+							<InputSearch
 								placeholder="Pesquisar"
 								autoCorrect={false}
 								onChangeText={() => {}}
-								style={{
-									backgroundColor: "rgba(100, 100, 100, 0.7)",
-									width: "100%",
-									fontSize: 16,
-									borderRadius: 7,
-									padding: 5,
-									marginLeft: 20,
-								}}
 							/>
-						</View>
+						</ViewSearch>
 					) : (
-						<View style={{ flexDirection: "row", alignItems: "center" }}>
+						<ViewSearch>
 							<MenuButton onPress={() => navigation.goBack()}>
 								<Feather name="arrow-left" size={24} color="#fbf7e4" />
 							</MenuButton>
-							<Title style={{ marginLeft: 10 }}>{titulo}</Title>
-						</View>
+							<Title>{titulo}</Title>
+						</ViewSearch>
 					)}
-				</View>
+				</ViewHeader>
 			) : (
-				<View style={{ width: "90%" }}>
+				<ViewHeader>
 					{searchVisible ? (
-						<View style={{ flexDirection: "row", alignItems: "center" }}>
+						<ViewSearch>
 							<MenuButton onPress={() => setSearchVisible(false)}>
 								<Feather name="arrow-left" size={24} color="#fbf7e4" />
 							</MenuButton>
-							<TextInput
+							<InputSearch
 								placeholder="Pesquisar"
 								autoCorrect={false}
 								onChangeText={() => {}}
-								style={{
-									backgroundColor: "rgba(100, 100, 100, 0.7)",
-									width: "100%",
-									fontSize: 16,
-									borderRadius: 7,
-									padding: 5,
-									marginLeft: 20,
-								}}
 							/>
-						</View>
+						</ViewSearch>
 					) : (
-						<View style={{ flexDirection: "row", alignItems: "center" }}>
-							<Image
-								style={{ width: 50, height: 50 }}
-								source={require("../../assets/logo1.png")}
+						<ViewSearch>
+							<Logo
+								source={require("../../assets/logo.png")}
 							/>
-							<Text
-								style={{
-									color: `${theme.colors.secondary}`,
-									fontSize: 28,
-									fontWeight: " bold",
-									marginLeft: 20,
-								}}
-							>
+							<Marca>
 								HARMONI
-							</Text>
-						</View>
+							</Marca>
+						</ViewSearch>
 					)}
-				</View>
+				</ViewHeader>
 			)}
 
 			<SearchButton onPress={() => setSearchVisible(!searchVisible)}>

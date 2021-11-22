@@ -1,6 +1,5 @@
 import React from "react";
-import { ScrollView } from "react-native";
-import { Container } from "./styles";
+import { Container, ContainerProdutos } from "./styles";
 
 
 import Header from "../../components/Header";
@@ -12,9 +11,9 @@ const Lancamentos = ({ dataLancamentos }) => {
 		<Container>
 			<Header back={true} titulo={"Lancamentos"} />
 
-			<ScrollView showsHorizontalScrollIndicator={false} style={{ flex: 1 }}>
+			<ContainerProdutos showsHorizontalScrollIndicator={false}>
 				<ProdutosView data={dataLancamentos} />
-			</ScrollView>
+			</ContainerProdutos>
 		</Container>
 	);
 };

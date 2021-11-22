@@ -1,176 +1,111 @@
 import React, { useState } from "react";
-import { View, TextInput } from "react-native";
-import firebase from '../../firebaseConnection';
+import { Container, ContainerButton, ContainerCadastro } from "./styles";
+import firebase from "../../firebaseConnection";
 import { useNavigation } from "@react-navigation/native";
 
 import { theme } from "../../global/styles/theme";
 
 import Header from "../../components/Header";
 import ButtonMain from "../../components/ButtonMain";
+import ItemCadastro from "../../components/ItemCadastro";
 
-const Cadastro = ({route , setLogado}) => {
-
+const Cadastro = ({ route, setLogado, setUsuario }) => {
 	const navigation = useNavigation();
 
-	const {uid, email} = route.params;
+	const { uid, email , senha} = route.params;
 
 	const [nome, setNome] = useState("");
+	const [avatar, setAvatar] = useState();
 	const [cpf, setCpf] = useState("");
 	const [nasc, setNasc] = useState("");
 	const [tel, setTel] = useState("");
 	const [cep, setCep] = useState("");
 	const [endereco, setEndereco] = useState([]);
 
-	const criarUsuario = async () =>{
-		await firebase.database().ref("usuarios").child(uid).set({
-			nome: nome,
-			email: email,
-			cpf: cpf,
-			dataNascimento: nasc,
-			telefone: tel,
-			cep: cep,
-			endereco: endereco
-		}).catch((error) => {alert(error)});
-		alert('Bem-vindo ' + nome)
-		setLogado(true);
-		
-		navigation.navigate("Home");
+	const LoadUsuario = async (uid) => {
+		await firebase
+			.database()
+			.ref("usuarios")
+			.once("value", (snapshot) => {
+				setUsuario({}); // ou key
+				snapshot.forEach((item) => {
+					let user = {
+						uid: item.key,
+						cep: item.val().cep,
+						cpf: item.val().cpf,
+						dataNascimento: item.val().dataNascimento,
+						email: item.val().email,
+						endereco: item.val().endereco,
+						nome: item.val().nome,
+						avatar: item.val().avatar,
+						telefone: item.val().telefone,
+					};
+					setUsuario(user);
+				});
+			});
+	};
 
+	const criarUsuario = async () => {
+		await firebase
+			.database()
+			.ref("usuarios")
+			.child(uid)
+			.set({
+				nome: nome,
+				avatar: avatar,
+				email: email,
+				cpf: cpf,
+				dataNascimento: nasc,
+				telefone: tel,
+				cep: cep,
+				endereco: endereco,
+			})
+			.catch((error) => {
+				alert(error);
+			});
+		alert("Bem-vindo " + nome);
+
+		await firebase
+			.auth()
+			.signInWithEmailAndPassword(email, senha)
+			.then((value) => {
+				LoadUsuario(value.user.uid);
+				setLogado(true);
+				navigation.navigate("Home");
+			})
+			.catch((error) => {
+				alert(error);
+			});
 	};
 
 	return (
-		<View style={{ flex: 1, backgroundColor: `${theme.colors.tertiary}` }}>
+		<Container>
 			<Header back={true} titulo={"Cadastro"} />
 
-			<View style={{ flex: 1 }}>
-				<View
-					style={{
-						height: 70,
-						borderBottomWidth: 1,
-						borderColor: `${theme.colors.primary}`,
-						justifyContent: "center",
-						padding: 20,
-					}}
-				>
-					<TextInput
-						style={{
-							fontSize: 17,
-							borderRadius: 7,
-							padding: 10,
-						}}
-						placeholder="Nome"
-						autoCorrect={false}
-						onChangeText={(text) => setNome(text)}
-						value={nome}
-					/>
-				</View>
-				<View
-					style={{
-						height: 70,
-						borderBottomWidth: 1,
-						borderColor: `${theme.colors.primary}`,
-						justifyContent: "center",
-						padding: 20,
-					}}
-				>
-					<TextInput
-						style={{
-							fontSize: 17,
-							borderRadius: 18,
-							padding: 10,
-						}}
-						placeholder="CPF"
-						autoCorrect={false}
-						onChangeText={(text) => setCpf(text)}
-						value={cpf}
-					/>
-				</View>
-				<View
-					style={{
-						height: 70,
-						borderBottomWidth: 1,
-						borderColor: `${theme.colors.primary}`,
-						justifyContent: "center",
-						padding: 20,
-					}}
-				>
-					<TextInput
-						style={{
-							fontSize: 17,
-							borderRadius: 18,
-							padding: 10,
-						}}
-						placeholder="Data Nascimento"
-						autoCorrect={false}
-						onChangeText={(text) => setNasc(text)}
-						value={nasc}
-					/>
-				</View>
-				<View
-					style={{
-						height: 70,
-						borderBottomWidth: 1,
-						borderColor: `${theme.colors.primary}`,
-						justifyContent: "center",
-						padding: 20,
-					}}
-				>
-					<TextInput
-						style={{
-							fontSize: 17,
-							borderRadius: 18,
-							padding: 10,
-						}}
-						placeholder="Telefone"
-						autoCorrect={false}
-						onChangeText={(text) => setTel(text)}
-						value={tel}
-					/>
-				</View>
-				<View
-					style={{
-						height: 70,
-						borderBottomWidth: 1,
-						borderColor: `${theme.colors.primary}`,
-						justifyContent: "center",
-						padding: 20,
-					}}
-				>
-					<TextInput
-						style={{
-							fontSize: 17,
-							borderRadius: 18,
-							padding: 10,
-						}}
-						placeholder="CEP"
-						autoCorrect={false}
-						onChangeText={(text) => setCep(text)}
-						value={cep}
-					/>
-				</View>
-				<View
-					style={{
-						height: 70,
-						borderBottomWidth: 1,
-						borderColor: `${theme.colors.primary}`,
-						justifyContent: "center",
-						padding: 20,
-					}}
-				>
-					<TextInput
-						style={{
-							fontSize: 17,
-							borderRadius: 18,
-							padding: 10,
-						}}
-						placeholder="Endereço"
-						autoCorrect={false}
-						onChangeText={(text) => setEndereco(text)}
-						value={endereco}
-					/>
-				</View>
-			</View>
-			<View style={{ justifyContent: "center", padding: 30 }}>
+			<ContainerCadastro>
+				<ItemCadastro value={nome} placeHolder={"Nome"} onChange={setNome} />
+
+				<ItemCadastro value={avatar} placeHolder={"Avatar"} onChange={setAvatar} />
+
+				<ItemCadastro value={cpf} placeHolder={"CPF"} onChange={setCpf} />
+
+				<ItemCadastro
+					value={nasc}
+					placeHolder={"Data Nascimento"}
+					onChange={setNasc}
+				/>
+
+				<ItemCadastro value={tel} placeHolder={"Telefone"} onChange={setTel} />
+
+				<ItemCadastro value={cep} placeHolder={"CEP"} onChange={setCep} />
+
+				<ItemCadastro
+					value={endereco}
+					placeHolder={"Endereco"}
+					onChange={setEndereco}
+				/>
+			</ContainerCadastro>
+			<ContainerButton>
 				<ButtonMain
 					height={40}
 					width="100%"
@@ -180,8 +115,8 @@ const Cadastro = ({route , setLogado}) => {
 					borderWidth={1}
 					onPress={criarUsuario}
 				/>
-			</View>
-		</View>
+			</ContainerButton>
+		</Container>
 	);
 };
 

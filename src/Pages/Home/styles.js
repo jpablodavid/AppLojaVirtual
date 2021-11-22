@@ -7,6 +7,8 @@ export const Container = styled.SafeAreaView`
 	flex: 1;
 `;
 
-export const ProdutosContainer = styled.FlatList`
-	height: 250px;
+export const ContainerProdutos = styled.ScrollView`
+	flex: 1;
 `;
+
+export const ViewSlider = styled.View``;

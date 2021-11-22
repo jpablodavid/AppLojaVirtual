@@ -1,32 +1,20 @@
 import React, { useEffect, useState } from "react";
-import {
-	View,
-	StyleSheet,
-	Animated,
-	Keyboard,
-} from "react-native";
-import {
-	Bg,
-	ContainerLogo,
-	Input,
-	BtnRegister,
-	TextBtn,
-} from "./styles";
+import { Animated, Keyboard } from "react-native";
+import { Bg, ContainerLogo, Input, BtnRegister, TextBtn, ContainerLogin } from "./styles";
 import { useNavigation } from "@react-navigation/native";
 import firebase from "../../firebaseConnection";
 
 import { theme } from "../../global/styles/theme";
 
-import ButtonMain from '../../components/ButtonMain';
+import ButtonMain from "../../components/ButtonMain";
 
 
-const SignIn = ({setLogado}) => {
-
+const SignIn = ({ setLogado, setUsuario }) => {
 	const navigation = useNavigation();
 
 	const [offset] = useState(new Animated.ValueXY({ x: 0, y: 90 }));
 	const [opacity] = useState(new Animated.Value(0));
-	const [logo] = useState(new Animated.ValueXY({ x: 130, y: 155 }));
+	const [logo] = useState(new Animated.ValueXY({ x: 130, y: 400 }));
 
 	useEffect(() => {
 		const KeyboardShow = Keyboard.addListener("keybordShow", KeyboardShow);
@@ -43,7 +31,7 @@ const SignIn = ({setLogado}) => {
 				duration: 300,
 			}),
 		]).start();
-	},[]);//colocar alguma coisa que mude sempre que abre a tela
+	}, []); //colocar alguma coisa que mude sempre que abre a tela
 
 	const KeyboardShow = () => {
 		alert("teclado Aberto");
@@ -73,19 +61,46 @@ const SignIn = ({setLogado}) => {
 		]).start();
 	};
 
+	const LoadUsuario = async (uid) => {
+		await firebase
+			.database()
+			.ref("usuarios")
+			.once("value", (snapshot) => {
+				setUsuario({});
+				snapshot.forEach((item) => {
+					let user = {
+						uid: item.key,
+						cep: item.val().cep,
+						cpf: item.val().cpf,
+						dataNascimento: item.val().dataNascimento,
+						email: item.val().email,
+						endereco: item.val().endereco,
+						nome: item.val().nome,
+						avatar: item.val().avatar,
+						telefone: item.val().telefone,
+					};
+					setUsuario(user);
+				});
+			});
+	};
+
 	const [email, setEmail] = useState("");
 	const [senha, setSenha] = useState("");
 
 	const logar = async () => {
-		await firebase.auth().signInWithEmailAndPassword(email, senha).then((value) => {
-			alert('Bem vindo' + value.user.email);
-			setLogado(true);
-			navigation.navigate("Home");
-			
-		}).catch((error) => {
-			alert(error)
-		})
-	}
+		await firebase
+			.auth()
+			.signInWithEmailAndPassword(email, senha)
+			.then((value) => {
+				alert("Bem vindo" + value.user.uid);
+				LoadUsuario(value.user.uid);
+				setLogado(true);
+				navigation.navigate("Home");
+			})
+			.catch((error) => {
+				alert(error);
+			});	
+	};
 
 	return (
 		<Bg>
@@ -100,8 +115,8 @@ const SignIn = ({setLogado}) => {
 				style={{
 					flex: 0.6,
 					justifyContent: "space-around",
-					width: "100%",
 					opacity: opacity,
+					alignItems: "center",
 					transform: [
 						{
 							translateY: offset.y,
@@ -109,25 +124,23 @@ const SignIn = ({setLogado}) => {
 					],
 				}}
 			>
-				<View style={{ alignItems: "center" }}>
-					<Input
-						placeholder="Email"
-						autoCorrect={false}
-						onChangeText={(text) => setEmail(text)}
-						value={email}
-					/>
-					<Input
-						placeholder="Senha"
-						autoCorrect={false}
-						onChangeText={(text) => setSenha(text)}
-						value={senha}
-					/>
-				</View>
+				<Input
+					placeholder="Email"
+					autoCorrect={false}
+					onChangeText={(text) => setEmail(text)}
+					value={email}
+				/>
+				<Input
+					placeholder="Senha"
+					autoCorrect={false}
+					onChangeText={(text) => setSenha(text)}
+					value={senha}
+				/>
 
-				<View style={{paddingHorizontal:25}}>
+				<ContainerLogin>
 					<ButtonMain
 						height={40}
-						width='100%'
+						width={250}
 						backgroundColor={`${theme.colors.primary}`}
 						text="SignIn"
 						textColor={`${theme.colors.secondary}`}
@@ -135,32 +148,22 @@ const SignIn = ({setLogado}) => {
 						onPress={logar}
 					/>
 
-					<View style={{alignSelf:'center'}}>
-						<BtnRegister>
-							<TextBtn>Forgot Password?</TextBtn>
-						</BtnRegister>
-					</View>
+					<BtnRegister>
+						<TextBtn>Forgot Password?</TextBtn>
+					</BtnRegister>
 
 					<ButtonMain
 						height={40}
-						width="100%"
+						width={250}
 						text="SignUp"
 						textColor={`${theme.colors.primary}`}
 						borderWidth={1}
 						onPress={() => navigation.navigate("SignUp")}
 					/>
-				</View>
+				</ContainerLogin>
 			</Animated.View>
 		</Bg>
 	);
 };
 
-const styles = StyleSheet.create({
-	containerInputs: {
-		flex: 0.6,
-		alignItems: "center",
-		justifyContent: "center",
-		width: "90%",
-	},
-});
 export default SignIn;

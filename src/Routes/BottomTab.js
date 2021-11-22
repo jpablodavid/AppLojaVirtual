@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import firebase from "../firebaseConnection";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import Icon from "@expo/vector-icons/FontAwesome5";
 import { Linking } from "react-native";
@@ -9,20 +10,22 @@ import MyAccount from "../Pages/MyAccount";
 import ShoppingCar from "../Pages/ShoppingCar";
 import StackRoutes from "./StackRoutes";
 
-
 const Tab = createMaterialBottomTabNavigator();
 
-const BottomTab = ({data}) => {
+const BottomTab = ({ data, dataCarrinho , loading}) => {
+
 	const [logado, setLogado] = useState(false);
 
-	const [ carrinho, setCarrinho ] = useState(0);
+	const [usuario, setUsuario] = useState({});
 
-	let nome = "Pablo";
+	console.log(usuario);
+
+	let numeroDeItens = dataCarrinho.length;
 
 	return (
 		<Tab.Navigator
 			none={false}
-			initialRouteName="StackRoutes"
+			initialRouteName="Home"
 			labeled={true}
 			shifting={false}
 			sceneAnimationEnabled={true}
@@ -31,10 +34,11 @@ const BottomTab = ({data}) => {
 			barStyle={{
 				borderTopColor: "red",
 				backgroundColor: `${theme.colors.primary}`,
+				fontFamily: `${theme.fonts.text500}`,
 			}}
 		>
 			<Tab.Screen
-				name="StacKRoutes"
+				name="Home"
 				component={(props) => <StackRoutes {...props} data={data} />}
 				options={{
 					tabBarLabel: "Home",
@@ -46,10 +50,15 @@ const BottomTab = ({data}) => {
 			<Tab.Screen
 				name="MyAccount"
 				component={(props) => (
-					<MyAccount {...props} logado={logado} setLogado={setLogado} />
+					<MyAccount
+						{...props}
+						setLogado={setLogado}
+						setUsuario={setUsuario}
+						usuario={usuario}
+					/>
 				)}
 				options={{
-					tabBarLabel: logado ? `${nome}` : "Minha Conta",
+					tabBarLabel: logado ? `${usuario.nome}` : "Minha Conta",
 					tabBarIcon: ({ focused, color }) =>
 						logado ? (
 							<Icon name={focused ? "user" : "user"} size={24} color={color} />
@@ -66,7 +75,7 @@ const BottomTab = ({data}) => {
 			<Tab.Screen
 				name="Seguir"
 				component={() =>
-					Linking.canOpenURL("http://instagram.com/jpablodavid/")
+					Linking.canOpenURL("http://instagram.com/")
 						.then((supported) =>
 							Linking.openURL(
 								supported
@@ -74,7 +83,7 @@ const BottomTab = ({data}) => {
 									: "https://www.instagram.com/jpablodavid/"
 							)
 						)
-						.catch((err) => console.error("An error occurred", err))
+						.catch((erro) => console.error("An error occurred", erro))
 				}
 				options={{
 					tabBarLabel: "Siga-Nos",
@@ -90,9 +99,7 @@ const BottomTab = ({data}) => {
 
 			<Tab.Screen
 				name="MyBag"
-				component={(props) => (
-					<ShoppingCar {...props} setCarrinho={setCarrinho}/>
-				)}
+				component={(props) => <ShoppingCar {...props} data={dataCarrinho} loading={loading}/>}
 				options={{
 					tabBarLabel: "Carrinho",
 					tabBarIcon: ({ focused, color }) => (
@@ -102,7 +109,7 @@ const BottomTab = ({data}) => {
 							color={color}
 						/>
 					),
-					tabBarBadge: (carrinho === 0 ) ? false : carrinho,
+					tabBarBadge: numeroDeItens === 0 ? false : numeroDeItens,
 				}}
 			/>
 		</Tab.Navigator>

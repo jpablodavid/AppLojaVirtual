@@ -1,16 +1,18 @@
 import React from "react";
-import {
-	Text,
-	TouchableOpacity,
-	View,
-} from "react-native";
 import { useNavigation } from "@react-navigation/core";
-import firebase from '../../firebaseConnection';
-import { Container , ProdutoImage, ProdutoText, ProdutoPreco, BtnAdd} from "./styles";
+import firebase from "../../firebaseConnection";
+import {
+	Container,
+	ProdutoImage,
+	ProdutoText,
+	ProdutoPreco,
+	ButtonBasic,
+	ViewPreco,
+} from "./styles";
 
+import ButtonMain from '../ButtonMain';
 
-const ItemProdutos = ({ image, preco, titulo, size, descricao, details}) => {
-	
+const ItemProdutos = ({ image, preco, titulo, size, descricao, details }) => {
 	// const filterDesc = (titulo) => {
 	// 	if (titulo.length < 27) {
 	// 		return desc;
@@ -23,7 +25,7 @@ const ItemProdutos = ({ image, preco, titulo, size, descricao, details}) => {
 
 	const carShopAdd = async (image, titulo, preco, size, quantidade) => {
 		quantidade = 1;
-		let carrinho = await firebase.database().ref('carrinho');
+		let carrinho = await firebase.database().ref("carrinho");
 		let chave = carrinho.push().key;
 
 		carrinho.child(chave).set({
@@ -35,30 +37,37 @@ const ItemProdutos = ({ image, preco, titulo, size, descricao, details}) => {
 			valorTotal: preco * quantidade,
 		});
 		navigation.navigate("MyBag");
-	}
+	};
 
 	return (
 		<Container>
-			<TouchableOpacity
-				onPress={() =>
-					navigation.navigate("Details", { image, titulo, preco, descricao, details})
+			<ButtonBasic
+				onPress={
+					() => navigation.navigate("Details", {
+						image,
+						titulo,
+						preco,
+						descricao,
+						details,
+					})
 				}
 			>
-				<ProdutoImage source={image}/>
-			</TouchableOpacity>
+				<ProdutoImage source={image} />
+			</ButtonBasic>
 
-			<BtnAdd
+			<ButtonMain
+				height={35}
+				width={180}
+				text={"Adicionar"}
+				textColor={"#000"}
+				borderWidth={1}
 				onPress={() => carShopAdd(image, titulo, preco, size, quantidade)}
-			>
-				<Text>ADCIONAR</Text>
-			</BtnAdd>
+			/>
 
-			<ProdutoText numberOfLines={1}>
-				{titulo}
-			</ProdutoText>
-			<View opacity={0.4}>
+			<ProdutoText numberOfLines={1}>{titulo}</ProdutoText>
+			<ViewPreco opacity={0.4}>
 				<ProdutoPreco>R$ {preco.toFixed(2)}</ProdutoPreco>
-			</View>
+			</ViewPreco>
 		</Container>
 	);
 };

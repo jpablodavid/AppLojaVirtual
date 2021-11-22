@@ -5,7 +5,7 @@ import Home from "../Pages/Home";
 import Lancamentos from "../Pages/Lancamentos";
 import Outlet from "../Pages/Outlet";
 import Details from "../Pages/Details";
-import Envio_Pagamento from "../Pages/Envio&Pagamento";
+import EnvioPagamento from "../Pages/EnvioPagamento";
 
 const Stack = createNativeStackNavigator();
 
@@ -32,9 +32,7 @@ const StackRoutes = ({ data }) => {
 			/>
 			<Stack.Screen
 				name="Lancamentos"
-				component={(props) => (
-					<Lancamentos {...props} dataLancamentos={data} />
-				)}
+				component={(props) => <Lancamentos {...props} dataLancamentos={data} />}
 				options={{
 					headerShown: false,
 				}}
@@ -47,8 +45,8 @@ const StackRoutes = ({ data }) => {
 				}}
 			/>
 			<Stack.Screen
-				name="Envio_Pagamento"
-				component={Envio_Pagamento}
+				name="EnvioPagamento"
+				component={EnvioPagamento}
 				options={{
 					headerShown: false,
 				}}

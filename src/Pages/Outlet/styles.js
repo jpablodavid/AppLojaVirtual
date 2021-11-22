@@ -12,6 +12,6 @@ export const Title = styled.Text`
 	color: ${theme.colors.primary};
 `;
 
-export const ProdutosContainer = styled.FlatList`
-	height: 250px;
+export const ContainerProdutos = styled.ScrollView`
+	flex: 1;
 `;

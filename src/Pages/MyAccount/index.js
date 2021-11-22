@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import Settings from "../Settings";
@@ -8,14 +8,13 @@ import Cadastro from "../Cadastro";
 
 const Stack = createNativeStackNavigator();
 
-const MyAccount = ({logado, setLogado}) => {
-
+const MyAccount = ({ logado, setLogado, setUsuario, usuario}) => {
 	return (
 		<Stack.Navigator>
 			{logado ? (
 				<Stack.Screen
 					name="Settings"
-					component={(props) => <Settings {...props} setLogado={setLogado} />}
+					component={(props) => <Settings {...props} setLogado={setLogado} usuario={usuario}/>}
 					options={{
 						headerShown: false,
 					}}
@@ -24,7 +23,14 @@ const MyAccount = ({logado, setLogado}) => {
 				<>
 					<Stack.Screen
 						name="SignIn"
-						component={(props) => <SignIn {...props} setLogado={setLogado} />}
+						component={(props) => (
+							<SignIn
+								{...props}
+								setLogado={setLogado}
+								setUsuario={setUsuario}
+								
+							/>
+						)}
 						options={{
 							headerShown: false,
 						}}
@@ -38,7 +44,9 @@ const MyAccount = ({logado, setLogado}) => {
 					/>
 					<Stack.Screen
 						name="Cadastro"
-						component={(props) => <Cadastro {...props} setLogado={setLogado} />}
+						component={(props) => (
+							<Cadastro {...props} setLogado={setLogado} setUsuario={setUsuario} />
+						)}
 						options={{
 							headerShown: false,
 						}}

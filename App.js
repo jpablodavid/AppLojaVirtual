@@ -21,7 +21,7 @@ export default function App() {
 	
 	console.disableYellowBox = true;
 
-	const [loading, setLoading] = useState(false);
+	const [loading, setLoading] = useState(true);
 
 	//const [produtos, setProdutos] = useState([]);
 
@@ -30,7 +30,7 @@ export default function App() {
 	// 		await firebase
 	// 			.database()
 	// 			.ref("produtos")
-	// 			.on("value", (snapshot) => {
+	// 			.once("value", (snapshot) => {
 	// 				setProdutos([]);
 
 	// 				snapshot.forEach((item, index) => {
@@ -52,12 +52,46 @@ export default function App() {
 	// 	LoadProdutos();
 	// }, []);
 
+	const [carShop, setCarShop] = useState([]);
+
+	useEffect(() => {
+		const LoadCarShop = async () => {
+			await firebase
+				.database()
+				.ref("carrinho")
+				.on("value", (snapshot) => {
+					setCarShop([]);
+
+					snapshot.forEach((item) => {
+						let data = {
+							key: item.key,
+							image: item.val().image,
+							titulo: item.val().titulo,
+							preco: item.val().preco,
+							size: item.val().size,
+							quantidade: item.val().quantidade,
+							valorTotal: item.val().valorTotal,
+						};
+
+						setCarShop((oldArray) => [...oldArray, data]);
+					});
+				});
+
+				setLoading(false);
+
+		};
+		
+		LoadCarShop();
+		
+	}, []);
+
 	const [fontsLoaded] = useFonts({
 		Inter_400Regular,
 		Inter_500Medium,
 		Rajdhani_500Medium,
 		Rajdhani_700Bold,
 	});
+    
 
 	return (
 		<View style={{ flex: 1, justifyContent: "center" }}>
@@ -70,7 +104,7 @@ export default function App() {
 				<ActivityIndicator color={`${theme.colors.primary}`} size={60} />
 			) : (
 				<NavigationContainer>
-					<BottomTab data={produtos}/>
+					<BottomTab data={produtos} dataCarrinho={carShop} loading={loading} />
 				</NavigationContainer>
 			)}
 		</View>
