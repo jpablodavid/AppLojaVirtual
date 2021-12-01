@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import firebase from "../firebaseConnection";
+import React, { useState } from "react";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import Icon from "@expo/vector-icons/FontAwesome5";
 import { Linking } from "react-native";
@@ -12,20 +11,18 @@ import StackRoutes from "./StackRoutes";
 
 const Tab = createMaterialBottomTabNavigator();
 
-const BottomTab = ({ data, dataCarrinho , loading}) => {
+const BottomTab = ({ dataProduto, dataCarrinho , loading}) => {
 
 	const [logado, setLogado] = useState(false);
 
 	const [usuario, setUsuario] = useState({});
-
-	console.log(usuario);
 
 	let numeroDeItens = dataCarrinho.length;
 
 	return (
 		<Tab.Navigator
 			none={false}
-			initialRouteName="Home"
+			initialRouteName="StackRoutes"
 			labeled={true}
 			shifting={false}
 			sceneAnimationEnabled={true}
@@ -38,8 +35,10 @@ const BottomTab = ({ data, dataCarrinho , loading}) => {
 			}}
 		>
 			<Tab.Screen
-				name="Home"
-				component={(props) => <StackRoutes {...props} data={data} />}
+				name="StackRoutes"
+				component={(props) => (
+					<StackRoutes {...props} data={dataProduto} usuario={usuario} />
+				)}
 				options={{
 					tabBarLabel: "Home",
 					tabBarIcon: ({ focused, color }) => (
@@ -52,6 +51,7 @@ const BottomTab = ({ data, dataCarrinho , loading}) => {
 				component={(props) => (
 					<MyAccount
 						{...props}
+						logado={logado}
 						setLogado={setLogado}
 						setUsuario={setUsuario}
 						usuario={usuario}
@@ -75,12 +75,12 @@ const BottomTab = ({ data, dataCarrinho , loading}) => {
 			<Tab.Screen
 				name="Seguir"
 				component={() =>
-					Linking.canOpenURL("http://instagram.com/")
+					Linking.canOpenURL("http://github.com/")
 						.then((supported) =>
 							Linking.openURL(
 								supported
-									? "http://instagram.com/jpablodavid/"
-									: "https://www.instagram.com/jpablodavid/"
+									? "https://github.com/jpablodavid"
+									: "https://github.com/jpablodavid"
 							)
 						)
 						.catch((erro) => console.error("An error occurred", erro))
@@ -89,7 +89,7 @@ const BottomTab = ({ data, dataCarrinho , loading}) => {
 					tabBarLabel: "Siga-Nos",
 					tabBarIcon: ({ focused, color }) => (
 						<Icon
-							name={focused ? "instagram" : "instagram"}
+							name={focused ? "github" : "github"}
 							size={24}
 							color={color}
 						/>
@@ -99,7 +99,14 @@ const BottomTab = ({ data, dataCarrinho , loading}) => {
 
 			<Tab.Screen
 				name="MyBag"
-				component={(props) => <ShoppingCar {...props} data={dataCarrinho} loading={loading}/>}
+				component={(props) => (
+					<ShoppingCar
+						{...props}
+						data={dataCarrinho}
+						loading={loading}
+						logado={logado}
+					/>
+				)}
 				options={{
 					tabBarLabel: "Carrinho",
 					tabBarIcon: ({ focused, color }) => (

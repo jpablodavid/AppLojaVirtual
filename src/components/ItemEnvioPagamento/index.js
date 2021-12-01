@@ -8,7 +8,6 @@ import {
 	TextValor,
 	Tamanho,
 	ViewItens,
-	TextPadrao
 } from "./styles";
 
 
@@ -21,7 +20,7 @@ const ItemEnvioPagamento = ({ data }) => {
 			<ContainerCarrinho>
 				<Title>{titulo}</Title>
 
-				<Tamanho>Tamanho:{size}</Tamanho>
+				<Tamanho>Tamanho: {size}</Tamanho>
 
 				<ViewItens>
 					<TextQuantidade>Itens: {quantidade}</TextQuantidade>

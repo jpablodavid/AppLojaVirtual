@@ -12,19 +12,13 @@ import {
 
 import ButtonMain from '../ButtonMain';
 
-const ItemProdutos = ({ image, preco, titulo, size, descricao, details }) => {
-	// const filterDesc = (titulo) => {
-	// 	if (titulo.length < 27) {
-	// 		return desc;
-	// 	} else {
-	// 		return `${titulo.substring(0, 23)}...`;
-	// 	}
-	let quantidade;
+const ItemProdutos = ({ image, preco, titulo, descricao, details }) => {
 
 	const navigation = useNavigation();
 
-	const carShopAdd = async (image, titulo, preco, size, quantidade) => {
-		quantidade = 1;
+	const carShopAdd = async (image, titulo, preco) => {
+		let quantidade = 1;
+		let valorTotal = preco * quantidade;
 		let carrinho = await firebase.database().ref("carrinho");
 		let chave = carrinho.push().key;
 
@@ -32,9 +26,9 @@ const ItemProdutos = ({ image, preco, titulo, size, descricao, details }) => {
 			image: image,
 			titulo: titulo,
 			preco: preco,
-			size: size,
+			size: "P",
 			quantidade: quantidade,
-			valorTotal: preco * quantidade,
+			valorTotal: valorTotal,
 		});
 		navigation.navigate("MyBag");
 	};
@@ -42,8 +36,8 @@ const ItemProdutos = ({ image, preco, titulo, size, descricao, details }) => {
 	return (
 		<Container>
 			<ButtonBasic
-				onPress={
-					() => navigation.navigate("Details", {
+				onPress={() =>
+					navigation.navigate("Details", {
 						image,
 						titulo,
 						preco,
@@ -57,11 +51,11 @@ const ItemProdutos = ({ image, preco, titulo, size, descricao, details }) => {
 
 			<ButtonMain
 				height={35}
-				width={180}
+				width={150}
 				text={"Adicionar"}
 				textColor={"#000"}
 				borderWidth={1}
-				onPress={() => carShopAdd(image, titulo, preco, size, quantidade)}
+				onPress={() => carShopAdd(image, titulo, preco)}
 			/>
 
 			<ProdutoText numberOfLines={1}>{titulo}</ProdutoText>

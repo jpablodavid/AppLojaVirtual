@@ -10,7 +10,7 @@ export const Container = styled.View`
 `;
 
 export const ProdutoImage = styled.Image`
-	width: 180px;
+	width: 150px;
 	height: 150px;
 `;
 
@@ -19,6 +19,8 @@ export const TextButton = styled.Text`
 `;
 
 export const ProdutoText = styled.Text`
+	text-align: center;
+	width: 150px;
 	font-size: 16px;
 	color: ${theme.colors.primary};
 	font-family: ${theme.fonts.title500};
@@ -33,7 +35,7 @@ export const ProdutoPreco = styled.Text`
 export const BtnAdd = styled.TouchableOpacity`
 	margin-bottom: 5px;
 	margin-top: 5px;
-	width: 180px;
+	width: 100%;
 	padding: 5px;
 	border-width: 1px;
 	border-color: "#000";

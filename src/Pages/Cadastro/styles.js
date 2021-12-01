@@ -7,7 +7,7 @@ export const Container = styled.View`
 	background-color: ${theme.colors.tertiary};
 `;
 
-export const ContainerCadastro = styled.View`
+export const ContainerCadastro = styled.ScrollView`
 	
 `;
 

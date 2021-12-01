@@ -44,6 +44,7 @@ export const ContainerVazio = styled.View`
 `;
 
 export const TextVazio = styled.Text`
+	text-align: center;
 	margin-top: 20px;
 	font-size: 22px;
 	font-weight: bold;

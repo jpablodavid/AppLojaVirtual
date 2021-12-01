@@ -5,9 +5,9 @@ export const ContainerProdutos = styled.View`
 	flex-direction: row;
 	flex-wrap: wrap;
 	align-items: center;
-	justify-content: flex-start;
+	justify-content: center;
 `;
 
 export const ContainerItem = styled.View`
-	width: 50%;
+	max-width: 200px;
 `;

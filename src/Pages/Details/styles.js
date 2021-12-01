@@ -32,6 +32,7 @@ export const ViewSize = styled.View`
 	border-bottom-width: 1px;
 	border-top-width: 1px;
 	border-color: ${theme.colors.primary};
+	width: 100%;
 `;
 
 export const ViewButton = styled.View`

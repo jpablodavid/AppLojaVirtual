@@ -24,9 +24,7 @@ const Settings = ({setLogado, usuario}) => {
 		<Container>
 			<Header back={true} titulo={"Configurações"} />
 			<Usuario>
-				<Avatar
-					source={require(`${usuario.avatar}`)}
-				/>
+				<Avatar />
 				<Name>
 					Olá ${usuario.nome}
 				</Name>

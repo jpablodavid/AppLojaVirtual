@@ -27,12 +27,10 @@ import Header from "../../components/Header";
 import ButtonMain from "../../components/ButtonMain";
 import ItemCarrinho from "../../components/ItemCarrinho";
 
-const ShoppingCar = ({ data, loading }) => {
+const ShoppingCar = ({ data, loading, logado }) => {
 	const navigation = useNavigation();
 
 	const [frete, setFrete] = useState(0);
-
-	const [carrinho, setCarrinho] = useState(data.length);
 
 	const SubTotal = data.reduce(
 		(accumulator, item) => (accumulator += item.valorTotal),
@@ -48,7 +46,7 @@ const ShoppingCar = ({ data, loading }) => {
 	return (
 		<Container>
 			<Header back={true} titulo={"Carrinho"} />
-			{carrinho > 0 ? (
+			{data.length > 0 ? (
 				<ContainerCarShop>
 					<ViewInfo>
 						<Texts>Harmoni: Roupas Femininas</Texts>
@@ -65,9 +63,7 @@ const ShoppingCar = ({ data, loading }) => {
 						renderItem={({ item }) => (
 							<ItemCarrinho
 								data={item}
-								key={item.key}
 								deleteItem={() => carShopDelete(item.key)}
-								quant={item.quantidade}
 							/>
 						)}
 					/>
@@ -94,19 +90,26 @@ const ShoppingCar = ({ data, loading }) => {
 								text={`Comprar / R$ ${TotalValor}`}
 								textColor={`${theme.colors.tertiary}`}
 								borderWidth={1}
-								onPress={() =>
-									navigation.navigate("EnvioPagamento", {
-										data,
-										SubTotal,
-										frete,
-										TotalValor,
-									})
-								}
+								onPress={() => {
+									{
+										if(logado){
+											navigation.navigate("EnvioPagamento", {
+												data,
+												SubTotal,
+												frete,
+												TotalValor,
+											});
+										}else{
+											navigation.navigate("MyAccount")
+										}
+									}
+									
+								}}
 							/>
 						</ViewButton>
 					</ContainerBottom>
 				</ContainerCarShop>
-			) : ( loading ? (
+			) : loading ? (
 				<Loading>
 					<ActivityIndicator color={`${theme.colors.primary}`} size={60} />
 				</Loading>
@@ -119,7 +122,6 @@ const ShoppingCar = ({ data, loading }) => {
 					/>
 					<TextVazio>Seu Carrinho de Compras está Vazio</TextVazio>
 				</ContainerVazio>
-			)
 			)}
 		</Container>
 	);

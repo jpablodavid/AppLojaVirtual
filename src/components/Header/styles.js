@@ -22,11 +22,9 @@ export const ViewSearch = styled.View`
 `;
 
 export const Logo = styled.Image`
-	width: 70px; 
+	width: 70px;
 	height: 100px;
-	justify-self: flex-start;
 	margin-left: -15px;
-
 `;
 
 export const Marca = styled.Text`

@@ -50,7 +50,7 @@ const Header = ({ back, titulo }) => {
 					) : (
 						<ViewSearch>
 							<Logo
-								source={require("../../assets/logo.png")}
+								source={require("../../assets/Headerlogo.png")}
 							/>
 							<Marca>
 								HARMONI

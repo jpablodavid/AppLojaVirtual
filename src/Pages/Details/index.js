@@ -19,14 +19,15 @@ import ButtonMain from "../../components/ButtonMain";
 import Carousel from "../../components/Carousel";
 
 const Details = ({ route }) => {
-	const { image, titulo, preco, descricao, details, quantidade } = route.params;
+	const { image, titulo, preco, descricao, details } = route.params;
 
 	const navigation = useNavigation();
 
-	const [size, setSize] = useState("Selecionar Tamanho");
+	const [size, setSize] = useState("P");
 
-	const carShopAdd = async (image, titulo, preco, size, quantidade) => {
-		quantidade = 1;
+	const carShopAdd = async (image, titulo, preco, size) => {
+		let quantidade = 1;
+		let valorTotal = preco * quantidade;
 		let carrinho = await firebase.database().ref("carrinho");
 		let chave = carrinho.push().key;
 
@@ -36,32 +37,30 @@ const Details = ({ route }) => {
 			preco: preco,
 			size: size,
 			quantidade: quantidade,
-			valorTotal: preco * quantidade,
+			valorTotal: valorTotal,
 		});
 		navigation.navigate("MyBag");
 	};
 
 	const images = [];
 
-	// details.ProductImages.forEach((item) => {
-	// 	images.push(item);
-	// });
-	details.forEach((item) => {
+	details.ProductImages.forEach((item) => {
 		images.push(item);
 	});
+	// details.forEach((item) => {
+	// 	images.push(item);
+	// });
 
 	//acertando a descrição
-	// let descri = descricao.split("A");
-	// let desc = descri[1].split('.');
-	let desc = descricao;
+	let descri = descricao.split("A");
+	let desc = descri[1].split('.');
+	
 
 	return (
 		<Container>
 			<Header back={true} titulo={"Detalhes"} />
 
-			
 			<Carousel images={images} />
-			
 
 			<ContainerInfo showsHorizontalScrollIndicator={false}>
 				<ViewItem>
@@ -72,12 +71,21 @@ const Details = ({ route }) => {
 					<Title>Tamanho:</Title>
 					<Picker
 						style={{
-							border: "none",
-							borderColor: `${theme.colors.primary}`,
-							backgroundColor: `${theme.colors.tertiary}`,
+							width: 80,
+							postion: "absolute",
+							padding: 10,
+							borderWidth: 1,
+							borderColor: "#000",
+						}}
+						mode="dropdown"
+						itemStyle={{
+							fontWeight: "900",
+							fontSize: 18,
+							padding: 30,
 						}}
 						selectedValue={size}
-						onValueChange={(itemValue, itemIndex) => setSize(itemValue)}
+						value={size}
+						onValueChange={(itemValue) => setSize(itemValue)}
 					>
 						<Picker.Item label="P" value="P" />
 						<Picker.Item label="M" value="M" />
@@ -98,7 +106,7 @@ const Details = ({ route }) => {
 					text="Adicionar ao Carinho"
 					textColor={`${theme.colors.primary}`}
 					borderWidth={1}
-					onPress={() => carShopAdd(image, titulo, preco, size, quantidade)}
+					onPress={() => carShopAdd(image, titulo, preco, size)}
 				/>
 			</ViewButton>
 		</Container>

@@ -9,6 +9,10 @@ export const Container = styled.SafeAreaView`
 
 export const ContainerProdutos = styled.ScrollView`
 	flex: 1;
+	margin-top: -90px;
 `;
 
-export const ViewSlider = styled.View``;
+export const ViewSlider = styled.View`
+ 	/* top: 100px;
+	left: 20px; */
+`;

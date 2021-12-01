@@ -8,17 +8,22 @@ import Cadastro from "../Cadastro";
 
 const Stack = createNativeStackNavigator();
 
-const MyAccount = ({ logado, setLogado, setUsuario, usuario}) => {
+const MyAccount = ({ logado, setLogado, setUsuario, usuario }) => {
+
 	return (
-		<Stack.Navigator>
+		<Stack.Navigator initialRoute="Settings">
 			{logado ? (
+
 				<Stack.Screen
 					name="Settings"
-					component={(props) => <Settings {...props} setLogado={setLogado} usuario={usuario}/>}
+					component={(props) => (
+						<Settings {...props} setLogado={setLogado} usuario={usuario} />
+					)}
 					options={{
 						headerShown: false,
 					}}
 				/>
+
 			) : (
 				<>
 					<Stack.Screen
@@ -28,7 +33,6 @@ const MyAccount = ({ logado, setLogado, setUsuario, usuario}) => {
 								{...props}
 								setLogado={setLogado}
 								setUsuario={setUsuario}
-								
 							/>
 						)}
 						options={{
@@ -45,7 +49,11 @@ const MyAccount = ({ logado, setLogado, setUsuario, usuario}) => {
 					<Stack.Screen
 						name="Cadastro"
 						component={(props) => (
-							<Cadastro {...props} setLogado={setLogado} setUsuario={setUsuario} />
+							<Cadastro
+								{...props}
+								setLogado={setLogado}
+								setUsuario={setUsuario}
+							/>
 						)}
 						options={{
 							headerShown: false,

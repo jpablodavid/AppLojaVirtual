@@ -8,7 +8,7 @@ export const Container = styled.View`
 	background-color: ${theme.colors.tertiary};
 	margin: 3px 0px;
 	position: relative;
-	border-bottom: 1px solid ${theme.colors.secondary};
+	border: 1px solid ${theme.colors.secondary};
 `;
 
 export const ImageCarrinho = styled.Image`
@@ -17,30 +17,32 @@ export const ImageCarrinho = styled.Image`
 `;
 
 export const ContainerCarrinho = styled.View`
+	flex: 1;
 	margin-left: 10px;
 	justify-content: space-between;
 `;
 
 export const ViewItens = styled.View`
 	flex-direction: row;
-	justify-content: center;
-	align-items: space-between;
+	justify-content: space-between;
+	padding-right: 20px;
 `;
 
 
 export const TextQuantidade = styled.Text`
-	color: "#000";
+	color: #000;
 `;
 
-export const TextPadrao = styled.Text`
-`;
 
 export const TextValor = styled.Text`
 	font-family: ${theme.fonts.title500};
 	
 `;
 
-export const Title = styled.Text``;
+export const Title = styled.Text`
+	width: 100%;
+	flex-wrap: wrap;
+`;
 
 export const Tamanho = styled.Text``;
 

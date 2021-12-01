@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, Text, View, TouchableOpacity } from "react-native";
+import { Image, Text, View, TouchableOpacity} from "react-native";
 import AppIntroSlider from "react-native-app-intro-slider";
 import { FontAwesome5 } from "@expo/vector-icons";
 
@@ -14,7 +14,7 @@ const Slider = () => {
 
 	const renderSlides = ({ item }) => {
 		return (
-			<View style={{ position: "relative", paddingBottom: 5 }}>
+			<View style={{ position: "relative"}}>
 				<TouchableOpacity onPress={() => navigation.navigate(item.title)}>
 					<Image
 						source={item.image}
@@ -55,17 +55,17 @@ const Slider = () => {
 
 	return (
 		<AppIntroSlider
-			renderItem={renderSlides}
 			data={slides}
+			renderItem={renderSlides}
+			showSkipButton={true}
 			showDoneButton={false}
 			showPrevButton={true}
+			showNextButton={true}
 			dotClickEnabled={true}
-			dotStyle={{ backgroundColor: `${theme.colors.dotsSlider}` }}
-			activeDotStyle={{
-				backgroundColor: `${theme.colors.primary}`,
-			}}
+			dotStyle={{ top: -90, backgroundColor: `${theme.colors.secondary}` }}
+			activeDotStyle={{ top: -90, backgroundColor: `${theme.colors.primary}` }}
 			renderNextButton={() => (
-				<Text style={{ position: "absolute", bottom: 30, right: 5 }}>
+				<Text style={{ position: "absolute", top: -150, right: 5 }}>
 					<FontAwesome5
 						name="chevron-right"
 						size={24}
@@ -74,7 +74,7 @@ const Slider = () => {
 				</Text>
 			)}
 			renderPrevButton={() => (
-				<Text style={{ position: "absolute", bottom: 30, left: 5 }}>
+				<Text style={{ position: "absolute", top: -150, left: 5 }}>
 					<FontAwesome5
 						name="chevron-left"
 						size={24}

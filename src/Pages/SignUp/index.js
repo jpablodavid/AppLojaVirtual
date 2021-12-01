@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Text, Animated, Keyboard } from "react-native";
 import {
-	Bg,
-	ContainerLogo,
+	Animated,
+	Keyboard,
+	KeyboardAvoidingView,
+	View,
+	Text,
+	Image,
+} from "react-native";
+import {
 	Input,
 	ButtonSign,
 	TextBtn,
 	TextPadrao,
-	ContainerLogin,
 	ContainerSign,
 } from "./styles";
 import { useNavigation } from "@react-navigation/native";
@@ -21,18 +25,25 @@ import ButtonMain from "../../components/ButtonMain";
 const SignUp = () => {
 	const navigation = useNavigation();
 
-	const [offset] = useState(new Animated.ValueXY({ x: 0, y: 90 }));
+	const [offset] = useState(new Animated.ValueXY({ x: 0, y: 95 }));
 	const [opacity] = useState(new Animated.Value(0));
-	const [logo] = useState(new Animated.ValueXY({ x: 130, y: 400 }));
+	const [opacityLogo] = useState(new Animated.Value(1));
+	const [logo] = useState(new Animated.Value(250));
 
 	useEffect(() => {
-		const KeyboardShow = Keyboard.addListener("keybordShow", KeyboardShow);
-		const KeyboardHide = Keyboard.addListener("keybordHide", KeyboardHide);
+		KeyboardDidShowListener = Keyboard.addListener(
+			"keyboardDidShow",
+			KeyboardDidShow
+		);
+		KeyboardDidHideListener = Keyboard.addListener(
+			"keyboardDidHide",
+			KeyboardDidHide
+		);
 
 		Animated.parallel([
 			Animated.spring(offset.y, {
 				toValue: 0,
-				speed: 2,
+				speed: 4,
 				boundiness: 20,
 			}),
 			Animated.timing(opacity, {
@@ -42,33 +53,32 @@ const SignUp = () => {
 		]).start();
 	}, []);
 
-	const KeyboardShow = () => {
-		alert("teclado Aberto");
+	function KeyboardDidShow() {
 		Animated.parallel([
-			Animated.timing(logo.x, {
-				toValue: 55,
+			Animated.timing(logo, {
+				toValue: 60,
 				duration: 100,
 			}),
-			Animated.timing(logo.y, {
-				toValue: 65,
-				duration: 100,
-			}),
-		]).start();
-	};
 
-	const KeyboardHide = () => {
-		alert("teclado Fechado");
-		Animated.parallel([
-			Animated.timing(logo.x, {
-				toValue: 130,
-				duration: 100,
-			}),
-			Animated.timing(logo.y, {
-				toValue: 155,
+			Animated.timing(opacityLogo, {
+				toValue: 0,
 				duration: 100,
 			}),
 		]).start();
-	};
+	}
+
+	function KeyboardDidHide() {
+		Animated.parallel([
+			Animated.timing(logo, {
+				toValue: 250,
+				duration: 100,
+			}),
+			Animated.timing(opacityLogo, {
+				toValue: 1,
+				duration: 100,
+			}),
+		]).start();
+	}
 
 	const [email, setEmail] = useState("");
 	const [senha, setSenha] = useState("");
@@ -78,11 +88,10 @@ const SignUp = () => {
 			.auth()
 			.createUserWithEmailAndPassword(email, senha)
 			.then((value) => {
-				//alert('usuario criado' + value.user.email);
+				
 				let uid = value.user.uid;
 				let email = value.user.email;
-				//let senha = value.user.senha;
-				navigation.navigate("Cadastro", { uid, email, senha});
+				navigation.navigate("Cadastro", { uid, email, senha });
 			})
 			.catch((error) => {
 				if (error.code === "auth/weak-password") {
@@ -100,26 +109,40 @@ const SignUp = () => {
 	};
 
 	return (
-		<Bg>
-			<ContainerLogo>
-				<Animated.Image
-					style={{ width: logo.x, height: logo.y }}
-					source={require("../../assets/logo.png")}
-				/>
-			</ContainerLogo>
-
+		
+		<KeyboardAvoidingView
+			style={{
+				flex: 1,
+				alignItems: "center",
+				position: "relative",
+				backgroundColor: `${theme.colors.tertiary}`,
+				justifyContent: "center",
+			}}
+		>
+			<Animated.Image
+				style={{ opacity: opacityLogo, position: "absolute", top: 60 }}
+				source={require("../../assets/logo.png")}
+			/>
 			<Animated.View
-				style={{
-					flex: 0.6,
-					justifyContent: "space-around",
-					opacity: opacity,
-					alignItems: "center",
-					transform: [
-						{
-							translateY: offset.y,
-						},
-					],
-				}}
+				style={[
+					{
+						flex: 1,
+						alignItems: "center",
+						justifyContent: "center",
+						width: "75%",
+						position: "absolute",
+						top: logo,
+						zIndex: 5,
+					},
+					{
+						opacity: opacity,
+						transform: [
+							{
+								translateY: offset.y,
+							},
+						],
+					},
+				]}
 			>
 				<Input
 					placeholder="Email"
@@ -134,31 +157,24 @@ const SignUp = () => {
 					value={senha}
 				/>
 
-				<ContainerLogin>
-					<ButtonMain
-						height={40}
-						width={250}
-						backgroundColor={`${theme.colors.primary}`}
-						text="Sign Up"
-						textColor={`${theme.colors.secondary}`}
-						borderWidth={1}
-						onPress={cadastrar}
-					/>
+				<ButtonMain
+					height={40}
+					width={250}
+					backgroundColor={`${theme.colors.primary}`}
+					text="Sign Up"
+					textColor={`${theme.colors.secondary}`}
+					borderWidth={1}
+					onPress={cadastrar}
+				/>
 
-					<ContainerSign
-						style={{
-							flexDirection: "row",
-							justifyContent: "center",
-						}}
-					>
-						<TextPadrao>Já Sou cadastrado </TextPadrao>
-						<ButtonSign onPress={() => navigation.navigate("SignIn")}>
-							<TextBtn>Sing In</TextBtn>
-						</ButtonSign>
-					</ContainerSign>
-				</ContainerLogin>
+				<ContainerSign>
+					<TextPadrao>Já Sou cadastrado </TextPadrao>
+					<ButtonSign onPress={() => navigation.navigate("SignIn")}>
+						<TextBtn>Sing In</TextBtn>
+					</ButtonSign>
+				</ContainerSign>
 			</Animated.View>
-		</Bg>
+		</KeyboardAvoidingView>
 	);
 };
 
